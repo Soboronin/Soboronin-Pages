@@ -1,24 +1,41 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ4Q495FTY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SQ4Q495FTY');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta property="og:title" content="そぼろ忍のツール置き場" />
-<meta property="og:description" content="そぼろ忍が作った、配信等で使える無料ツールのまとめ。" />
-<title>そぼろ忍のツール置き場</title>
-<meta name="description" content="そぼろ忍が作った、配信等で使える無料ツールのまとめ。">
+<meta property="og:title" content="そぼろ忍" />
+<meta property="og:description" content="そぼろ忍のリンクまとめ" />
+<title>そぼろ忍</title>
+<meta name="description" content="そぼろ忍のリンクまとめ">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 <style>
   :root {
     --bg: #faf6ee;
     --ink: #201c16;
     --ink-dim: #6b6559;
+    --ink-mute: #9a9284;
     --card-border: #201c16;
     --yellow: #ffd23f;
     --teal: #37b7a4;
     --pink: #ff6b7a;
+    --blue: #5b8def;
+    --purple: #b98aef;
+    --orange: #ffa94d;
+    --green: #8bc76b;
+    --sky: #4cc9f0;
+    --magenta: #ff65a3;
   }
 
   * { box-sizing: border-box; }
@@ -36,59 +53,93 @@
 
   main { width: 100%; max-width: 560px; }
 
-  header { margin-bottom: 36px; }
+  .nav-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
 
-  .badge {
-    display: inline-block;
+  .nav-tabs a {
+    padding: 8px 16px;
+    border: 2.5px solid var(--card-border);
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 13px;
+    text-decoration: none;
+    color: var(--ink);
+    background: #fff;
+  }
+
+  .nav-tabs a.active {
     background: var(--ink);
     color: var(--bg);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    padding: 4px 10px;
-    border-radius: 999px;
-    margin-bottom: 14px;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2.5px solid var(--card-border);
+    background: var(--yellow);
+    flex: 0 0 auto;
+    background-image: url('img/icon_soboronin.png');
+    background-size: cover;
+    background-position: center;
   }
 
   h1 {
-    font-size: 30px;
+    font-size: 24px;
     font-weight: 900;
-    letter-spacing: -0.01em;
-    margin: 0 0 10px;
-    line-height: 1.25;
-  }
-
-  .lede {
-    color: var(--ink-dim);
-    font-size: 14px;
-    line-height: 1.8;
     margin: 0;
   }
 
-  .tools {
+  .sub {
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    margin: 4px 0 0;
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-dim);
+    letter-spacing: 0.04em;
+    margin: 30px 0 14px;
+  }
+
+  .section-title:first-of-type { margin-top: 0; }
+
+  .links {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
   }
 
   a.card {
     position: relative;
     display: flex;
-    align-items: flex-start;
-    gap: 16px;
+    align-items: center;
+    gap: 14px;
     background: #fff;
     border: 2.5px solid var(--card-border);
-    border-radius: 16px;
-    padding: 20px 22px;
+    border-radius: 14px;
+    padding: 14px 18px;
     text-decoration: none;
     color: var(--ink);
-    box-shadow: 4px 4px 0 var(--card-border);
+    box-shadow: 3px 3px 0 var(--card-border);
     transition: transform 0.12s ease, box-shadow 0.12s ease;
   }
 
   a.card:hover {
     transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 var(--card-border);
+    box-shadow: 5px 5px 0 var(--card-border);
   }
 
   a.card:focus-visible {
@@ -98,147 +149,239 @@
 
   .icon {
     flex: 0 0 auto;
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
     border: 2.5px solid var(--card-border);
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
+  .icon svg { width: 18px; height: 18px; }
+
+  .material-symbols-outlined {
+    font-size: 20px;
+    color: #201c16;
+    font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+  }
+
   .icon.yellow { background: var(--yellow); }
   .icon.teal { background: var(--teal); }
   .icon.pink { background: var(--pink); }
-
-  .section-title {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--ink-dim);
-    letter-spacing: 0.04em;
-    margin: 34px 0 14px;
-  }
-
-  .icon svg { width: 22px; height: 22px; }
+  .icon.blue { background: var(--blue); }
+  .icon.purple { background: var(--purple); }
+  .icon.orange { background: var(--orange); }
+  .icon.green { background: var(--green); }
+  .icon.sky { background: var(--sky); }
+  .icon.magenta { background: var(--magenta); }
 
   .card-body { flex: 1; min-width: 0; }
 
   .card-title {
-    font-size: 16px;
+    font-size: 14.5px;
     font-weight: 700;
-    margin: 0 0 6px;
+    margin: 0 0 2px;
   }
 
-  .card-desc {
-    font-size: 12.5px;
-    color: var(--ink-dim);
-    line-height: 1.7;
+  .card-quote {
+    font-size: 11px;
+    color: var(--ink-mute);
     margin: 0;
-  }
-
-  .card.soon {
-    background: transparent;
-    border-style: dashed;
-    box-shadow: none;
-    opacity: 0.6;
-    pointer-events: none;
-    padding: 22px 24px;
-  }
-
-  .card.soon .icon {
-    background: transparent;
-    border-style: dashed;
-  }
-
-  .soon-wrap {
-    margin-top: 20px;
+    line-height: 1.5;
   }
 
   footer {
-    margin-top: 40px;
+    margin-top: 44px;
     text-align: center;
     color: var(--ink-dim);
     font-size: 11.5px;
-  }
-
-  footer a {
-    color: var(--ink);
-    text-decoration: none;
-    font-weight: 700;
-    border-bottom: 2px solid var(--pink);
   }
 </style>
 </head>
 <body>
 <main>
+  <nav class="nav-tabs">
+    <a href="index.html" class="active">ホーム</a>
+    <a href="tools.html">ツール配布</a>
+  </nav>
+
   <header>
-    <span class="badge">FREE TOOLS</span>
-    <h1>そぼろ忍の<br>ツール置き場</h1>
-    <p class="lede">配信等で使える無料のツールをまとめています。</p>
+    <div class="avatar"></div>
+    <div>
+      <h1>そぼろ忍</h1>
+      <p class="sub">#そぼろ忍術</p>
+    </div>
   </header>
 
-  <h2 class="section-title">OBS向けツール</h2>
-  <div class="tools">
-    <a class="card" href="https://soboronin.github.io/OBS-Random-Playlist/">
-      <span class="icon yellow">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="#201c16"/></svg>
+  <h2 class="section-title">見世物</h2>
+  <div class="links">
+    <a class="card" href="https://x.com/soboronin" target="_blank" rel="noopener noreferrer">
+      <span class="icon blue">
+        <span class="material-symbols-outlined">close</span>
       </span>
       <span class="card-body">
-        <p class="card-title">ランダム再生リンク ジェネレーター</p>
-        <p class="card-desc">YouTubeの再生リストから動画をランダムに選んで自動再生する、OBS配信用のブラウザソースです。</p>
+        <p class="card-title">X</p>
+        <p class="card-quote">キャーッ！　のび太さんの恥さらし〜っ！</p>
       </span>
     </a>
 
-    <a class="card" href="https://soboronin.github.io/OBS-Task-Widget/">
-      <span class="icon teal">
-        <svg viewBox="0 0 24 24" fill="none">
-          <rect x="4" y="4" width="7" height="7" rx="1.5" stroke="#201c16" stroke-width="2"/>
-          <path d="M5.5 7.5l1.2 1.2L9 6.2" stroke="#201c16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <rect x="4" y="13" width="7" height="7" rx="1.5" stroke="#201c16" stroke-width="2"/>
-          <line x1="13" y1="7.5" x2="20" y2="7.5" stroke="#201c16" stroke-width="2" stroke-linecap="round"/>
-          <line x1="13" y1="16.5" x2="20" y2="16.5" stroke="#201c16" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </span>
-      <span class="card-body">
-        <p class="card-title">配信タスクウィジェット ジェネレーター</p>
-        <p class="card-desc">複数のタスクを登録・チェックできる、OBS配信用のブラウザソースです。見た目も自由にカスタマイズできます。</p>
-      </span>
-    </a>
-  </div>
-
-  <h2 class="section-title">その他のツール</h2>
-  <div class="tools">
-    <a class="card" href="https://unityroom.com/games/rateup_gacha" target="_blank" rel="noopener noreferrer">
+    <a class="card" href="https://youtube.com/@soboronin?si=gPM0TzLJnLN8I7U4" target="_blank" rel="noopener noreferrer">
       <span class="icon pink">
-        <svg viewBox="0 0 24 24" fill="none">
-          <circle cx="12" cy="12" r="8" stroke="#201c16" stroke-width="2"/>
-          <circle cx="9" cy="10" r="1.3" fill="#201c16"/>
-          <circle cx="15" cy="10" r="1.3" fill="#201c16"/>
-          <circle cx="12" cy="15" r="1.3" fill="#201c16"/>
-        </svg>
+        <span class="material-symbols-outlined">play_arrow</span>
       </span>
       <span class="card-body">
-        <p class="card-title">確率アップ機能付きガチャ</p>
-        <p class="card-desc">確率アップ演出付きのガチャを作ることができるUnity製ツールです。もとはIRIAM向けに作ったものですが、他のプラットフォームでも使えなくはないと思います。</p>
+        <p class="card-title">YouTube</p>
+        <p class="card-quote">稚拙</p>
+      </span>
+    </a>
+
+    <a class="card" href="https://soboronin.fanbox.cc/" target="_blank" rel="noopener noreferrer">
+      <span class="icon yellow">
+        <span class="material-symbols-outlined">format_align_left</span>
+      </span>
+      <span class="card-body">
+        <p class="card-title">Pixiv FANBOX</p>
+        <p class="card-quote">JR駒込ピペット駅前店</p>
+      </span>
+    </a>
+
+    <a class="card" href="https://www.tiktok.com/@soboronin" target="_blank" rel="noopener noreferrer">
+      <span class="icon orange">
+        <span class="material-symbols-outlined">Web_Stories</span>
+      </span>
+      <span class="card-body">
+        <p class="card-title">TikTok</p>
+        <p class="card-quote">もっと世界を好きになるらしい。そう思ったことはまだない</p>
+      </span>
+    </a>
+
+    <a class="card" href="https://www.nicovideo.jp/user/131674992" target="_blank" rel="noopener noreferrer">
+      <span class="icon purple">
+        <span class="material-symbols-outlined">Tv_Gen</span>
+      </span>
+      <span class="card-body">
+        <p class="card-title">ニコニコ</p>
+        <p class="card-quote">俺、Aロング見とくよ</p>
+      </span>
+    </a>
+
+    <a class="card" href="https://space.bilibili.com/3745000393281473" target="_blank" rel="noopener noreferrer">
+      <span class="icon blue">
+        <span class="material-symbols-outlined">Tv_Gen</span>
+      </span>
+      <span class="card-body">
+        <p class="card-title">bilibili</p>
+        <p class="card-quote">大减价禁止吸烟注意安全明天见</p>
+      </span>
+    </a>
+
+    <a class="card" href="https://www.pixiv.net/users/98286336" target="_blank" rel="noopener noreferrer">
+      <span class="icon sky">
+        <span class="material-symbols-outlined">Photo</span>
+      </span>
+      <span class="card-body">
+        <p class="card-title">pixiv</p>
+        <p class="card-quote">ぜ～～～～～～～～～～～～～～～～～～～～んぜん</p>
+      </span>
+    </a>
+
+  </div>
+
+  <h2 class="section-title">依頼</h2>
+  <div class="links">
+    <a class="card" href="https://vgen.co/soboronin" target="_blank" rel="noopener noreferrer">
+      <span class="icon green">
+        <span class="material-symbols-outlined">edit</span>
+      </span>
+      <span class="card-body">
+        <p class="card-title">VGen</p>
+        <p class="card-quote">＊（ケツ意が　みなぎった……！）</p>
+      </span>
+    </a>
+
+    <a class="card" href="https://skeb.jp/@soboronin" target="_blank" rel="noopener noreferrer">
+      <span class="icon teal">
+        <span class="material-symbols-outlined">ink_pen</span>
+      </span>
+      <span class="card-body">
+        <p class="card-title">Skeb</p>
+        <p class="card-quote">メニメニマネー。そうだったら良かったのに</p>
       </span>
     </a>
   </div>
 
-  <div class="tools soon-wrap">
-    <div class="card soon">
-      <span class="icon">
-        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="2" fill="#201c16"/></svg>
+  <h2 class="section-title">交流</h2>
+  <div class="links">
+    <a class="card" href="https://marshmallow-qa.com/soboronin?t=QcKnlu&utm_medium=url_text&utm_source=promotion" target="_blank" rel="noopener noreferrer">
+      <span class="icon magenta">
+        <span class="material-symbols-outlined">favorite</span>
       </span>
       <span class="card-body">
-        <p class="card-title">次のツールを準備中</p>
-        <p class="card-desc">気が向いたら作ります。</p>
+        <p class="card-title">マシュマロ</p>
+        <p class="card-quote">お母ちゃん、こういうの嫌いって言ったよね。もう知らないから</p>
       </span>
-    </div>
+    </a>
+
+    <a class="card" href="https://forms.gle/7F6Y46bFZxXv5jAC7" target="_blank" rel="noopener noreferrer">
+      <span class="icon orange">
+        <span class="material-symbols-outlined">swap_horiz</span>
+      </span>
+      <span class="card-body">
+        <p class="card-title">Art Trade</p>
+        <p class="card-quote">技術交換とも言う。何でも嬉しい、何でも嬉しい！</p>
+      </span>
+    </a>
+
+    <a class="card" href="https://artfight.net/~soboronin" target="_blank" rel="noopener noreferrer">
+      <span class="icon pink">
+        <span class="material-symbols-outlined">swords</span>
+      </span>
+      <span class="card-body">
+        <p class="card-title">Art Fight</p>
+        <p class="card-quote">散る散る満ちる</p>
+      </span>
+    </a>
+
+    <a class="card" href="https://discord.gg/7F95bufhAr" target="_blank" rel="noopener noreferrer">
+      <span class="icon purple">
+        <span class="material-symbols-outlined">sms</span>
+      </span>
+      <span class="card-body">
+        <p class="card-title">Discord Server</p>
+        <p class="card-quote">鎮静剤を打っておいた。しばらくは大丈夫だろう</p>
+      </span>
+    </a>
+  </div>
+
+  <h2 class="section-title">お問い合わせ</h2>
+  <div class="links">
+    <a class="card" id="emailCard" href="#">
+      <span class="icon yellow">
+        <span class="material-symbols-outlined">mail</span>
+      </span>
+      <span class="card-body">
+        <p class="card-title">Email</p>
+        <p class="card-quote" id="emailQuote">クリック！　タップ！　キック！</p>
+      </span>
+    </a>
   </div>
 
   <footer>
-    <p>Created by そぼろ忍　<a href="https://x.com/soboronin" target="_blank" rel="noopener noreferrer">X: @soboronin</a></p>
+    <p>そぼろ忍</p>
   </footer>
 </main>
+
+<script>
+  // 簡易的な難読化(スクレイピング対策程度)。クリックで初めてアドレスを復元する
+  const u = ["s","o","b","o","r","o","n","i","n"].join("");
+  const d = ["g","m","a","i","l"].join("") + "." + "com";
+  document.getElementById("emailCard").addEventListener("click", function (e) {
+    e.preventDefault();
+    const addr = u + "@" + d;
+    this.href = "mailto:" + addr;
+    document.getElementById("emailQuote").textContent = addr;
+  });
+</script>
 </body>
 </html>
