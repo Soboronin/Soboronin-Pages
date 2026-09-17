@@ -1,0 +1,2302 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="そぼろ忍のOC" />
+<meta property="og:description" content="そぼろ忍のオリジナルキャラクターまとめ" />
+<title>そぼろ忍のOC</title>
+<meta name="description" content="そぼろ忍のオリジナルキャラクターまとめ">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<style>
+  :root {
+    --bg: #faf6ee;
+    --ink: #201c16;
+    --ink-dim: #6b6559;
+    --card-border: #201c16;
+    --yellow: #ffd23f;
+    --teal: #37b7a4;
+    --pink: #ff6b7a;
+    --blue: #5b8def;
+    --purple: #b98aef;
+    --orange: #ffa94d;
+    --green: #8bc76b;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px;
+    animation: fadein 0.15s ease;
+  }
+
+  @keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  main { width: 100%; max-width: 560px; }
+
+  .nav-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .nav-tabs a {
+    padding: 8px 16px;
+    border: 2.5px solid var(--card-border);
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 13px;
+    text-decoration: none;
+    color: var(--ink);
+    background: #fff;
+  }
+
+  .nav-tabs a.active {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  header { margin-bottom: 28px; }
+
+  .badge {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    margin: 0 0 10px;
+    line-height: 1.25;
+  }
+
+  .lede {
+    color: var(--ink-dim);
+    font-size: 14px;
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  /* --- 世界観フィルター(単一選択) --- */
+  .world-filters {
+    display: flex;
+    gap: 8px;
+    margin: 22px 0;
+  }
+
+  .world-filters button {
+    font-family: inherit;
+    flex: 1;
+    padding: 9px 14px;
+    border: 2.5px solid var(--card-border);
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 13px;
+    background: #fff;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .world-filters button.active {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  /* --- キャスト一覧(タップでそのキャラまでジャンプ) --- */
+  .cast-index {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .cast-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    width: 58px;
+    text-decoration: none;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .cast-thumb {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--card-border);
+    background-size: cover;
+    background-position: top center;
+    background-color: #fff;
+  }
+
+  .cast-thumb.placeholder {
+    background-color: #f1ebdd;
+    background-image: repeating-linear-gradient(135deg, #fff, #fff 6px, #f1ebdd 6px, #f1ebdd 12px) !important;
+    border-style: dashed;
+  }
+
+  .cast-name {
+    font-size: 9.5px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.25;
+  }
+
+  /* --- 所属フィルター(とどのつまり限定・複数選択可) --- */
+  .affil-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 22px;
+  }
+
+  .affil-filters button {
+    font-family: inherit;
+    padding: 6px 13px;
+    border: 2px solid var(--card-border);
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 12px;
+    background: #fff;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .affil-filters button.active {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .oc-card {
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+
+  .oc-card.affil-hidden {
+    display: none;
+  }
+
+  .oc-card.affil-leaving {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  .oc-card.affil-entering {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  /* --- 所属アイコン --- */
+  .affil-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    vertical-align: -4px;
+    margin-right: 4px;
+    background-color: var(--ink);
+    border: 1.5px solid var(--ink);
+  }
+
+  .affil-icon:not(.placeholder) {
+    background-size: 65%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .affil-icon.placeholder {
+    border: 1.5px dashed var(--card-border);
+    background-color: #fff;
+  }
+
+  .affil-icon[data-affil="none"] {
+    display: none;
+  }
+
+  /* --- キャラクター選択リスト(上部) --- */
+  .char-select {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 34px;
+  }
+
+  .char-select a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px 8px 8px;
+    background: #fff;
+    border: 2.5px solid var(--card-border);
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .char-select .thumb {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid var(--card-border);
+    object-fit: cover;
+    background: var(--yellow);
+  }
+
+  /* --- キャラクター詳細カード --- */
+  .oc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .oc-card {
+    position: relative;
+    background: #fff;
+    border: 2.5px solid var(--card-border);
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 4px 4px 0 var(--card-border);
+    scroll-margin-top: 20px;
+  }
+
+  /* UTAU配布ページへのブックマーク風リンク */
+  .utau-badge {
+    position: absolute;
+    top: -3px;
+    right: 24px;
+    width: 32px;
+    height: 42px;
+    background: var(--ink);
+    color: var(--bg);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 8px;
+    line-height: 1;
+    text-decoration: none;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 76%, 0 100%);
+    z-index: 2;
+    transition: transform 0.12s ease;
+  }
+
+  .utau-badge .material-symbols-outlined {
+    font-size: 17px;
+  }
+
+  .utau-badge:hover { transform: translateY(2px); }
+
+  .utau-badge:focus-visible {
+    outline: 2px solid var(--card-border);
+    outline-offset: 2px;
+  }
+
+  .oc-head {
+    margin-bottom: 16px;
+  }
+
+  .oc-portrait-wrap {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* バッジや煙は、衣装ボタン欄を含まない「画像そのものの範囲」を基準に置きたいので
+     ここに position:relative を持たせる(costume-select の高さ変化の影響を受けないように) */
+  .oc-portrait-stage {
+    position: relative;
+  }
+
+  .oc-portrait {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    max-height: 380px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-dim);
+    cursor: pointer;
+  }
+
+  .oc-portrait.single { cursor: default; }
+
+  .portrait-badge {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .oc-portrait.placeholder {
+    border-radius: 10px;
+    border: 2px dashed var(--card-border);
+    background-color: #f1ebdd;
+    background-image: repeating-linear-gradient(135deg, #fff, #fff 8px, #f1ebdd 8px, #f1ebdd 16px) !important;
+  }
+
+  /* 変化(人間/人外)切り替え時の煙エフェクト:
+     左右から煙画像が中央へ寄ってきて、キャラの姿を隠している間に裏で画像を差し替える */
+  .poof {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .poof-cloud {
+    position: absolute;
+    top: 0;
+    width: 75%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 0;
+  }
+
+  .poof-cloud.left {
+    left: 0;
+    background-image: url('img/oc/effects/smoke_left.png');
+    background-position: left center;
+    transform: translateX(-55%);
+  }
+
+  .poof-cloud.right {
+    right: 0;
+    background-image: url('img/oc/effects/smoke_right.png');
+    background-position: right center;
+    transform: translateX(55%);
+  }
+
+  .poof.active .poof-cloud {
+    animation: poof-sweep 0.6s ease-in-out forwards;
+  }
+
+  .poof.active .poof-cloud.right {
+    animation-name: poof-sweep-right;
+  }
+
+  @keyframes poof-sweep {
+    0% { transform: translateX(-55%); opacity: 0; }
+    35% { opacity: 1; }
+    55% { transform: translateX(0%); opacity: 1; }
+    100% { transform: translateX(20%); opacity: 0; }
+  }
+
+  @keyframes poof-sweep-right {
+    0% { transform: translateX(55%); opacity: 0; }
+    35% { opacity: 1; }
+    55% { transform: translateX(0%); opacity: 1; }
+    100% { transform: translateX(-20%); opacity: 0; }
+  }
+
+  /* 立ち絵そのものを白でいったん完全に覆い隠してから、新しい姿をフェードで見せる。
+     煙エフェクト(poof-cloud)が微妙な場合は、下の2つの .poof-cloud の行だけ
+     HTML側から削除すればこの白フェードだけが残ります */
+  .poof-flash {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    opacity: 0;
+  }
+
+  .poof.active .poof-flash {
+    animation: poof-flash 0.6s ease-in-out forwards;
+  }
+
+  @keyframes poof-flash {
+    0% { opacity: 0; }
+    40% { opacity: 1; }
+    60% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  /* 衣装違い選択(通常/変化の切り替えとは別) */
+  .costume-select {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 5px;
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  .costume-select button {
+    font-family: inherit;
+    padding: 4px 9px;
+    border: 1.5px solid var(--card-border);
+    border-radius: 999px;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1.3;
+    white-space: nowrap;
+    box-sizing: border-box;
+    background: #fff;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .costume-select button.active {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .oc-info { min-width: 0; }
+
+  .oc-name {
+    font-size: 19px;
+    font-weight: 900;
+    margin: 0 0 2px;
+  }
+
+  .true-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: var(--ink-dim);
+    cursor: pointer;
+    margin: 0 0 12px;
+  }
+
+  .true-name .value {
+    font-weight: 700;
+    filter: blur(5px);
+    transition: filter 0.15s ease;
+    user-select: none;
+  }
+
+  .true-name.revealed .value {
+    filter: none;
+    user-select: text;
+  }
+
+  .true-name-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    flex: 0 0 auto;
+  }
+
+  .true-name .material-symbols-outlined {
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  /* ルビ(真名・通常の名前どちらにも適用、小さめ) */
+  .oc-info ruby rt {
+    font-size: 7.5px;
+    font-weight: 700;
+    color: var(--ink-dim);
+    letter-spacing: 0;
+  }
+
+  /* --- ボイスサンプル再生(カード下部・控えめ、複数可) --- */
+  .voice-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .voice-play {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 10px 0 0;
+    border-radius: 999px;
+    border: 1.5px solid var(--card-border);
+    background: #fff;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .voice-play .icon-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    flex: 0 0 auto;
+  }
+
+  .voice-play .material-symbols-outlined {
+    font-size: 14px;
+  }
+
+  .voice-play-label {
+    padding-right: 2px;
+  }
+
+  /* ラベルが無いボタン(1個しか無い時など)はアイコンだけの丸ボタンにする */
+  .voice-play:not(:has(.voice-play-label)) {
+    padding: 0;
+  }
+
+  .voice-play[disabled] {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .voice-play.playing {
+    animation: voice-pulse 0.9s ease-in-out infinite;
+  }
+
+  @keyframes voice-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(32, 28, 22, 0.25); }
+    50% { box-shadow: 0 0 0 5px rgba(32, 28, 22, 0); }
+  }
+
+  dl.oc-facts {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.9;
+  }
+
+  dl.oc-facts div { display: flex; gap: 6px; }
+  dl.oc-facts dt { color: var(--ink-dim); flex: 0 0 56px; }
+  dl.oc-facts dd { margin: 0; flex: 1; }
+
+  .taggroups {
+    margin: 14px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .taggroup {
+    /* ラベルとチップを縦積みにする(横並びだとチップの数が多い時に
+       幅がうまく詰まらず崩れていたため) */
+  }
+
+  .tg-label {
+    display: block;
+    font-size: 10px;
+    color: var(--ink-dim);
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  .oc-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .oc-tags span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 3px 10px 3px 8px;
+    border-radius: 999px;
+    border: 1.5px solid var(--card-border);
+    background: #fff;
+    color: var(--ink);
+  }
+
+  /* 好き/嫌い/趣味/特技がそもそも無い項目用。チップ(タグ)っぽく見せると
+     嘘の情報に見えてしまうので、行は残しつつ枠なしの控えめな表記にする */
+  .tag-none {
+    font-size: 10.5px;
+    color: var(--ink-dim);
+  }
+
+  .oc-tags span::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex: 0 0 auto;
+  }
+
+  .oc-tags.like span::before { background: var(--green); }
+  .oc-tags.dislike span::before { background: var(--pink); }
+  .oc-tags.hobby span::before { background: var(--blue); }
+  .oc-tags.skill span::before { background: var(--orange); }
+
+  .oc-desc {
+    font-size: 12.5px;
+    line-height: 1.9;
+    color: var(--ink);
+    margin: 16px 0 0;
+    padding-top: 16px;
+    border-top: 1.5px dashed var(--card-border);
+  }
+
+  .oc-desc p { margin: 0 0 8px; }
+  .oc-desc p:last-child { margin-bottom: 0; }
+
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+  }
+
+  footer {
+    margin-top: 40px;
+    text-align: center;
+    color: var(--ink-dim);
+    font-size: 11.5px;
+  }
+
+  /* --- 右下の追従SDイラスト --- */
+  #mascot {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    width: 88px;
+    height: 88px;
+    z-index: 50;
+    cursor: pointer;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+
+  #mascot.mascot-hide {
+    transform: translateY(140%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #mascot .mascot-inner {
+    width: 100%;
+    height: 100%;
+    animation: poyo 4.5s ease-in-out infinite;
+  }
+
+  @keyframes poyo {
+    0%, 78% { transform: scale(1, 1); }
+    85% { transform: scale(1.08, 0.9); }
+    90% { transform: scale(0.94, 1.08); }
+    95% { transform: scale(1.02, 0.98); }
+    100% { transform: scale(1, 1); }
+  }
+
+  #mascot img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  #mascot .mascot-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2.5px dashed var(--card-border);
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #mascot .mascot-placeholder .material-symbols-outlined {
+    font-size: 26px;
+    color: var(--ink-dim);
+  }
+
+  @media (max-width: 480px) {
+    #mascot { width: 68px; height: 68px; right: 12px; bottom: 12px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="nav-tabs">
+    <a href="index.html">ホーム</a>
+    <a href="tools.html">ツール配布</a>
+    <a href="portfolio.html">ポートフォリオ</a>
+    <a href="oc.html" class="active">OC</a>
+  </nav>
+
+  <header>
+    <span class="badge">ORIGINAL CHARACTER</span>
+    <h1>そぼろ忍の<br>OCまとめ</h1>
+    <p class="lede">自作のオリジナルキャラクターを紹介しています。</p>
+  </header>
+
+  <!--
+    ▼世界観の追加方法▼
+    下のボタンをコピーして data-world に世界観名(半角英数)を追加。
+    キャラクターカード側の data-world も対応する世界観名にしてください。
+    (共存しない設定なので、常にどちらか1つだけ表示されます)
+  -->
+  <div class="world-filters" id="worldFilters">
+    <button data-world="world-a" class="active">とどのつまり</button>
+    <button data-world="world-b">？？？</button>
+  </div>
+
+  <!--
+    ▼所属フィルターについて▼
+    とどのつまり(world-a)のキャラのみ対象。複数選択可(OR条件)。
+    無所属以外はアイコンマークが付く想定で、img/oc/affil/ に画像を置いたら
+    下の .oc-facts 内 .affil-icon の class="placeholder" を外し、
+    style="background-image:url('img/oc/affil/xxx.png')" を追加してください。
+  -->
+  <div class="affil-filters" id="affilFilters">
+    <button data-affil="iga">伊賀</button>
+    <button data-affil="kouga">甲賀</button>
+    <button data-affil="gov">政府</button>
+    <button data-affil="none">無所属</button>
+  </div>
+
+  <!--
+    ▼キャスト一覧について▼
+    自動でのサムネイル取得はしません(全身絵を縮小すると顔が判別できないため)。
+    .oc-card に data-thumb="顔がわかりやすい画像パス" を付けてください。
+    (例: 立ち絵の顔部分だけ切り出した画像や、アイコン用に別途描いた絵など)
+    未指定のキャラは点線プレースホルダーのまま表示されます。
+  -->
+  <div class="cast-index" id="castIndex"></div>
+
+  <!--
+    ▼キャラクターの追加方法▼
+    .oc-card ブロックをコピーして、
+    - id を半角英数のユニークな値に変更
+    - data-world / data-affiliation を変更
+    - 各情報・真名・コメントを書き換え
+    - .oc-portrait の data-forms を書き換え:
+      "human"(変化) / "nonhuman"(通常) それぞれに costumes 配列(衣装違い)を持たせる形。
+      衣装が1着しか無い姿は costumes を1個だけにしておけばOK(選択ボタンは出ません)。
+      画像が無い場合は src を空文字のままにしておくと「準備中」表示になります。
+    UTAUが存在するキャラには、.oc-card の直下に
+      <a class="utau-badge" href="配布ページURL" target="_blank" rel="noopener noreferrer" title="UTAU配布ページへ"><span class="material-symbols-outlined">music_note</span></a>
+    を追加してください(UTAUが無い子は付けなくてOK)。
+    ボイスサンプルは .oc-desc 内の .voice-row に .voice-play ボタンを並べてください。
+    1個なら:
+      <button type="button" class="voice-play" data-src="音声パス" title="タイトル">
+        <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+      </button>
+    2個以上あるときは、アイコンの隣に <span class="voice-play-label">通常</span> のような
+    ラベルを足すと区別しやすくなります。data-src が空のボタンは自動で無効化されます。
+    どのボタンも .oc-desc 内であれば <audio> タグを別途置く必要はありません(JS側で自動生成します)。
+    好き/嫌い/趣味/特技のうち、該当が無い項目は .oc-tags の中身をチップではなく
+      <span class="tag-none">特になし</span>
+    にしてください(行自体は残します)。
+  -->
+  <div class="oc-list" id="ocList">
+    <div class="oc-card" id="soboronin" data-world="world-a" data-affiliation="iga" data-thumb="img/oc/soboronin/icon_soboronin.png">
+      <a class="utau-badge" href="https://bowlroll.net/user/870791/files?sort=title&order=up&date=none&auth=none" target="_blank" rel="noopener noreferrer" title="UTAU配布ページへ"><span class="material-symbols-outlined">music_note</span></a>
+      <div class="oc-head">
+        <div class="oc-portrait-wrap">
+          <div class="oc-portrait-stage">
+          <div class="oc-portrait placeholder"
+               data-forms='{
+                 "human": {
+                   "label": "変化",
+                   "costumes": [
+                     {"src": "img/oc/soboronin/soboronin_h_01.png", "label": "デフォルト"},
+                     {"src": "img/oc/soboronin/soboronin_h_02.png", "label": "寝巻"},
+                     {"src": "img/oc/soboronin/soboronin_h_03.png", "label": "チャイナ"},
+                     {"src": "img/oc/soboronin/soboronin_h_04.png", "label": "サイバーパンク"},
+                     {"src": "img/oc/soboronin/soboronin_h_05.png", "label": "学生"},
+                     {"src": "img/oc/soboronin/soboronin_h_06.png", "label": "一目連"},
+                     {"src": "img/oc/soboronin/soboronin_h_07.png", "label": "ヒーロー"},
+                     {"src": "img/oc/soboronin/soboronin_h_08.png", "label": "私服？"},
+                     {"src": "img/oc/soboronin/soboronin_h_09.png", "label": "アイドル私服"}
+                   ]
+                 },
+                 "nonhuman": {
+                   "label": "通常",
+                   "costumes": [
+                     {"src": "img/oc/soboronin/soboronin_n_01.png", "label": "デフォルト"}
+                   ]
+                 }
+               }'>
+          </div>
+          <span class="portrait-badge"></span>
+          <div class="poof" aria-hidden="true"><span class="poof-flash"></span><span class="poof-cloud left"></span><span class="poof-cloud right"></span></div>
+          </div>
+          <div class="costume-select"></div>
+        </div>
+        <div class="oc-info">
+          <p class="oc-name">そぼろ<ruby>忍<rt>にん</rt></ruby></p>
+          <p class="true-name" data-name="百">
+            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            真名: <span class="value"><ruby>百<rt>モモ</rt></ruby></span>
+          </p>
+          <dl class="oc-facts">
+            <div><dt>所属</dt><dd><span class="affil-icon" style="background-image:url('img/oc/affil/iga.png')" data-affil="iga"></span>伊賀</dd></div>
+            <div><dt>性別</dt><dd>可変</dd></div>
+            <div><dt>身長</dt><dd>通常130cm、変化122cm(尻尾を除く)</dd></div>
+            <div><dt>一人称</dt><dd>俺</dd></div>
+            <div><dt>二人称</dt><dd>お前、呼び捨て</dd></div>
+          </dl>
+          <div class="taggroups">
+            <div class="taggroup">
+              <span class="tg-label">好き</span>
+              <div class="oc-tags like">
+                <span>肉</span>
+                <span>辛いもの</span>
+                <span>エナジードリンク</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">嫌い</span>
+              <div class="oc-tags dislike">
+                <span>甲賀</span>
+                <span>おぼろ忍</span>
+                <span>野菜</span>
+                <span>ホラー</span>
+                <span>面倒くさいこと</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">趣味</span>
+              <div class="oc-tags hobby">
+                <span>PCゲーム</span>
+                <span>賭け事(花札)</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">特技</span>
+              <div class="oc-tags skill">
+                <span>火系の忍術</span>
+                <span>棒術</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="oc-desc">
+        <p>伊賀出身の抜け忍で、ドラゴンの純血。<br>
+          甲賀、とりわけおぼろ忍を強く嫌っている。<br>
+          嘘つきで他人の不幸を面白がる一方、感情は顔に出やすい。<br>
+          幼少期、一族の教えで儀式的に羽を捥がれており、今はただ傷が残るだけである。<br>
+          信仰心が高くない仏教徒。<br><br>
+          もう全部、滅茶苦茶だ！
+        </p>
+        <div class="voice-row">
+          <button type="button" class="voice-play" data-src="voice/soboronin01.wav" title="ボイスサンプルを再生">
+            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="voice-play-label">通常</span>
+          </button>
+          <button type="button" class="voice-play" data-src="voice/soboronin02.wav" title="ボイスサンプルを再生">
+            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="voice-play-label">強</span>
+          </button>
+          <button type="button" class="voice-play" data-src="voice/soboronin03.wav" title="ボイスサンプルを再生">
+            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="voice-play-label">楽</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+        <div class="oc-card" id="momochan" data-world="world-a" data-affiliation="iga" data-thumb="img/oc/momochan/icon_momochan.png">
+      <a class="utau-badge" href="https://bowlroll.net/file/325820" target="_blank" rel="noopener noreferrer" title="UTAU配布ページへ"><span class="material-symbols-outlined">music_note</span></a>
+      <div class="oc-head">
+        <div class="oc-portrait-wrap">
+          <div class="oc-portrait-stage">
+          <div class="oc-portrait placeholder"
+               data-forms='{
+                 "human": {
+                   "label": "変化",
+                   "costumes": [
+                     {"src": "img/oc/momochan/momochan_h_01.png", "label": "デフォルト"}
+                   ]
+                 },
+                 "nonhuman": {
+                   "label": "通常",
+                   "costumes": [
+                     {"src": "img/oc/momochan/momochan_n_01.png", "label": "デフォルト"}
+                   ]
+                 }
+               }'>
+          </div>
+          <span class="portrait-badge"></span>
+          <div class="poof" aria-hidden="true"><span class="poof-flash"></span><span class="poof-cloud left"></span><span class="poof-cloud right"></span></div>
+          </div>
+          <div class="costume-select"></div>
+        </div>
+        <div class="oc-info">
+          <p class="oc-name"><ruby>百<rt>もも</rt></ruby>ちゃん</p>
+          <p class="true-name" data-name="一花">
+            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            真名: <span class="value"><ruby>一花<rt>イチカ</rt></ruby></span>
+          </p>
+          <dl class="oc-facts">
+            <div><dt>所属</dt><dd><span class="affil-icon" style="background-image:url('img/oc/affil/iga.png')" data-affil="iga"></span>伊賀</dd></div>
+            <div><dt>性別</dt><dd>可変</dd></div>
+            <div><dt>身長</dt><dd>通常130cm、変化122cm(尻尾を除く)</dd></div>
+            <div><dt>一人称</dt><dd>私</dd></div>
+            <div><dt>二人称</dt><dd>表: あなた、〇〇君　裏: あんた、呼び捨て</dd></div>
+          </dl>
+          <div class="taggroups">
+            <div class="taggroup">
+              <span class="tg-label">好き</span>
+              <div class="oc-tags like">
+                <span>お金</span>
+                <span>(桜)</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">嫌い</span>
+              <div class="oc-tags dislike">
+                <span>お金に関係しない無駄なこと</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">趣味</span>
+              <div class="oc-tags hobby">
+                <span>ショッピング</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">特技</span>
+              <div class="oc-tags skill">
+                <span>スリ</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="oc-desc">
+        <p>伊賀出身の抜け忍で、ドラゴンの純血。<br>
+          甲賀のことは「気が合わなさそう」という点であまり好きではない。<br>
+          何よりもお金が大好きで、お金になるなら大抵のことはする。猫被りだけどワガママ。<br>
+          幼少期、一族の教えで儀式的に羽を捥がれており、今はただ傷が残るだけである。<br>
+          百くんの双子の姉。<br><br>
+          「金。出して。早く。」</p>
+        <div class="voice-row">
+          <button type="button" class="voice-play" data-src="voice/momochan01.wav" title="ボイスサンプルを再生">
+            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="voice-play-label">通常</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="oc-card" id="momokun" data-world="world-a" data-affiliation="iga" data-thumb="img/oc/momokun/icon_momokun.png">
+      <div class="oc-head">
+        <div class="oc-portrait-wrap">
+          <div class="oc-portrait-stage">
+          <div class="oc-portrait placeholder"
+               data-forms='{
+                 "human": {
+                   "label": "変化",
+                   "costumes": [
+                     {"src": "img/oc/momokun/momokun_h_01.png", "label": "デフォルト"}
+                   ]
+                 },
+                 "nonhuman": {
+                   "label": "通常",
+                   "costumes": [
+                     {"src": "", "label": "デフォルト"}
+                   ]
+                 }
+               }'>
+          </div>
+          <span class="portrait-badge"></span>
+          <div class="poof" aria-hidden="true"><span class="poof-flash"></span><span class="poof-cloud left"></span><span class="poof-cloud right"></span></div>
+          </div>
+          <div class="costume-select"></div>
+        </div>
+        <div class="oc-info">
+          <p class="oc-name"><ruby>百<rt>もも</rt></ruby>くん</p>
+          <p class="true-name" data-name="伍郎">
+            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            真名: <span class="value"><ruby>伍郎<rt>ゴロウ</rt></ruby></span>
+          </p>
+          <dl class="oc-facts">
+            <div><dt>所属</dt><dd><span class="affil-icon" style="background-image:url('img/oc/affil/iga.png')" data-affil="iga"></span>伊賀</dd></div>
+            <div><dt>性別</dt><dd>可変</dd></div>
+            <div><dt>身長</dt><dd>通常130cm、変化122cm(尻尾を除く)</dd></div>
+            <div><dt>一人称</dt><dd>オレ</dd></div>
+            <div><dt>二人称</dt><dd>君、〇〇君、呼び捨て</dd></div>
+          </dl>
+          <div class="taggroups">
+            <div class="taggroup">
+              <span class="tg-label">好き</span>
+              <div class="oc-tags like">
+                <span>カッコいいもの</span>
+                <span>コーラ</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">嫌い</span>
+              <div class="oc-tags dislike">
+                <span>ダサいもの</span>
+                <span>時計の針の音</span>
+                <span>コーヒー</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">趣味</span>
+              <div class="oc-tags hobby">
+                <span>少年向けアニメ鑑賞</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">特技</span>
+              <div class="oc-tags skill">
+                <span>反射神経</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="oc-desc">
+        <p>伊賀出身の抜け忍で、ドラゴンの純血。<br>
+          甲賀のことはあまり興味がない。<br>
+          自分のことを強くてカッコいいと思っているが、実際はかなりのポンコツ。<br>
+          褒められることや目立つことが大好きで、チョロい。<br>
+          幼少期、一族の教えで儀式的に羽を捥がれており、今はただ傷が残るだけである。<br>
+          百ちゃんの双子の弟。<br><br>
+          無敵。<br>
+          ……少なくとも、本人の中では。</p>
+        <div class="voice-row">
+          <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
+            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="oc-card" id="tororonin" data-world="world-a" data-affiliation="iga" data-thumb="img/oc/tororonin/icon_tororonin.png">
+      <div class="oc-head">
+        <div class="oc-portrait-wrap">
+          <div class="oc-portrait-stage">
+          <div class="oc-portrait placeholder"
+               data-forms='{
+                 "human": {
+                   "label": "変化",
+                   "costumes": [
+                     {"src": "img/oc/tororonin/tororonin_h_01.png", "label": "通常"}
+                   ]
+                 },
+                 "nonhuman": {
+                   "label": "通常",
+                   "costumes": [
+                     {"src": "", "label": "通常"}
+                   ]
+                 }
+               }'>
+          </div>
+          <span class="portrait-badge"></span>
+          <div class="poof" aria-hidden="true"><span class="poof-flash"></span><span class="poof-cloud left"></span><span class="poof-cloud right"></span></div>
+          </div>
+          <div class="costume-select"></div>
+        </div>
+        <div class="oc-info">
+          <p class="oc-name">とろろ<ruby>忍<rt>にん</rt></ruby></p>
+          <p class="true-name" data-name="沓">
+            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            真名: <span class="value"><ruby>沓<rt>ナツメ</rt></ruby></span>
+          </p>
+          <dl class="oc-facts">
+            <div><dt>所属</dt><dd><span class="affil-icon" style="background-image:url('img/oc/affil/iga.png')" data-affil="iga"></span>伊賀</dd></div>
+            <div><dt>性別</dt><dd>可変</dd></div>
+            <div><dt>身長</dt><dd>通常130cm、変化122cm(尻尾を除く)</dd></div>
+            <div><dt>一人称</dt><dd>ぼく</dd></div>
+            <div><dt>二人称</dt><dd>あなた、〇〇くん、〇〇さん</dd></div>
+          </dl>
+          <div class="taggroups">
+            <div class="taggroup">
+              <span class="tg-label">好き</span>
+              <div class="oc-tags like">
+                <span>いちご大福</span>
+                <span>平和</span>
+                <span>動物</span>
+                <span>自然</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">嫌い</span>
+              <div class="oc-tags dislike">
+                <span>うるさいもの</span>
+                <span>危ないこと</span>
+                <span>怖いもの</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">趣味</span>
+              <div class="oc-tags hobby">
+                <span>小型彫刻</span>
+                <span>植物栽培</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">特技</span>
+              <div class="oc-tags skill">
+                <span>隠密系の忍術</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="oc-desc">
+        <p>伊賀出身の抜け忍で、ドラゴンの純血。アルビノ。<br>
+          甲賀のことはよくわからない。<br>
+          忍者でありながら本人は忍者をやりたがっておらず、戦いも苦手なドジっ子。<br>
+          泣き虫かつ臆病で、隠れることだけは得意。<br>
+          里を離れて教会(たぶん、跡地)で暮らしながら、平穏な毎日を望んでいる。<br>
+          幼少期、一族の教えで儀式的に羽を捥がれており、今はただ傷が残るだけである。<br>
+          動物に好かれやすい。<br><br>
+          「いないってば～……」</p>
+        <div class="voice-row">
+          <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
+            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="oc-card" id="locomoconin" data-world="world-a" data-affiliation="none" data-thumb="img/oc/locomoconin/icon_locomoconin.png">
+      <a class="utau-badge" href="https://bowlroll.net/file/333343" target="_blank" rel="noopener noreferrer" title="UTAU配布ページへ"><span class="material-symbols-outlined">music_note</span></a>
+      <div class="oc-head">
+        <div class="oc-portrait-wrap">
+          <div class="oc-portrait-stage">
+          <div class="oc-portrait placeholder"
+               data-forms='{
+                 "human": {
+                   "label": "変化",
+                   "costumes": [
+                     {"src": "img/oc/locomoconin/locomoconin_h_01.png", "label": "デフォルト"}
+                   ]
+                 },
+                 "nonhuman": {
+                   "label": "通常",
+                   "costumes": [
+                     {"src": "img/oc/locomoconin/locomoconin_n_01.png", "label": "デフォルト"}
+                   ]
+                 }
+               }'>
+          </div>
+          <span class="portrait-badge"></span>
+          <div class="poof" aria-hidden="true"><span class="poof-flash"></span><span class="poof-cloud left"></span><span class="poof-cloud right"></span></div>
+          </div>
+          <div class="costume-select"></div>
+        </div>
+        <div class="oc-info">
+          <p class="oc-name">ロコモコ<ruby>忍<rt>にん</rt></ruby></p>
+          <p class="true-name" data-name="Solomon Corley">
+            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            本名: <span class="value"><ruby>Solomon Corley<rt>ソロモン・コーリー</rt></ruby></span>
+          </p>
+          <dl class="oc-facts">
+            <div><dt>所属</dt><dd><span class="affil-icon" data-affil="none"></span>無所属</dd></div>
+            <div><dt>性別</dt><dd>可変</dd></div>
+            <div><dt>身長</dt><dd>通常130cm、変化122cm(尻尾を除く)</dd></div>
+            <div><dt>一人称</dt><dd>オレ</dd></div>
+            <div><dt>二人称</dt><dd>オマエ、呼び捨て</dd></div>
+          </dl>
+          <div class="taggroups">
+            <div class="taggroup">
+              <span class="tg-label">好き</span>
+              <div class="oc-tags like">
+                <span>みたらし団子</span>
+                <span>忍者っぽいもの</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">嫌い</span>
+              <div class="oc-tags dislike">
+                <span>ルール・規律</span>
+                <span>説教</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">趣味</span>
+              <div class="oc-tags hobby">
+                <span>漢字Tシャツ漁り</span>
+                <span>ストリートアート</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">特技</span>
+              <div class="oc-tags skill">
+                <span>スケボー</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="oc-desc">
+        <p>海外出身の一般ドラゴン。<br>
+          忍者に憧れる顔出し配信者で、元は「100」というハンドルネームで活動していた。<br>
+          しかし、ロコモコ忍と呼ばれすぎるので、最近は自分でロコモコ忍と名乗っている。<br>
+          忍術は独学だけど勉強は苦手で、変化以外は真似事レベルでしかない。<br>
+          カッコいい漢字だったので、尻尾に「肘」の刺青を入れた。<br>
+          カタコトで喋る。<br><br>
+          日本語練習中！　がんばれ！</p>
+        <div class="voice-row">
+          <button type="button" class="voice-play" data-src="voice/locomoconin01.wav" title="ボイスサンプルを再生">
+            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="voice-play-label">通常(楽)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="oc-card" id="oboronin" data-world="world-a" data-affiliation="kouga" data-thumb="img/oc/oboronin/icon_oboronin.png">
+      <div class="oc-head">
+        <div class="oc-portrait-wrap">
+          <div class="oc-portrait-stage">
+          <div class="oc-portrait placeholder"
+               data-forms='{
+                 "human": {
+                   "label": "変化",
+                   "costumes": [
+                     {"src": "img/oc/oboronin/oboronin_h_01.png", "label": "通常"}
+                   ]
+                 },
+                 "nonhuman": {
+                   "label": "通常",
+                   "costumes": [
+                     {"src": "", "label": "通常"}
+                   ]
+                 }
+               }'>
+          </div>
+          <span class="portrait-badge"></span>
+          <div class="poof" aria-hidden="true"><span class="poof-flash"></span><span class="poof-cloud left"></span><span class="poof-cloud right"></span></div>
+          </div>
+          <div class="costume-select"></div>
+        </div>
+        <div class="oc-info">
+          <p class="oc-name">おぼろ<ruby>忍<rt>にん</rt></ruby></p>
+          <p class="true-name" data-name="煌">
+            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            真名: <span class="value"><ruby>煌<rt>コウ</rt></ruby></span>
+          </p>
+          <dl class="oc-facts">
+            <div><dt>所属</dt><dd><span class="affil-icon" style="background-image:url('img/oc/affil/kouga.png')" data-affil="kouga"></span>甲賀</dd></div>
+            <div><dt>性別</dt><dd>可変</dd></div>
+            <div><dt>身長</dt><dd>通常130cm、変化122cm(尻尾を除く)</dd></div>
+            <div><dt>一人称</dt><dd>(私)</dd></div>
+            <div><dt>二人称</dt><dd>(お前、呼び捨て)</dd></div>
+          </dl>
+          <div class="taggroups">
+            <div class="taggroup">
+              <span class="tg-label">好き</span>
+              <div class="oc-tags like">
+                <span>魚(特に目玉)</span>
+                <span>日本酒</span>
+                <span>食べられる物は何でも</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">嫌い</span>
+              <div class="oc-tags dislike">
+                <span class="tag-none">特になし</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">趣味</span>
+              <div class="oc-tags hobby">
+                <span>(気ままにフラフラする)</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">特技</span>
+              <div class="oc-tags skill">
+                <span>水系の忍術</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="oc-desc">
+        <p>甲賀忍者で、ドラゴンと龍の混血。<br>
+          正直者だが、表情がほとんど変わらないため、何を考えているのかわからない。<br>
+          賢く、強い。簡単になんでもこなせる。ただ興味がないだけ。<br>
+          喉の辺りに逆鱗が1枚あり、触られると暴走する。ピアスがある限りは無効化される。<br>
+          いつからか言葉を発さなくなった。<br>
+          飛行が可能。<br>
+          もろこ忍の弟。<br><br>
+          ただ、そこにいるのかもしれないし……あ、いない。</p>
+        <div class="voice-row">
+          <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
+            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="oc-card" id="morokonin" data-world="world-a" data-affiliation="kouga" data-thumb="img/oc/morokonin/icon_morokonin.png">
+      <div class="oc-head">
+        <div class="oc-portrait-wrap">
+          <div class="oc-portrait-stage">
+          <div class="oc-portrait placeholder"
+               data-forms='{
+                 "human": {
+                   "label": "変化",
+                   "costumes": [
+                     {"src": "img/oc/morokonin/morokonin_h_01.png", "label": "通常"}
+                   ]
+                 },
+                 "nonhuman": {
+                   "label": "通常",
+                   "costumes": [
+                     {"src": "", "label": "通常"}
+                   ]
+                 }
+               }'>
+          </div>
+          <span class="portrait-badge"></span>
+          <div class="poof" aria-hidden="true"><span class="poof-flash"></span><span class="poof-cloud left"></span><span class="poof-cloud right"></span></div>
+          </div>
+          <div class="costume-select"></div>
+        </div>
+        <div class="oc-info">
+          <p class="oc-name">もろこ<ruby>忍<rt>にん</rt></ruby></p>
+          <p class="true-name" data-name="煌">
+            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            真名: <span class="value"><ruby>煌<rt>コウ</rt></ruby></span>
+          </p>
+          <dl class="oc-facts">
+            <div><dt>所属</dt><dd><span class="affil-icon" style="background-image:url('img/oc/affil/kouga.png')" data-affil="kouga"></span>甲賀</dd></div>
+            <div><dt>性別</dt><dd>可変</dd></div>
+            <div><dt>身長</dt><dd>通常150cm、変化140cm(尻尾を除く)</dd></div>
+            <div><dt>一人称</dt><dd>僕</dd></div>
+            <div><dt>二人称</dt><dd>アンタ、〇〇君</dd></div>
+          </dl>
+          <div class="taggroups">
+            <div class="taggroup">
+              <span class="tg-label">好き</span>
+              <div class="oc-tags like">
+                <span>高い所</span>
+                <span>緑茶</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">嫌い</span>
+              <div class="oc-tags dislike">
+                <span>脳筋</span>
+                <span>無能</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">趣味</span>
+              <div class="oc-tags hobby">
+                <span>ポーカー</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">特技</span>
+              <div class="oc-tags skill">
+                <span>吹き矢</span>
+                <span>イカサマ</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="oc-desc">
+        <p>甲賀忍者で、ドラゴンと龍の混血。<br>
+          甲賀の中でも高い実力を持つが、家族の中では力が弱く、産まれた時点で既に立場が悪かった。<br>
+          家族から名前を呼ばれることが無くなったため、真名を弟に取られている。<br>
+          認められないことを気にしながらも、自分の立場を良くするために弟を利用している。<br>
+          力を抑えるためのピアスを作って、弟に着けてあげている。<br>
+          喉の辺りに逆鱗が1枚あり、触られると激昂する。完全に理性を失うことはない。<br>
+          飛行が可能。近江弁、関西弁気味。<br>
+          おぼろ忍の兄。<br><br>
+          「もっと賢う生きなあかんよなぁ？　そうやろ？」</p>
+
+        <div class="voice-row">
+          <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
+            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="oc-card" id="hodoronin" data-world="world-a" data-affiliation="kouga" data-thumb="img/oc/hodoronin/icon_hodoronin.png">
+      <div class="oc-head">
+        <div class="oc-portrait-wrap">
+          <div class="oc-portrait-stage">
+          <div class="oc-portrait placeholder"
+               data-forms='{
+                 "human": {
+                   "label": "変化",
+                   "costumes": [
+                     {"src": "img/oc/hodoronin/hodoronin_h_01.png", "label": "通常"}
+                   ]
+                 },
+                 "nonhuman": {
+                   "label": "通常",
+                   "costumes": [
+                     {"src": "", "label": "通常"}
+                   ]
+                 }
+               }'>
+          </div>
+          <span class="portrait-badge"></span>
+          <div class="poof" aria-hidden="true"><span class="poof-flash"></span><span class="poof-cloud left"></span><span class="poof-cloud right"></span></div>
+          </div>
+          <div class="costume-select"></div>
+        </div>
+        <div class="oc-info">
+          <p class="oc-name">ほどろ<ruby>忍<rt>にん</rt></ruby></p>
+          <p class="true-name" data-name="灸">
+            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            真名: <span class="value"><ruby>灸<rt>ヤイト</rt></ruby></span>
+          </p>
+          <dl class="oc-facts">
+            <div><dt>所属</dt><dd><span class="affil-icon" style="background-image:url('img/oc/affil/kouga.png')" data-affil="kouga"></span>甲賀</dd></div>
+            <div><dt>性別</dt><dd>可変</dd></div>
+            <div><dt>身長</dt><dd>通常133cm、変化123cm(尻尾を除く)</dd></div>
+            <div><dt>一人称</dt><dd>私</dd></div>
+            <div><dt>二人称</dt><dd>お前、呼び捨て</dd></div>
+          </dl>
+          <div class="taggroups">
+            <div class="taggroup">
+              <span class="tg-label">好き</span>
+              <div class="oc-tags like">
+                <span>紅茶</span>
+                <span>トウモロコシ</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">嫌い</span>
+              <div class="oc-tags dislike">
+                <span>虫</span>
+                <span>下品なこと</span>
+                <span>鶏扱いされること</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">趣味</span>
+              <div class="oc-tags hobby">
+                <span>日記</span>
+                <span>編み物</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">特技</span>
+              <div class="oc-tags skill">
+                <span>火系の忍術</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="oc-desc">
+        <p>甲賀忍者で、朱雀の純血。<br>
+          リーダー面したいわけではないが、このチームをまとめたいとは思っている。<br>
+          火を操る力を持つ。口から火を出す奴が居るなんて信じられない。野蛮だ。<br>
+          甘え下手で大真面目。<br>
+          うっかり卵を産むときがある。<br>
+          翼を使用しての飛行が可能。<br><br>
+          誰かがまとめなければならない。<br>
+          そう思っているのに、誰もまとまってくれない。</p>
+        <div class="voice-row">
+          <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
+            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="oc-card" id="otomonin" data-world="world-a" data-affiliation="kouga" data-thumb="img/oc/otomonin/icon_otomonin.png">
+      <div class="oc-head">
+        <div class="oc-portrait-wrap">
+          <div class="oc-portrait-stage">
+          <div class="oc-portrait placeholder"
+               data-forms='{
+                 "human": {
+                   "label": "変化",
+                   "costumes": [
+                     {"src": "img/oc/otomonin/otomonin_h_01.png", "label": "通常"}
+                   ]
+                 },
+                 "nonhuman": {
+                   "label": "通常",
+                   "costumes": [
+                     {"src": "", "label": "通常"}
+                   ]
+                 }
+               }'>
+          </div>
+          <span class="portrait-badge"></span>
+          <div class="poof" aria-hidden="true"><span class="poof-flash"></span><span class="poof-cloud left"></span><span class="poof-cloud right"></span></div>
+          </div>
+          <div class="costume-select"></div>
+        </div>
+        <div class="oc-info">
+          <p class="oc-name">おとも<ruby>忍<rt>にん</rt></ruby></p>
+          <p class="true-name" data-name="陸">
+            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            真名: <span class="value"><ruby>陸<rt>リク</rt></ruby></span>
+          </p>
+          <dl class="oc-facts">
+            <div><dt>所属</dt><dd><span class="affil-icon" style="background-image:url('img/oc/affil/kouga.png')" data-affil="kouga"></span>甲賀</dd></div>
+            <div><dt>性別</dt><dd>可変</dd></div>
+            <div><dt>身長</dt><dd>通常135cm、変化125cm(尻尾を除く)</dd></div>
+            <div><dt>一人称</dt><dd>おれ</dd></div>
+            <div><dt>二人称</dt><dd>あだ名、おまえ</dd></div>
+          </dl>
+          <div class="taggroups">
+            <div class="taggroup">
+              <span class="tg-label">好き</span>
+              <div class="oc-tags like">
+                <span>お日様</span>
+                <span>気持ちのいい場所</span>
+                <span>撫でられること</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">嫌い</span>
+              <div class="oc-tags dislike">
+                <span>水</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">趣味</span>
+              <div class="oc-tags hobby">
+                <span>日向ぼっこ</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">特技</span>
+              <div class="oc-tags skill">
+                <span>体術</span>
+                <span>雷系の忍術</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="oc-desc">
+        <p>甲賀忍者で、白虎の純血。<br>
+          マイペースでとにかく自由奔放。「ヤダ！」「いいよ～」ははっきりしている。<br>
+          人懐っこく甘え上手で、任務や稽古に付き合う素直さも持つ。<br>
+          雷系の忍術を得意とし、発動後は静電気がすごい。<br>
+          勝手に人をあだ名呼びする。<br><br>
+          さっきまでそこで寝てただろ？　ふかふかすぎる。</p>
+        <div class="voice-row">
+          <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
+            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="oc-card" id="momoyonin" data-world="world-a" data-affiliation="kouga" data-thumb="img/oc/momoyonin/icon_momoyonin.png">
+      <div class="oc-head">
+        <div class="oc-portrait-wrap">
+          <div class="oc-portrait-stage">
+          <div class="oc-portrait placeholder"
+               data-forms='{
+                 "human": {
+                   "label": "変化",
+                   "costumes": [
+                     {"src": "img/oc/momoyonin/momoyonin_h_01.png", "label": "通常"}
+                   ]
+                 },
+                 "nonhuman": {
+                   "label": "通常",
+                   "costumes": [
+                     {"src": "", "label": "通常"}
+                   ]
+                 }
+               }'>
+          </div>
+          <span class="portrait-badge"></span>
+          <div class="poof" aria-hidden="true"><span class="poof-flash"></span><span class="poof-cloud left"></span><span class="poof-cloud right"></span></div>
+          </div>
+          <div class="costume-select"></div>
+        </div>
+        <div class="oc-info">
+          <p class="oc-name">ももよ<ruby>忍<rt>にん</rt></ruby></p>
+          <p class="true-name" data-name="岳">
+            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            真名: <span class="value"><ruby>岳<rt>ガク</rt></ruby></span>
+          </p>
+          <dl class="oc-facts">
+            <div><dt>所属</dt><dd><span class="affil-icon" style="background-image:url('img/oc/affil/kouga.png')" data-affil="kouga"></span>甲賀</dd></div>
+            <div><dt>性別</dt><dd>可変</dd></div>
+            <div><dt>身長</dt><dd>通常138cm、変化125cm(尻尾を除く)</dd></div>
+            <div><dt>一人称</dt><dd>僕</dd></div>
+            <div><dt>二人称</dt><dd>あなた、呼び捨て</dd></div>
+          </dl>
+          <div class="taggroups">
+            <div class="taggroup">
+              <span class="tg-label">好き</span>
+              <div class="oc-tags like">
+                <span>卵</span>
+                <span>珍しいもの</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">嫌い</span>
+              <div class="oc-tags dislike">
+                <span>寒さ</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">趣味</span>
+              <div class="oc-tags hobby">
+                <span>研究</span>
+                <span>本を読む</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">特技</span>
+              <div class="oc-tags skill">
+                <span>土・毒系の忍術</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="oc-desc">
+        <p>甲賀忍者で、玄武の純血。<br>
+          温厚な物腰とは裏腹に、行動はきびきびとしている。<br>
+          感情に流されることは少なく、物事を論理的に捉えるタイプ。<br>
+          だが、興味を持ったものには素直に従う、掴みどころのない人物。<br>
+          尻尾の蛇とは脳が別々に存在しており、仲が良い。<br><br>
+          感情よりも、理屈。<br>
+          理屈よりも、面白いほう。</p>
+        <div class="voice-row">
+          <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
+            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="oc-card" id="amatsunomiya" data-world="world-a" data-affiliation="gov" data-thumb="img/oc/amatsunomiya/icon_amatsunomiya.png">
+      <div class="oc-head">
+        <div class="oc-portrait-wrap">
+          <div class="oc-portrait-stage">
+          <div class="oc-portrait placeholder"
+               data-forms='{
+                 "human": {
+                   "label": "変化",
+                   "costumes": [
+                     {"src": "img/oc/amatsunomiya/amatsunomiya_h_01.png", "label": "通常"}
+                   ]
+                 },
+                 "nonhuman": {
+                   "label": "通常",
+                   "costumes": [
+                     {"src": "", "label": "通常"}
+                   ]
+                 }
+               }'>
+          </div>
+          <span class="portrait-badge"></span>
+          <div class="poof" aria-hidden="true"><span class="poof-flash"></span><span class="poof-cloud left"></span><span class="poof-cloud right"></span></div>
+          </div>
+          <div class="costume-select"></div>
+        </div>
+        <div class="oc-info">
+          <p class="oc-name"><ruby>天宮<rt>あまつのみや</rt></ruby></p>
+          <dl class="oc-facts">
+            <div><dt>所属</dt><dd><span class="affil-icon" style="background-image:url('img/oc/affil/gov.png')" data-affil="gov"></span>政府</dd></div>
+            <div><dt>性別</dt><dd>可変</dd></div>
+            <div><dt>身長</dt><dd>通常5cm、変化100cm(尻尾を除く)</dd></div>
+            <div><dt>一人称</dt><dd>儂</dd></div>
+            <div><dt>二人称</dt><dd>御主</dd></div>
+          </dl>
+          <div class="taggroups">
+            <div class="taggroup">
+              <span class="tg-label">好き</span>
+              <div class="oc-tags like">
+                <span>チョコレート</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">嫌い</span>
+              <div class="oc-tags dislike">
+                <span>退屈</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">趣味</span>
+              <div class="oc-tags hobby">
+                <span>温泉巡り</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">特技</span>
+              <div class="oc-tags skill">
+                <span>盤面掌握</span>
+                <span>交渉術</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="oc-desc">
+        <p>政府のトップで、白いハツカネズミの純血。<br>
+          高い知性を持ち、物事を判断する力にも長けているが、自分の欲を優先することもある。<br>
+          子供っぽく駄々をこねる一面を持ちながらも、決して感情だけで動く人物ではない。<br>
+          周囲を自分の掌の上で動かすことを楽しんでいる。<br><br>
+          世界を動かすのに、神である必要は無い。</p>
+        <div class="voice-row">
+          <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
+            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="oc-card" id="tendo" data-world="world-a" data-affiliation="gov" data-thumb="img/oc/tendo/icon_tendo.png">
+      <div class="oc-head">
+        <div class="oc-portrait-wrap">
+          <div class="oc-portrait-stage">
+          <div class="oc-portrait placeholder"
+               data-forms='{
+                 "human": {
+                   "label": "変化",
+                   "costumes": [
+                     {"src": "img/oc/tendo/tendo_h_01.png", "label": "通常"}
+                   ]
+                 },
+                 "nonhuman": {
+                   "label": "通常",
+                   "costumes": [
+                     {"src": "", "label": "通常"}
+                   ]
+                 }
+               }'>
+          </div>
+          <span class="portrait-badge"></span>
+          <div class="poof" aria-hidden="true"><span class="poof-flash"></span><span class="poof-cloud left"></span><span class="poof-cloud right"></span></div>
+          </div>
+          <div class="costume-select"></div>
+        </div>
+        <div class="oc-info">
+          <p class="oc-name"><ruby>天道<rt>てんどう</rt></ruby></p>
+          <dl class="oc-facts">
+            <div><dt>所属</dt><dd><span class="affil-icon" style="background-image:url('img/oc/affil/gov.png')" data-affil="gov"></span>政府</dd></div>
+            <div><dt>性別</dt><dd>可変</dd></div>
+            <div><dt>身長</dt><dd>通常142cm、変化130cm(尻尾を除く)</dd></div>
+            <div><dt>一人称</dt><dd>私(たまに俺)</dd></div>
+            <div><dt>二人称</dt><dd>貴様、お前</dd></div>
+          </dl>
+          <div class="taggroups">
+            <div class="taggroup">
+              <span class="tg-label">好き</span>
+              <div class="oc-tags like">
+                <span>少女漫画</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">嫌い</span>
+              <div class="oc-tags dislike">
+                <span>忍者</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">趣味</span>
+              <div class="oc-tags hobby">
+                <span>鍛錬</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">特技</span>
+              <div class="oc-tags skill">
+                <span>槍術</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="oc-desc">
+        <p>政府の槍使いで、八咫烏の純血。<br>
+          天宮の従者。その命を守ることを何よりも優先している。<br>
+          真面目で堅く、怒りっぽい性格。<br>
+          忍者たちのことはあまり好いておらず、邪魔をする者には容赦しない。<br>
+          翼を使用しての飛行が可能。<br><br>
+          殺されても、朝を呼ぶ。<br>
+          仕事だ。</p>
+
+        <div class="voice-row">
+          <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
+            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- もう一方の世界観のキャラクターカードはここに追加(data-world="world-b") -->
+    <div class="oc-card" id="irite-ta" data-world="world-b">
+      <div class="oc-head">
+        <div class="oc-portrait-wrap">
+          <div class="oc-portrait-stage">
+          <div class="oc-portrait placeholder"
+               data-forms='{
+                 "human": {
+                   "label": "人間形態",
+                   "costumes": [
+                     {"src": "", "label": "通常"}
+                   ]
+                 },
+                 "nonhuman": {
+                   "label": "恐竜形態",
+                   "costumes": [
+                     {"src": "", "label": "通常"}
+                   ]
+                 }
+               }'>
+          </div>
+          <span class="portrait-badge"></span>
+          <div class="poof" aria-hidden="true"><span class="poof-flash"></span><span class="poof-cloud left"></span><span class="poof-cloud right"></span></div>
+          </div>
+          <div class="costume-select"></div>
+        </div>
+        <div class="oc-info">
+          <p class="oc-name">いりてい<ruby>太<rt>た</rt></ruby></p>
+          <dl class="oc-facts">
+            <div><dt>性別</dt><dd>男</dd></div>
+            <div><dt>身長</dt><dd>通常???cm、変化150cm(尻尾を除く)</dd></div>
+            <div><dt>一人称</dt><dd>俺</dd></div>
+            <div><dt>二人称</dt><dd>お前、呼び捨て</dd></div>
+          </dl>
+          <div class="taggroups">
+            <div class="taggroup">
+              <span class="tg-label">好き</span>
+              <div class="oc-tags like">
+                <span>魚</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">嫌い</span>
+              <div class="oc-tags dislike">
+                <span>???</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">趣味</span>
+              <div class="oc-tags hobby">
+                <span>発掘作業</span>
+                <span>館内ガイド</span>
+              </div>
+            </div>
+            <div class="taggroup">
+              <span class="tg-label">特技</span>
+              <div class="oc-tags skill">
+                <span>???</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="oc-desc">
+        <p>キャラクターデザイン: Riddy・Cult<br><br>
+        いりてい太（学名: Iritei-ta）は、約1億1000万年前に前期白亜紀のブラジルに生息した、スピノサウルス科に属する獣脚類の恐竜「イリテーター」（イリタトルとも、学名: Irritator）が現代に蘇った姿である。<br>
+        化石はほぼ完全な頭骨で発見され、化石商人がこの頭骨を入手して自然史博物館に違法販売した。<br>
+        しかし、化石商人は頭蓋骨の損傷を石膏でひどく隠し、継ぎ接ぎにしていた。結果、腐食、破損、侵食により、発掘時からさらに損傷することとなる。<br>
+        属名は英語で「苛立ち」を意味する "irritation" に由来し、古生物学者の感情を反映している。<br><br>
+        胴体部は、ほぼ全てが透明な水入り琥珀（英: Enhydro Amber、エンハイドロ・アンバー）の組織で構成されている。<br>
+        この琥珀の内部には未知の「蟹」が定住しており、食事の消化を手伝うなど、恐竜と甲殻類による前例のない相利共生関係を築いている。<br>
+        元となった化石の発見経緯も影響してか、その性質は怒りっぽく、かつ真面目（几帳面）な生態を示す。
+        <br>
+        </p>
+        <div class="voice-row">
+          <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
+            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>そぼろ忍</p>
+    <p>Ust: 有魚神弥 様</p>
+  </footer>
+</main>
+
+<!-- 右下の追従SDイラスト(表示中のキャラに連動) -->
+<div id="mascot"><div class="mascot-inner"></div></div>
+
+<script>
+  // キャスト一覧を各キャラのdata-formsから自動生成
+  (function buildCastIndex() {
+    const indexEl = document.getElementById('castIndex');
+    if (!indexEl) return;
+
+    document.querySelectorAll('.oc-card').forEach(card => {
+      // 全身絵を縮小すると顔が判別できないため、自動取得はせず
+      // data-thumb で明示的に指定された画像だけをサムネイルとして使う
+      const thumbSrc = card.dataset.thumb || '';
+
+      const nameEl = card.querySelector('.oc-name');
+      // textContent だとルビ(rt)の読み仮名まで拾ってしまうので、
+      // クローンしてルビ部分だけ取り除いてから名前を取得する
+      let name = '';
+      if (nameEl) {
+        const clone = nameEl.cloneNode(true);
+        clone.querySelectorAll('rt').forEach(rt => rt.remove());
+        name = clone.textContent.trim();
+      }
+
+      const a = document.createElement('a');
+      a.href = '#' + card.id;
+      a.className = 'cast-item';
+      a.dataset.world = card.dataset.world;
+      a.style.display = card.dataset.world === 'world-a' ? 'flex' : 'none';
+
+      const thumb = document.createElement('span');
+      thumb.className = 'cast-thumb' + (thumbSrc ? '' : ' placeholder');
+      if (thumbSrc) thumb.style.backgroundImage = `url('${thumbSrc}')`;
+
+      const label = document.createElement('span');
+      label.className = 'cast-name';
+      label.textContent = name;
+
+      a.appendChild(thumb);
+      a.appendChild(label);
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      indexEl.appendChild(a);
+    });
+  })();
+
+  // 立ち絵タップで「変化/通常」を切り替え、衣装違いは別のボタンで選ぶ
+  document.querySelectorAll('.oc-portrait').forEach(el => {
+    let forms = {};
+    try { forms = JSON.parse(el.dataset.forms || '{}'); } catch (err) { forms = {}; }
+    const formKeys = Object.keys(forms);
+    if (formKeys.length === 0) return;
+
+    const wrap = el.closest('.oc-portrait-wrap');
+    const badge = wrap.querySelector('.portrait-badge');
+    const costumeSelect = wrap.querySelector('.costume-select');
+
+    let formIdx = 0;
+    let costumeIdx = 0;
+
+    function currentForm() {
+      return forms[formKeys[formIdx]];
+    }
+
+    function currentCostumes() {
+      const c = currentForm().costumes;
+      return (c && c.length > 0) ? c : [{ src: '', label: '' }];
+    }
+
+    // 姿(通常/変化)によって衣装ボタンの数が違うと、切り替えるたびに
+    // カードの高さがガクッと変わって見える(いわゆる「パカパカ」)ので、
+    // そのキャラの中で一番背の高くなる衣装ボタン欄の高さを先に測っておき、
+    // 常にその高さぶんのスペースを確保しておく
+    function reserveCostumeHeight() {
+      let max = 0;
+      const refWidth = wrap.offsetWidth;
+      formKeys.forEach(key => {
+        const costumes = forms[key].costumes || [];
+        if (costumes.length <= 1) return;
+        const temp = document.createElement('div');
+        temp.className = 'costume-select';
+        temp.style.display = 'flex';
+        temp.style.position = 'absolute';
+        temp.style.visibility = 'hidden';
+        temp.style.width = refWidth + 'px';
+        costumes.forEach(c => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.textContent = c.label;
+          temp.appendChild(b);
+        });
+        wrap.appendChild(temp);
+        max = Math.max(max, temp.offsetHeight);
+        wrap.removeChild(temp);
+      });
+      if (max > 0) costumeSelect.style.minHeight = max + 'px';
+    }
+    reserveCostumeHeight();
+
+    function renderCostumeButtons() {
+      const costumes = currentCostumes();
+      costumeSelect.innerHTML = '';
+      costumeSelect.style.display = 'flex'; // 常に表示し、中身の有無だけで高さの差を吸収する
+      if (costumes.length > 1) {
+        costumes.forEach((c, i) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.textContent = c.label;
+          if (i === costumeIdx) b.classList.add('active');
+          b.addEventListener('click', function (ev) {
+            ev.stopPropagation(); // 立ち絵タップ(姿の切り替え)と混ざらないように
+            costumeIdx = i;
+            render();
+          });
+          costumeSelect.appendChild(b);
+        });
+      }
+    }
+
+    function render() {
+      const form = currentForm();
+      const costumes = currentCostumes();
+      const c = costumes[costumeIdx] || costumes[0];
+
+      if (c.src) {
+        el.style.backgroundImage = `url('${c.src}')`;
+        el.classList.remove('placeholder');
+      } else {
+        el.style.backgroundImage = '';
+        el.classList.add('placeholder');
+      }
+
+      let label = form.label;
+      if (costumes.length > 1) label += '・' + c.label;
+      if (!c.src) label += '(準備中)';
+      badge.textContent = label;
+
+      renderCostumeButtons();
+    }
+
+    render();
+
+    if (formKeys.length > 1) {
+      const poof = wrap.querySelector('.poof');
+      el.addEventListener('click', () => {
+        if (poof) {
+          poof.classList.remove('active');
+          void poof.offsetWidth; // アニメーション再トリガー用
+          poof.classList.add('active');
+          setTimeout(() => poof.classList.remove('active'), 650);
+        }
+        // 煙が中央に寄って画面を覆うタイミングで裏の画像を差し替える
+        setTimeout(() => {
+          formIdx = (formIdx + 1) % formKeys.length;
+          costumeIdx = 0; // 姿を切り替えたら衣装選択もリセット
+          render();
+        }, 300);
+      });
+    } else {
+      el.classList.add('single');
+    }
+  });
+
+  // ボイスサンプル再生(複数ボタン対応・排他再生)
+  let currentVoiceAudio = null;
+  document.querySelectorAll('.voice-play').forEach(btn => {
+    const src = btn.dataset.src;
+    const icon = btn.querySelector('.material-symbols-outlined');
+
+    if (!src) {
+      btn.disabled = true; // 音源未設定の間はボタンを無効化
+      return;
+    }
+
+    const audio = new Audio(src);
+    audio.preload = 'none';
+
+    btn.addEventListener('click', () => {
+      if (audio.paused) {
+        // 他のボタンが再生中なら止める(同時に何個も鳴らないように)
+        if (currentVoiceAudio && currentVoiceAudio !== audio) {
+          currentVoiceAudio.pause();
+          currentVoiceAudio.currentTime = 0;
+        }
+        currentVoiceAudio = audio;
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+
+    audio.addEventListener('play', () => {
+      btn.classList.add('playing');
+      icon.textContent = 'pause';
+    });
+    audio.addEventListener('pause', () => {
+      btn.classList.remove('playing');
+      icon.textContent = 'play_arrow';
+    });
+    audio.addEventListener('ended', () => {
+      btn.classList.remove('playing');
+      icon.textContent = 'play_arrow';
+    });
+  });
+
+  // 真名タップで開示
+  document.querySelectorAll('.true-name').forEach(el => {
+    el.addEventListener('click', () => {
+      el.classList.toggle('revealed');
+      const icon = el.querySelector('.material-symbols-outlined');
+      icon.textContent = el.classList.contains('revealed') ? 'visibility_off' : 'visibility';
+    });
+  });
+
+  // 世界観フィルター(単一選択・共存しない)
+  const worldFilters = document.getElementById('worldFilters');
+  const affilFilters = document.getElementById('affilFilters');
+  const activeAffils = new Set();
+
+  function applyAffilFilter() {
+    document.querySelectorAll('.oc-card[data-world="world-a"]').forEach(card => {
+      const match = activeAffils.size === 0 || activeAffils.has(card.dataset.affiliation);
+      const isHidden = card.classList.contains('affil-hidden');
+
+      if (match && isHidden) {
+        card.classList.remove('affil-hidden');
+        card.classList.add('affil-entering');
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => card.classList.remove('affil-entering'));
+        });
+      } else if (!match && !isHidden) {
+        card.classList.add('affil-leaving');
+        card.addEventListener('transitionend', function handler() {
+          card.classList.add('affil-hidden');
+          card.classList.remove('affil-leaving');
+          card.removeEventListener('transitionend', handler);
+        }, { once: true });
+      }
+    });
+  }
+
+  affilFilters.addEventListener('click', function (e) {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const a = btn.dataset.affil;
+    if (activeAffils.has(a)) {
+      activeAffils.delete(a);
+      btn.classList.remove('active');
+    } else {
+      activeAffils.add(a);
+      btn.classList.add('active');
+    }
+    applyAffilFilter();
+  });
+
+  worldFilters.addEventListener('click', function (e) {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const world = btn.dataset.world;
+
+    worldFilters.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.oc-card').forEach(el => {
+      el.style.display = el.dataset.world === world ? 'block' : 'none';
+    });
+    document.querySelectorAll('.cast-item').forEach(el => {
+      el.style.display = el.dataset.world === world ? 'flex' : 'none';
+    });
+
+    // 所属フィルターは「とどのつまり」限定なので、世界観切り替え時に表示/リセット
+    affilFilters.style.display = world === 'world-a' ? 'flex' : 'none';
+    activeAffils.clear();
+    affilFilters.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    applyAffilFilter();
+
+    updateMascot();
+  });
+
+  // ▼SDイラストの追加方法▼
+  // img/oc/sd/ フォルダに画像を置いて、キャラIDごとに配列で登録してください
+  // 例: 'tororonin': ['img/oc/sd/tororonin_sd01.png', 'img/oc/sd/tororonin_sd02.png']
+  const sdImagesByChar = {
+    'soboronin': [
+      'img/oc/soboronin/soboronin_sd_01.png'
+      // 'img/oc/sd/tororonin_sd02.png',
+    ],
+  };
+
+  const mascotInner = document.querySelector('#mascot .mascot-inner');
+
+  function updateMascot() {
+    // 現在表示中(世界観フィルターで隠れていない)キャラのIDを集める
+    const visibleIds = Array.from(document.querySelectorAll('.oc-card'))
+      .filter(card => card.style.display !== 'none')
+      .map(card => card.id);
+
+    const pool = visibleIds.flatMap(id => sdImagesByChar[id] || []);
+
+    mascotInner.innerHTML = '';
+    if (pool.length > 0) {
+      const pick = pool[Math.floor(Math.random() * pool.length)];
+      const img = document.createElement('img');
+      img.src = pick;
+      img.alt = 'OC SDイラスト';
+      mascotInner.appendChild(img);
+    } else {
+      mascotInner.innerHTML = '<div class="mascot-placeholder"><span class="material-symbols-outlined">pets</span></div>';
+    }
+  }
+
+  document.getElementById('mascot').addEventListener('click', updateMascot);
+  updateMascot();
+</script>
+
+<script>
+  // 右下マスコットの「隠れる」挙動:
+  // footerが画面内に入ってきたら、コンテンツに被らないようスッと下に隠れる
+  (function () {
+    const el = document.getElementById('mascot');
+    const footerEl = document.querySelector('footer');
+    if (!el || !footerEl || !('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        el.classList.toggle('mascot-hide', entry.isIntersecting);
+      },
+      { rootMargin: '0px 0px -12px 0px' }
+    );
+    observer.observe(footerEl);
+  })();
+</script>
+
+</body>
+</html>

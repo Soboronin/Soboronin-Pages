@@ -49,6 +49,12 @@
     display: flex;
     justify-content: center;
     padding: 60px 20px;
+    animation: fadein 0.15s ease;
+  }
+
+  @keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
   main { width: 100%; max-width: 560px; }
@@ -197,6 +203,66 @@
     color: var(--ink-dim);
     font-size: 11.5px;
   }
+
+  /* --- 右下の追従SDイラスト --- */
+  #mascot {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    width: 88px;
+    height: 88px;
+    z-index: 50;
+    cursor: pointer;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+
+  #mascot.mascot-hide {
+    transform: translateY(140%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #mascot .mascot-inner {
+    width: 100%;
+    height: 100%;
+    animation: poyo 4.5s ease-in-out infinite;
+  }
+
+  @keyframes poyo {
+    0%, 78% { transform: scale(1, 1); }
+    85% { transform: scale(1.08, 0.9); }
+    90% { transform: scale(0.94, 1.08); }
+    95% { transform: scale(1.02, 0.98); }
+    100% { transform: scale(1, 1); }
+  }
+
+  #mascot img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  #mascot .mascot-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2.5px dashed var(--card-border);
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #mascot .mascot-placeholder .material-symbols-outlined {
+    font-size: 26px;
+    color: var(--ink-dim);
+  }
+
+  @media (max-width: 480px) {
+    #mascot { width: 68px; height: 68px; right: 12px; bottom: 12px; }
+  }
+
 </style>
 </head>
 <body>
@@ -204,6 +270,8 @@
   <nav class="nav-tabs">
     <a href="index.html" class="active">ホーム</a>
     <a href="tools.html">ツール配布</a>
+    <a href="portfolio.html">ポートフォリオ</a>
+    <a href="oc.html">OC</a>
   </nav>
 
   <header>
@@ -383,5 +451,55 @@
     document.getElementById("emailQuote").textContent = addr;
   });
 </script>
+
+<!-- 右下の追従SDイラスト(全キャラからランダム表示) -->
+<div id="mascot"><div class="mascot-inner"></div></div>
+
+<script>
+  // ▼SDイラストの追加方法▼
+  // img/oc/sd/ フォルダに画像を置いて配列に追加してください
+  const sdImages = [
+    'img/oc/soboronin/soboronin_sd_01.png'
+    // 'img/oc/sd/tororo_sd02.png',
+  ];
+
+  const mascotInner = document.querySelector('#mascot .mascot-inner');
+
+  function updateMascot() {
+    mascotInner.innerHTML = '';
+    if (sdImages.length > 0) {
+      const pick = sdImages[Math.floor(Math.random() * sdImages.length)];
+      const img = document.createElement('img');
+      img.src = pick;
+      img.alt = 'OC SDイラスト';
+      mascotInner.appendChild(img);
+    } else {
+      mascotInner.innerHTML = '<div class="mascot-placeholder"><span class="material-symbols-outlined">pets</span></div>';
+    }
+  }
+
+  document.getElementById('mascot').addEventListener('click', updateMascot);
+  updateMascot();
+</script>
+
+
+<script>
+  // 右下マスコットの「隠れる」挙動:
+  // footerが画面内に入ってきたら、コンテンツに被らないようスッと下に隠れる
+  (function () {
+    const el = document.getElementById('mascot');
+    const footerEl = document.querySelector('footer');
+    if (!el || !footerEl || !('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        el.classList.toggle('mascot-hide', entry.isIntersecting);
+      },
+      { rootMargin: '0px 0px -12px 0px' }
+    );
+    observer.observe(footerEl);
+  })();
+</script>
+
 </body>
 </html>
