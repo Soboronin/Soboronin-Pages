@@ -20,6 +20,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<link rel="stylesheet" href="mascot.css" />
 <style>
   :root {
     --bg: #faf6ee;
@@ -61,7 +62,8 @@
 
   .nav-tabs {
     display: flex;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
     margin-bottom: 32px;
   }
 
@@ -184,6 +186,24 @@
 
   .card-body { flex: 1; min-width: 0; }
 
+  .copy-btn {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid var(--card-border);
+    background: #fff;
+    cursor: pointer;
+    color: var(--ink);
+  }
+
+  .copy-btn .material-symbols-outlined {
+    font-size: 15px;
+  }
+
   .card-title {
     font-size: 14.5px;
     font-weight: 700;
@@ -204,65 +224,12 @@
     font-size: 11.5px;
   }
 
-  /* --- 右下の追従SDイラスト --- */
-  #mascot {
-    position: fixed;
-    right: 18px;
-    bottom: 18px;
-    width: 88px;
-    height: 88px;
-    z-index: 50;
-    cursor: pointer;
-    transition: transform 0.35s ease, opacity 0.35s ease;
-  }
-
-  #mascot.mascot-hide {
-    transform: translateY(140%);
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  #mascot .mascot-inner {
-    width: 100%;
-    height: 100%;
-    animation: poyo 4.5s ease-in-out infinite;
-  }
-
-  @keyframes poyo {
-    0%, 78% { transform: scale(1, 1); }
-    85% { transform: scale(1.08, 0.9); }
-    90% { transform: scale(0.94, 1.08); }
-    95% { transform: scale(1.02, 0.98); }
-    100% { transform: scale(1, 1); }
-  }
-
-  #mascot img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-  }
-
-  #mascot .mascot-placeholder {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 2.5px dashed var(--card-border);
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  #mascot .mascot-placeholder .material-symbols-outlined {
-    font-size: 26px;
-    color: var(--ink-dim);
-  }
+  /* --- 右下の追従SDイラスト(mascot.css に切り出し済み) --- */
 
   @media (max-width: 480px) {
-    #mascot { width: 68px; height: 68px; right: 12px; bottom: 12px; }
+    body { padding: 40px 14px; }
+    .nav-tabs a { padding: 7px 12px; font-size: 12px; }
   }
-
 </style>
 </head>
 <body>
@@ -432,6 +399,9 @@
         <p class="card-title">Email</p>
         <p class="card-quote" id="emailQuote">クリック！　タップ！　キック！</p>
       </span>
+      <button type="button" class="copy-btn" id="emailCopyBtn" title="コピー" hidden>
+        <span class="material-symbols-outlined">content_copy</span>
+      </button>
     </a>
   </div>
 
@@ -444,62 +414,55 @@
   // 簡易的な難読化(スクレイピング対策程度)。クリックで初めてアドレスを復元する
   const u = ["s","o","b","o","r","o","n","i","n"].join("");
   const d = ["g","m","a","i","l"].join("") + "." + "com";
-  document.getElementById("emailCard").addEventListener("click", function (e) {
+  let emailAddr = "";
+  let emailRevealed = false;
+
+  const emailCard = document.getElementById("emailCard");
+  const emailQuote = document.getElementById("emailQuote");
+  const emailCopyBtn = document.getElementById("emailCopyBtn");
+
+  emailCard.addEventListener("click", function (e) {
+    if (!emailRevealed) {
+      e.preventDefault();
+      emailAddr = u + "@" + d;
+      this.href = "mailto:" + emailAddr;
+      emailQuote.textContent = emailAddr;
+      emailCopyBtn.hidden = false;
+      emailRevealed = true;
+    }
+    // 表示済みの状態での2回目以降のクリックは、通常どおりメールソフトを開く
+  });
+
+  emailCopyBtn.addEventListener("click", function (e) {
     e.preventDefault();
-    const addr = u + "@" + d;
-    this.href = "mailto:" + addr;
-    document.getElementById("emailQuote").textContent = addr;
+    e.stopPropagation();
+
+    function showCopied() {
+      const original = emailAddr;
+      emailQuote.textContent = "コピーしました！";
+      setTimeout(() => { emailQuote.textContent = original; }, 1500);
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(emailAddr).then(showCopied);
+    } else {
+      // 古い環境向けのフォールバック
+      const temp = document.createElement("textarea");
+      temp.value = emailAddr;
+      temp.style.position = "fixed";
+      temp.style.opacity = "0";
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand("copy");
+      document.body.removeChild(temp);
+      showCopied();
+    }
   });
 </script>
 
 <!-- 右下の追従SDイラスト(全キャラからランダム表示) -->
 <div id="mascot"><div class="mascot-inner"></div></div>
-
-<script>
-  // ▼SDイラストの追加方法▼
-  // img/oc/sd/ フォルダに画像を置いて配列に追加してください
-  const sdImages = [
-    'img/oc/soboronin/soboronin_sd_01.png'
-    // 'img/oc/sd/tororo_sd02.png',
-  ];
-
-  const mascotInner = document.querySelector('#mascot .mascot-inner');
-
-  function updateMascot() {
-    mascotInner.innerHTML = '';
-    if (sdImages.length > 0) {
-      const pick = sdImages[Math.floor(Math.random() * sdImages.length)];
-      const img = document.createElement('img');
-      img.src = pick;
-      img.alt = 'OC SDイラスト';
-      mascotInner.appendChild(img);
-    } else {
-      mascotInner.innerHTML = '<div class="mascot-placeholder"><span class="material-symbols-outlined">pets</span></div>';
-    }
-  }
-
-  document.getElementById('mascot').addEventListener('click', updateMascot);
-  updateMascot();
-</script>
-
-
-<script>
-  // 右下マスコットの「隠れる」挙動:
-  // footerが画面内に入ってきたら、コンテンツに被らないようスッと下に隠れる
-  (function () {
-    const el = document.getElementById('mascot');
-    const footerEl = document.querySelector('footer');
-    if (!el || !footerEl || !('IntersectionObserver' in window)) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        el.classList.toggle('mascot-hide', entry.isIntersecting);
-      },
-      { rootMargin: '0px 0px -12px 0px' }
-    );
-    observer.observe(footerEl);
-  })();
-</script>
+<script src="mascot.js"></script>
 
 </body>
 </html>
