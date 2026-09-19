@@ -17,8 +17,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="そぼろ忍" />
 <meta property="og:url" content="https://soboronin.github.io/Soboronin-Pages/oc.html" />
-<meta property="og:image" content="https://soboronin.github.io/Soboronin-Pages/img/og_image.png" />
-<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://soboronin.github.io/Soboronin-Pages/oc.html" />
 <meta name="theme-color" content="#faf6ee">
 <link rel="icon" href="img/icon_soboronin.png" type="image/png">
 <link rel="apple-touch-icon" href="img/icon_soboronin.png">
@@ -689,7 +688,8 @@
     ▼キャラクターの追加方法▼
     .oc-card ブロックをコピーして、
     - id を半角英数のユニークな値に変更
-    - data-world / data-affiliation を変更
+    - data-world / data-affiliation / data-thumb(キャスト一覧用の顔アイコン) を変更
+    - data-sd に、右下マスコットに使うSDイラストのパスを設定(複数はカンマ区切り、無ければ省略可)
     - 各情報・真名・コメントを書き換え
     - .oc-portrait の data-forms を書き換え:
       "human"(変化) / "nonhuman"(通常) それぞれに costumes 配列(衣装違い)を持たせる形。
@@ -713,7 +713,7 @@
     にしてください(行自体は残します)。
   -->
   <div class="oc-list" id="ocList">
-    <div class="oc-card" id="soboronin" data-world="world-a" data-affiliation="iga" data-thumb="img/oc/soboronin/icon_soboronin.png">
+    <div class="oc-card" id="soboronin" data-world="world-a" data-affiliation="iga" data-thumb="img/oc/soboronin/icon_soboronin.png" data-sd="img/oc/soboronin/soboronin_sd_01.png">
       <a class="utau-badge" href="https://bowlroll.net/user/870791/files?sort=title&order=up&date=none&auth=none" target="_blank" rel="noopener noreferrer" title="UTAU配布ページへ" aria-label="UTAU配布ページへ"><span class="material-symbols-outlined" aria-hidden="true">music_note</span></a>
       <div class="oc-head">
         <div class="oc-portrait-wrap">
@@ -2307,22 +2307,16 @@
     }
   }
 
-  // ▼SDイラストの追加方法▼
-  // img/oc/sd/ フォルダに画像を置いて、キャラIDごとに配列で登録してください
-  // 例: 'tororonin': ['img/oc/sd/tororonin_sd01.png', 'img/oc/sd/tororonin_sd02.png']
-  const sdImagesByChar = {
-    'soboronin': [
-      'img/oc/soboronin/soboronin_sd_01.png'
-      // 'img/oc/sd/tororonin_sd02.png',
-    ],
-  };
+  // SDイラストは、各キャラの .oc-card に data-sd="パス1,パス2" として直接持たせています
+  // (以前は別のJSオブジェクトで二重管理していましたが、キャラ追加時に書き忘れやすいため、
+  //  HTML側(カード自身)を唯一のデータ元にしました)。
+  // 複数枚ある場合はカンマ区切りで並べてください。まだ無いキャラは data-sd を付けなくてOKです。
 
   // mascot.js に「いま表示中のキャラのSDだけ」を渡す
   window.mascotGetPool = function () {
     return Array.from(document.querySelectorAll('.oc-card'))
-      .filter(card => card.style.display !== 'none')
-      .map(card => card.id)
-      .flatMap(id => sdImagesByChar[id] || []);
+      .filter(card => card.style.display !== 'none' && card.dataset.sd)
+      .flatMap(card => card.dataset.sd.split(',').map(s => s.trim()).filter(Boolean));
   };
 </script>
 
