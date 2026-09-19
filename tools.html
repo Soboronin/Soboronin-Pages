@@ -14,12 +14,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:title" content="そぼろ忍のツール置き場" />
 <meta property="og:description" content="そぼろ忍が作った、配信等で使える無料ツールのまとめ。" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="そぼろ忍" />
+<meta property="og:url" content="https://soboronin.github.io/Soboronin-Pages/tools.html" />
+<meta property="og:image" content="img/og_image.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="theme-color" content="#faf6ee">
+<link rel="icon" href="img/icon_soboronin.png" type="image/png">
+<link rel="apple-touch-icon" href="img/icon_soboronin.png">
 <title>そぼろ忍のツール置き場</title>
 <meta name="description" content="そぼろ忍が作った、配信等で使える無料ツールのまとめ。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<!-- アイコンは使うものだけを読み込んでいます。新しいアイコンを使うときは、
+     icon_names にその名前を追加してください(アルファベット順・全ページ共通の同じURLにすると、ブラウザのキャッシュが効きます) -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=casino,checklist,close,content_copy,edit,favorite,format_align_left,ink_pen,mail,more_horiz,movie,music_note,pause,pets,photo,play_arrow,shuffle,sms,swap_horiz,swords,tv_gen,visibility,visibility_off,web_stories&display=block" />
 <link rel="stylesheet" href="common.css" />
 <link rel="stylesheet" href="mascot.css" />
 <style>
@@ -143,9 +153,9 @@
 </head>
 <body>
 <main>
-  <nav class="nav-tabs">
+  <nav class="nav-tabs" aria-label="サイト内メニュー">
     <a href="index.html">ホーム</a>
-    <a href="tools.html" class="active">ツール配布</a>
+    <a href="tools.html" class="active" aria-current="page">ツール配布</a>
     <a href="portfolio.html">ポートフォリオ</a>
     <a href="oc.html">OC</a>
   </nav>
@@ -160,7 +170,7 @@
   <div class="tools">
     <a class="card" href="https://soboronin.github.io/OBS-Random-Playlist/">
       <span class="icon pink">
-        <span class="material-symbols-outlined">shuffle</span>
+        <span class="material-symbols-outlined" aria-hidden="true">shuffle</span>
       </span>
       <span class="card-body">
         <p class="card-title">ランダム再生リンク ジェネレーター</p>
@@ -170,7 +180,7 @@
 
     <a class="card" href="https://soboronin.github.io/OBS-Task-Widget/">
       <span class="icon yellow">
-        <span class="material-symbols-outlined">checklist</span>
+        <span class="material-symbols-outlined" aria-hidden="true">checklist</span>
       </span>
       <span class="card-body">
         <p class="card-title">配信タスクウィジェット ジェネレーター</p>
@@ -183,7 +193,7 @@
   <div class="tools">
     <a class="card" href="https://unityroom.com/games/rateup_gacha" target="_blank" rel="noopener noreferrer">
       <span class="icon purple">
-        <span class="material-symbols-outlined">casino</span>
+        <span class="material-symbols-outlined" aria-hidden="true">casino</span>
       </span>
       <span class="card-body">
         <p class="card-title">確率アップ機能付きガチャ</p>
@@ -195,7 +205,7 @@
   <div class="tools soon-wrap">
     <div class="card soon">
       <span class="icon">
-        <span class="material-symbols-outlined">more_horiz</span>
+        <span class="material-symbols-outlined" aria-hidden="true">more_horiz</span>
       </span>
       <span class="card-body">
         <p class="card-title">次のツールを準備中</p>
@@ -210,7 +220,7 @@
 </main>
 
 <!-- 右下の追従SDイラスト(全キャラからランダム表示) -->
-<div id="mascot"><div class="mascot-inner"></div></div>
+<div id="mascot" aria-hidden="true"><div class="mascot-inner"></div></div>
 <script src="mascot.js"></script>
 
 </body>

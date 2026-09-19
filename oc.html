@@ -14,12 +14,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:title" content="そぼろ忍のOC" />
 <meta property="og:description" content="そぼろ忍のオリジナルキャラクターまとめ" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="そぼろ忍" />
+<meta property="og:url" content="https://soboronin.github.io/Soboronin-Pages/oc.html" />
+<meta property="og:image" content="img/og_image.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="theme-color" content="#faf6ee">
+<link rel="icon" href="img/icon_soboronin.png" type="image/png">
+<link rel="apple-touch-icon" href="img/icon_soboronin.png">
 <title>そぼろ忍のOC</title>
 <meta name="description" content="そぼろ忍のオリジナルキャラクターまとめ">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<!-- アイコンは使うものだけを読み込んでいます。新しいアイコンを使うときは、
+     icon_names にその名前を追加してください(アルファベット順・全ページ共通の同じURLにすると、ブラウザのキャッシュが効きます) -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=casino,checklist,close,content_copy,edit,favorite,format_align_left,ink_pen,mail,more_horiz,movie,music_note,pause,pets,photo,play_arrow,shuffle,sms,swap_horiz,swords,tv_gen,visibility,visibility_off,web_stories&display=block" />
 <link rel="stylesheet" href="common.css" />
 <link rel="stylesheet" href="mascot.css" />
 <style>
@@ -86,10 +96,22 @@
   }
 
   .cast-name {
-    font-size: 9.5px;
+    font-size: 10.5px;
     font-weight: 700;
     text-align: center;
     line-height: 1.25;
+  }
+
+  /* 所属フィルターで外れているキャラ: 薄くして、タップも効かなくする */
+  .cast-item { transition: opacity 0.18s ease; }
+  .cast-item.cast-dim { opacity: 0.3; pointer-events: none; }
+
+  .cast-item:focus-visible,
+  .oc-portrait:focus-visible,
+  .true-name:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 2px;
+    border-radius: 6px;
   }
 
   /* --- 所属フィルター(とどのつまり限定・複数選択可) --- */
@@ -385,17 +407,17 @@
     justify-content: flex-start;
     align-items: flex-start;
     align-content: flex-start;
-    gap: 5px;
+    gap: 6px;
     margin-top: 8px;
     width: 100%;
   }
 
   .costume-select button {
     font-family: inherit;
-    padding: 4px 9px;
+    padding: 6px 11px;
     border: 1.5px solid var(--card-border);
     border-radius: 999px;
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 700;
     line-height: 1.3;
     white-space: nowrap;
@@ -430,7 +452,8 @@
     font-size: 12px;
     color: var(--ink-dim);
     cursor: pointer;
-    margin: 0 0 12px;
+    padding: 6px 0;
+    margin: -6px 0 6px; /* 押せる範囲を広げつつ、見た目の位置は変えない */
   }
 
   .true-name .value {
@@ -461,7 +484,7 @@
 
   /* ルビ(真名・通常の名前どちらにも適用、小さめ) */
   .oc-info ruby rt {
-    font-size: 7.5px;
+    font-size: 8.5px;
     font-weight: 700;
     color: var(--ink-dim);
     letter-spacing: 0;
@@ -486,7 +509,7 @@
     background: #fff;
     cursor: pointer;
     font-family: inherit;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
     color: var(--ink);
   }
@@ -495,14 +518,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 26px;
-    height: 26px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     flex: 0 0 auto;
   }
 
   .voice-play .material-symbols-outlined {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .voice-play-label {
@@ -552,7 +575,7 @@
 
   .tg-label {
     display: block;
-    font-size: 10px;
+    font-size: 10.5px;
     color: var(--ink-dim);
     font-weight: 700;
     margin-bottom: 5px;
@@ -566,7 +589,7 @@
 
   .oc-tags span {
     display: inline-block;
-    font-size: 10.5px;
+    font-size: 11px;
     font-weight: 500;
     padding: 3px 9px;
     border-radius: 6px;
@@ -615,11 +638,11 @@
 </head>
 <body>
 <main>
-  <nav class="nav-tabs">
+  <nav class="nav-tabs" aria-label="サイト内メニュー">
     <a href="index.html">ホーム</a>
     <a href="tools.html">ツール配布</a>
     <a href="portfolio.html">ポートフォリオ</a>
-    <a href="oc.html" class="active">OC</a>
+    <a href="oc.html" class="active" aria-current="page">OC</a>
   </nav>
 
   <header>
@@ -634,7 +657,7 @@
     キャラクターカード側の data-world も対応する世界観名にしてください。
     (共存しない設定なので、常にどちらか1つだけ表示されます)
   -->
-  <div class="world-filters" id="worldFilters">
+  <div class="world-filters" id="worldFilters" role="group" aria-label="世界観">
     <button data-world="world-a" class="active">とどのつまり</button>
     <button data-world="world-b">？？？</button>
   </div>
@@ -646,7 +669,7 @@
     下の .oc-facts 内 .affil-icon の class="placeholder" を外し、
     style="background-image:url('img/oc/affil/xxx.png')" を追加してください。
   -->
-  <div class="affil-filters" id="affilFilters">
+  <div class="affil-filters" id="affilFilters" role="group" aria-label="所属で絞り込み">
     <button data-affil="iga">伊賀</button>
     <button data-affil="kouga">甲賀</button>
     <button data-affil="gov">政府</button>
@@ -675,12 +698,12 @@
       画像ごとにキャラの大きさ(キャンバス内の余白)がバラバラで気になる場合は、
       costume に "scale": 1.3 のような倍率を追加すると、その画像だけ拡大表示できます(省略時は1)。
     UTAUが存在するキャラには、.oc-card の直下に
-      <a class="utau-badge" href="配布ページURL" target="_blank" rel="noopener noreferrer" title="UTAU配布ページへ"><span class="material-symbols-outlined">music_note</span></a>
+      <a class="utau-badge" href="配布ページURL" target="_blank" rel="noopener noreferrer" title="UTAU配布ページへ" aria-label="UTAU配布ページへ"><span class="material-symbols-outlined" aria-hidden="true">music_note</span></a>
     を追加してください(UTAUが無い子は付けなくてOK)。
     ボイスサンプルは .oc-desc 内の .voice-row に .voice-play ボタンを並べてください。
     1個なら:
       <button type="button" class="voice-play" data-src="音声パス" title="タイトル">
-        <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+        <span class="icon-circle"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
       </button>
     2個以上あるときは、アイコンの隣に <span class="voice-play-label">通常</span> のような
     ラベルを足すと区別しやすくなります。data-src が空のボタンは自動で無効化されます。
@@ -691,7 +714,7 @@
   -->
   <div class="oc-list" id="ocList">
     <div class="oc-card" id="soboronin" data-world="world-a" data-affiliation="iga" data-thumb="img/oc/soboronin/icon_soboronin.png">
-      <a class="utau-badge" href="https://bowlroll.net/user/870791/files?sort=title&order=up&date=none&auth=none" target="_blank" rel="noopener noreferrer" title="UTAU配布ページへ"><span class="material-symbols-outlined">music_note</span></a>
+      <a class="utau-badge" href="https://bowlroll.net/user/870791/files?sort=title&order=up&date=none&auth=none" target="_blank" rel="noopener noreferrer" title="UTAU配布ページへ" aria-label="UTAU配布ページへ"><span class="material-symbols-outlined" aria-hidden="true">music_note</span></a>
       <div class="oc-head">
         <div class="oc-portrait-wrap">
           <div class="oc-portrait-stage">
@@ -727,7 +750,7 @@
         <div class="oc-info">
           <p class="oc-name">そぼろ<ruby>忍<rt>にん</rt></ruby></p>
           <p class="true-name" data-name="百">
-            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            <span class="true-name-icon"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></span>
             真名: <span class="value"><ruby>百<rt>モモ</rt></ruby></span>
           </p>
           <dl class="oc-facts">
@@ -784,15 +807,15 @@
         </p>
         <div class="voice-row">
           <button type="button" class="voice-play" data-src="voice/soboronin01.wav" title="ボイスサンプルを再生">
-            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="icon-circle"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
             <span class="voice-play-label">通常</span>
           </button>
           <button type="button" class="voice-play" data-src="voice/soboronin02.wav" title="ボイスサンプルを再生">
-            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="icon-circle"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
             <span class="voice-play-label">強</span>
           </button>
           <button type="button" class="voice-play" data-src="voice/soboronin03.wav" title="ボイスサンプルを再生">
-            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="icon-circle"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
             <span class="voice-play-label">楽</span>
           </button>
         </div>
@@ -800,7 +823,7 @@
     </div>
 
         <div class="oc-card" id="momochan" data-world="world-a" data-affiliation="iga" data-thumb="img/oc/momochan/icon_momochan.png">
-      <a class="utau-badge" href="https://bowlroll.net/file/325820" target="_blank" rel="noopener noreferrer" title="UTAU配布ページへ"><span class="material-symbols-outlined">music_note</span></a>
+      <a class="utau-badge" href="https://bowlroll.net/file/325820" target="_blank" rel="noopener noreferrer" title="UTAU配布ページへ" aria-label="UTAU配布ページへ"><span class="material-symbols-outlined" aria-hidden="true">music_note</span></a>
       <div class="oc-head">
         <div class="oc-portrait-wrap">
           <div class="oc-portrait-stage">
@@ -828,7 +851,7 @@
         <div class="oc-info">
           <p class="oc-name"><ruby>百<rt>もも</rt></ruby>ちゃん</p>
           <p class="true-name" data-name="一花">
-            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            <span class="true-name-icon"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></span>
             真名: <span class="value"><ruby>一花<rt>イチカ</rt></ruby></span>
           </p>
           <dl class="oc-facts">
@@ -877,7 +900,7 @@
           「金。出して。早く。」</p>
         <div class="voice-row">
           <button type="button" class="voice-play" data-src="voice/momochan01.wav" title="ボイスサンプルを再生">
-            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="icon-circle"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
             <span class="voice-play-label">通常</span>
           </button>
         </div>
@@ -912,7 +935,7 @@
         <div class="oc-info">
           <p class="oc-name"><ruby>百<rt>もも</rt></ruby>くん</p>
           <p class="true-name" data-name="伍郎">
-            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            <span class="true-name-icon"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></span>
             真名: <span class="value"><ruby>伍郎<rt>ゴロウ</rt></ruby></span>
           </p>
           <dl class="oc-facts">
@@ -965,7 +988,7 @@
           ……少なくとも、本人の中では。</p>
         <div class="voice-row">
           <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
-            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="icon-circle"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
           </button>
         </div>
       </div>
@@ -999,7 +1022,7 @@
         <div class="oc-info">
           <p class="oc-name">とろろ<ruby>忍<rt>にん</rt></ruby></p>
           <p class="true-name" data-name="沓">
-            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            <span class="true-name-icon"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></span>
             真名: <span class="value"><ruby>沓<rt>ナツメ</rt></ruby></span>
           </p>
           <dl class="oc-facts">
@@ -1056,7 +1079,7 @@
           動物も、だいたい怒らない。</p>
         <div class="voice-row">
           <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
-            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="icon-circle"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
           </button>
         </div>
 
@@ -1064,7 +1087,7 @@
     </div>
 
     <div class="oc-card" id="locomoconin" data-world="world-a" data-affiliation="none" data-thumb="img/oc/locomoconin/icon_locomoconin.png">
-      <a class="utau-badge" href="https://bowlroll.net/file/333343" target="_blank" rel="noopener noreferrer" title="UTAU配布ページへ"><span class="material-symbols-outlined">music_note</span></a>
+      <a class="utau-badge" href="https://bowlroll.net/file/333343" target="_blank" rel="noopener noreferrer" title="UTAU配布ページへ" aria-label="UTAU配布ページへ"><span class="material-symbols-outlined" aria-hidden="true">music_note</span></a>
       <div class="oc-head">
         <div class="oc-portrait-wrap">
           <div class="oc-portrait-stage">
@@ -1092,7 +1115,7 @@
         <div class="oc-info">
           <p class="oc-name">ロコモコ<ruby>忍<rt>にん</rt></ruby></p>
           <p class="true-name" data-name="Solomon Corley">
-            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            <span class="true-name-icon"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></span>
             本名: <span class="value"><ruby>Solomon Corley<rt>ソロモン・コーリー</rt></ruby></span>
           </p>
           <dl class="oc-facts">
@@ -1144,7 +1167,7 @@
           日本語練習中！　がんばれ！</p>
         <div class="voice-row">
           <button type="button" class="voice-play" data-src="voice/locomoconin01.wav" title="ボイスサンプルを再生">
-            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="icon-circle"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
             <span class="voice-play-label">通常(楽)</span>
           </button>
         </div>
@@ -1179,7 +1202,7 @@
         <div class="oc-info">
           <p class="oc-name">おぼろ<ruby>忍<rt>にん</rt></ruby></p>
           <p class="true-name" data-name="煌">
-            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            <span class="true-name-icon"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></span>
             真名: <span class="value"><ruby>煌<rt>コウ</rt></ruby></span>
           </p>
           <dl class="oc-facts">
@@ -1231,7 +1254,7 @@
           ただ、そこにいるのかもしれないし……あ、いない。</p>
         <div class="voice-row">
           <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
-            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="icon-circle"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
           </button>
         </div>
 
@@ -1266,7 +1289,7 @@
         <div class="oc-info">
           <p class="oc-name">もろこ<ruby>忍<rt>にん</rt></ruby></p>
           <p class="true-name" data-name="煌">
-            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            <span class="true-name-icon"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></span>
             真名: <span class="value"><ruby>煌<rt>コウ</rt></ruby></span>
           </p>
           <dl class="oc-facts">
@@ -1321,7 +1344,7 @@
 
         <div class="voice-row">
           <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
-            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="icon-circle"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
           </button>
         </div>
 
@@ -1356,7 +1379,7 @@
         <div class="oc-info">
           <p class="oc-name">ほどろ<ruby>忍<rt>にん</rt></ruby></p>
           <p class="true-name" data-name="灸">
-            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            <span class="true-name-icon"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></span>
             真名: <span class="value"><ruby>灸<rt>ヤイト</rt></ruby></span>
           </p>
           <dl class="oc-facts">
@@ -1410,7 +1433,7 @@
           そう思っているのに、誰もまとまってくれない。</p>
         <div class="voice-row">
           <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
-            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="icon-circle"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
           </button>
         </div>
 
@@ -1445,7 +1468,7 @@
         <div class="oc-info">
           <p class="oc-name">おとも<ruby>忍<rt>にん</rt></ruby></p>
           <p class="true-name" data-name="陸">
-            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            <span class="true-name-icon"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></span>
             真名: <span class="value"><ruby>陸<rt>リク</rt></ruby></span>
           </p>
           <dl class="oc-facts">
@@ -1496,7 +1519,7 @@
           さっきまでそこで寝てただろ？　ふかふかすぎる。</p>
         <div class="voice-row">
           <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
-            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="icon-circle"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
           </button>
         </div>
 
@@ -1531,7 +1554,7 @@
         <div class="oc-info">
           <p class="oc-name">ももよ<ruby>忍<rt>にん</rt></ruby></p>
           <p class="true-name" data-name="岳">
-            <span class="true-name-icon"><span class="material-symbols-outlined">visibility</span></span>
+            <span class="true-name-icon"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></span>
             真名: <span class="value"><ruby>岳<rt>ガク</rt></ruby></span>
           </p>
           <dl class="oc-facts">
@@ -1582,7 +1605,7 @@
           理屈よりも、面白いほう。</p>
         <div class="voice-row">
           <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
-            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="icon-circle"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
           </button>
         </div>
 
@@ -1661,7 +1684,7 @@
           世界を動かすのに、神である必要は無い。</p>
         <div class="voice-row">
           <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
-            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="icon-circle"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
           </button>
         </div>
 
@@ -1742,7 +1765,7 @@
 
         <div class="voice-row">
           <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
-            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="icon-circle"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
           </button>
         </div>
 
@@ -1826,7 +1849,7 @@
         </p>
         <div class="voice-row">
           <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
-            <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
+            <span class="icon-circle"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
           </button>
         </div>
 
@@ -1841,7 +1864,7 @@
 </main>
 
 <!-- 右下の追従SDイラスト(表示中のキャラに連動。ロジックは mascot.js) -->
-<div id="mascot"><div class="mascot-inner"></div></div>
+<div id="mascot" aria-hidden="true"><div class="mascot-inner"></div></div>
 
 <script>
   // キャスト一覧を各キャラのdata-formsから自動生成
@@ -1868,6 +1891,7 @@
       a.href = '#' + card.id;
       a.className = 'cast-item';
       a.dataset.world = card.dataset.world;
+      a.dataset.card = card.id;
       a.style.display = card.dataset.world === 'world-a' ? 'flex' : 'none';
 
       const thumb = document.createElement('span');
@@ -1882,7 +1906,9 @@
       a.appendChild(label);
       a.addEventListener('click', function (e) {
         e.preventDefault();
+        if (a.classList.contains('cast-dim')) return; // 所属フィルターで外れているキャラ
         card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', '#' + card.id); // このキャラへのリンクとして共有できるように
       });
 
       indexEl.appendChild(a);
@@ -1899,6 +1925,14 @@
     const wrap = el.closest('.oc-portrait-wrap');
     const badge = wrap.querySelector('.portrait-badge');
     const costumeSelect = wrap.querySelector('.costume-select');
+    // 画像の代替テキスト用に、キャラ名(ルビは除く)を取っておく
+    const nameEl = el.closest('.oc-card').querySelector('.oc-name');
+    let charName = '';
+    if (nameEl) {
+      const nameClone = nameEl.cloneNode(true);
+      nameClone.querySelectorAll('rt').forEach(rt => rt.remove());
+      charName = nameClone.textContent.trim();
+    }
 
     let formIdx = 0;
     let costumeIdx = 0;
@@ -1953,6 +1987,7 @@
         b.type = 'button';
         b.textContent = c.label;
         if (i === costumeIdx) b.classList.add('active');
+        b.setAttribute('aria-pressed', i === costumeIdx ? 'true' : 'false');
         if (costumes.length > 1) {
           b.addEventListener('click', function (ev) {
             ev.stopPropagation(); // 立ち絵タップ(姿の切り替え)と混ざらないように
@@ -1976,6 +2011,7 @@
         if (!img) {
           img = document.createElement('img');
           img.alt = '';
+          img.loading = 'lazy';
           el.appendChild(img);
         }
         img.src = c.src;
@@ -1993,6 +2029,7 @@
       if (costumes.length > 1) label += '・' + c.label;
       if (!c.src) label += '(準備中)';
       badge.textContent = label;
+      if (img && c.src) img.alt = charName + '(' + label + ')';
 
       renderCostumeButtons();
     }
@@ -2001,7 +2038,8 @@
 
     if (formKeys.length > 1) {
       const poof = wrap.querySelector('.poof');
-      el.addEventListener('click', () => {
+
+      function switchForm() {
         if (poof) {
           poof.classList.remove('active');
           void poof.offsetWidth; // アニメーション再トリガー用
@@ -2014,6 +2052,18 @@
           costumeIdx = 0; // 姿を切り替えたら衣装選択もリセット
           render();
         }, 300);
+      }
+
+      // キーボード・スクリーンリーダーからも姿を切り替えられるようにする
+      el.setAttribute('role', 'button');
+      el.tabIndex = 0;
+      el.setAttribute('aria-label', charName + ': タップで' + formKeys.map(k => forms[k].label).join('/') + 'を切り替え');
+      el.addEventListener('click', switchForm);
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          switchForm();
+        }
       });
     } else {
       el.classList.add('single');
@@ -2062,12 +2112,25 @@
     });
   });
 
-  // 真名タップで開示
+  // 真名タップで開示(キーボードでも操作可)
   document.querySelectorAll('.true-name').forEach(el => {
-    el.addEventListener('click', () => {
+    el.setAttribute('role', 'button');
+    el.tabIndex = 0;
+    el.setAttribute('aria-pressed', 'false');
+
+    function toggleName() {
       el.classList.toggle('revealed');
-      const icon = el.querySelector('.material-symbols-outlined');
-      icon.textContent = el.classList.contains('revealed') ? 'visibility_off' : 'visibility';
+      const revealed = el.classList.contains('revealed');
+      el.setAttribute('aria-pressed', revealed ? 'true' : 'false');
+      el.querySelector('.material-symbols-outlined').textContent = revealed ? 'visibility_off' : 'visibility';
+    }
+
+    el.addEventListener('click', toggleName);
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleName();
+      }
     });
   });
 
@@ -2130,10 +2193,31 @@
     });
   }
 
+  // ボタンの見た目(.active)と、スクリーンリーダー向けの状態(aria-pressed)を揃える
+  function syncPressed(container) {
+    container.querySelectorAll('button').forEach(b => {
+      b.setAttribute('aria-pressed', b.classList.contains('active') ? 'true' : 'false');
+    });
+  }
+
+  // キャスト一覧: 今の世界観のキャラだけ表示。所属フィルターで外れているキャラは薄くしてタップ不可にする
   function refreshCastIndex() {
     document.querySelectorAll('.cast-item').forEach(el => {
-      el.style.display = el.dataset.world === currentWorld ? 'flex' : 'none';
+      const inWorld = el.dataset.world === currentWorld;
+      el.style.display = inWorld ? 'flex' : 'none';
+      const card = document.getElementById(el.dataset.card);
+      const dim = inWorld && card && !shouldShow(card);
+      el.classList.toggle('cast-dim', !!dim);
+      if (dim) el.setAttribute('tabindex', '-1'); else el.removeAttribute('tabindex');
     });
+  }
+
+  function clearAffils() {
+    activeAffils.clear();
+    affilFilters.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    syncPressed(affilFilters);
+    refreshCards(false);
+    refreshCastIndex();
   }
 
   affilFilters.addEventListener('click', function (e) {
@@ -2147,7 +2231,9 @@
       activeAffils.add(a);
       btn.classList.add('active');
     }
+    syncPressed(affilFilters);
     refreshCards(true);
+    refreshCastIndex();
 
     // スクロール位置によっては絞り込み結果が画面外になり、何が変わったか
     // わからなくなることがあるので、キャスト一覧の先頭が見える位置に寄せる
@@ -2163,28 +2249,63 @@
     // 所属フィルターは世界観を切り替えるたびにリセットする
     activeAffils.clear();
     affilFilters.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    syncPressed(affilFilters);
     affilFilters.style.display = world === 'world-a' ? 'flex' : 'none';
 
     refreshCastIndex();
     refreshCards(false);
   }
 
+  // 世界観ボタンを選んで切り替える(クリックとディープリンクの両方から使う)
+  function selectWorld(world) {
+    worldFilters.querySelectorAll('button').forEach(b => b.classList.toggle('active', b.dataset.world === world));
+    syncPressed(worldFilters);
+    applyWorldFilter(world);
+    if (window.updateMascot) window.updateMascot(); // マスコットもキャラ連動なので、世界観切り替え時に選び直す
+  }
+
   worldFilters.addEventListener('click', function (e) {
     const btn = e.target.closest('button');
     if (!btn) return;
-    const world = btn.dataset.world;
-
-    worldFilters.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    applyWorldFilter(world);
-    if (window.updateMascot) window.updateMascot(); // マスコットもキャラ連動なので、世界観切り替え時に選び直す
+    selectWorld(btn.dataset.world);
   });
+
+  // ▼ディープリンク▼ oc.html#キャラID で、そのキャラの世界観を開いて位置まで移動する
+  // (キャスト一覧をタップしたときも URL の # が更新されるので、そのURLをそのまま共有できます)
+  function openFromHash(smooth) {
+    let id = '';
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch (err) { return false; }
+    const card = id ? document.getElementById(id) : null;
+    if (!card || !card.classList.contains('oc-card')) return false;
+
+    if (card.dataset.world !== currentWorld) selectWorld(card.dataset.world);
+    else if (!shouldShow(card)) clearAffils(); // 所属フィルターで隠れていたら解除する
+
+    card.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+    return true;
+  }
+
+  window.addEventListener('hashchange', () => openFromHash(true));
 
   // ページ読み込み時にも、今アクティブなボタンの世界観で一度絞り込んでおく
   // (これが無いと、リロード直後は誰もフィルターされず全員表示されてしまう)
   const initialWorldBtn = worldFilters.querySelector('button.active') || worldFilters.querySelector('button');
-  if (initialWorldBtn) applyWorldFilter(initialWorldBtn.dataset.world);
+  if (initialWorldBtn) {
+    applyWorldFilter(initialWorldBtn.dataset.world);
+    syncPressed(worldFilters);
+  }
+
+  if (location.hash && openFromHash(false)) {
+    // フォントの読み込みで文字の高さが変わると位置がずれるので、
+    // まだ自分でスクロールしていなければ、読み込み後にもう一度合わせる
+    let userScrolled = false;
+    ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(t => {
+      window.addEventListener(t, () => { userScrolled = true; }, { once: true, passive: true });
+    });
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => { if (!userScrolled) openFromHash(false); });
+    }
+  }
 
   // ▼SDイラストの追加方法▼
   // img/oc/sd/ フォルダに画像を置いて、キャラIDごとに配列で登録してください

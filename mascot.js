@@ -44,10 +44,10 @@ document.addEventListener('DOMContentLoaded', function () {
       const pick = pool[Math.floor(Math.random() * pool.length)];
       const img = document.createElement('img');
       img.src = pick;
-      img.alt = 'OC SDイラスト';
+      img.alt = ''; // 装飾なので読み上げない
       mascotInner.appendChild(img);
     } else {
-      mascotInner.innerHTML = '<div class="mascot-placeholder"><span class="material-symbols-outlined">pets</span></div>';
+      mascotInner.innerHTML = '<div class="mascot-placeholder"><span class="material-symbols-outlined" aria-hidden="true">pets</span></div>';
     }
   }
   window.updateMascot = updateMascot;
