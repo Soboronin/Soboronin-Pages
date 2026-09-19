@@ -224,6 +224,49 @@
     gap: 28px;
   }
 
+  /* 各カード下の「↑ 一覧へ」 */
+  #worldFilters { scroll-margin-top: 16px; }
+
+  .oc-foot {
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+    margin-top: 8px;
+  }
+
+  .oc-foot-btn {
+    padding: 7px 10px;
+    border: none;
+    border-radius: 8px;
+    background: none;
+    font: inherit;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--ink-dim);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+
+  .oc-foot-btn:hover { color: var(--ink); }
+
+  .oc-foot-btn:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 1px;
+  }
+
+  /* oc-data.js に書き間違いがあるときだけ出る注意書き */
+  .oc-notice {
+    padding: 12px 16px;
+    border: 2px dashed var(--card-border);
+    border-radius: 12px;
+    background: #fff;
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .oc-notice strong { display: block; margin-bottom: 4px; }
+  .oc-notice ul { margin: 0; padding-left: 1.3em; }
+
   .oc-card {
     position: relative;
     background: #fff;
@@ -680,8 +723,29 @@
   // oc-data.js の内容から、世界観ボタン・所属ボタン・キャラクターカードを作る
   // (この後ろのスクリプトは、ここで作られた要素を使って動きます)
   (function renderFromData() {
+    // 書き間違いがあっても、ページ全体が空にならないようにする。
+    // 見つかった問題は、コンソールと、リスト上部の注意書きに出す
+    const problems = [];
+    const list = document.getElementById('ocList');
+
+    function showProblems() {
+      if (!problems.length) return;
+      problems.forEach(p => console.warn('[oc-data.js] ' + p));
+      if (!list) return;
+      const box = document.createElement('div');
+      box.className = 'oc-notice';
+      box.setAttribute('role', 'alert');
+      box.innerHTML = '<strong>oc-data.js に確認が必要な箇所があります</strong><ul>' +
+        problems.map(p => '<li>' + String(p).replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</li>').join('') + '</ul>';
+      list.insertBefore(box, list.firstChild);
+    }
+
     const data = window.OC_DATA;
-    if (!data) return;
+    if (!data || !Array.isArray(data.characters)) {
+      problems.push('oc-data.js を読み込めませんでした(ファイルが無い、または書き方に間違いがあります)。ブラウザのコンソールに、間違いの場所が出ています。');
+      showProblems();
+      return;
+    }
 
     const esc = s => String(s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -768,7 +832,7 @@
             '<div class="costume-select"></div>' +
           '</div>' +
           '<div class="oc-info">' +
-            '<p class="oc-name">' + ruby(c.name) + '</p>' +
+            '<h2 class="oc-name">' + ruby(c.name) + '</h2>' +
             (c.trueName
               ? '<p class="true-name"><span class="true-name-icon">' + ICON('visibility') + '</span>' + esc(c.trueNameLabel || '真名') + ': <span class="value">' + ruby(c.trueName) + '</span></p>'
               : '') +
@@ -780,11 +844,99 @@
           '<p>' + (c.desc || []).map(ruby).join('<br>') + '</p>' +
           voiceRow(c) +
         '</div>' +
+        // キャスト一覧に戻る導線(長いページなので)
+        '<div class="oc-foot">' +
+          '<a class="oc-foot-btn" href="#worldFilters" data-act="to-list">↑ 一覧へ</a>' +
+        '</div>' +
       '</div>';
     }
 
-    const list = document.getElementById('ocList');
-    if (list) list.innerHTML = (data.characters || []).map(cardHtml).join('');
+    // --- 入力チェック ---
+    const KNOWN_KEYS = ['id', 'world', 'affiliation', 'thumb', 'utau', 'name', 'trueName', 'trueNameLabel',
+      'forms', 'facts', 'likes', 'dislikes', 'hobbies', 'skills', 'desc', 'voices', 'sd'];
+    const ARRAY_KEYS = ['facts', 'likes', 'dislikes', 'hobbies', 'skills', 'desc', 'voices', 'sd'];
+    const worldIds = (data.worlds || []).map(w => w && w.id);
+    const seenIds = {};
+
+    if (!Array.isArray(data.worlds) || data.worlds.length === 0) {
+      problems.push('worlds が空か、配列になっていません(世界観ボタンが出ません)');
+    }
+
+    // 戻り値: { label, fatal(このキャラを表示できない理由), warns(表示はするが直したほうがいい点) }
+    function validate(c, n) {
+      const v = { label: n + '番目のキャラ', fatal: '', warns: [] };
+      if (!c || typeof c !== 'object' || Array.isArray(c)) {
+        v.fatal = 'キャラのデータが { ... } の形になっていません';
+        return v;
+      }
+      if (c.id) v.label = 'id「' + c.id + '」';
+      if (typeof c.id !== 'string' || !/^[A-Za-z0-9_-]+$/.test(c.id)) {
+        v.fatal = 'id が空、または半角英数(- _ 可)ではありません';
+        return v;
+      }
+      if (seenIds[c.id]) {
+        v.fatal = 'id が他のキャラと重複しています';
+        return v;
+      }
+      seenIds[c.id] = true;
+
+      if (worldIds.indexOf(c.world) < 0) v.warns.push('world「' + c.world + '」が worlds にありません(このキャラはどの世界観にも表示されません)');
+      if (c.affiliation !== undefined && !(data.affiliations && data.affiliations[c.affiliation])) {
+        v.warns.push('affiliation「' + c.affiliation + '」が affiliations にありません');
+      }
+      if (typeof c.name !== 'string' || !c.name) v.warns.push('name がありません');
+      Object.keys(c).forEach(k => {
+        if (KNOWN_KEYS.indexOf(k) < 0) v.warns.push('「' + k + '」という項目は使われません(書き間違いではありませんか?)');
+      });
+      for (const k of ARRAY_KEYS) {
+        if (c[k] !== undefined && !Array.isArray(c[k])) {
+          v.fatal = k + ' は [ ... ] の配列で書いてください';
+          return v;
+        }
+      }
+      (c.facts || []).forEach(f => {
+        if (!Array.isArray(f) || f.length !== 2) v.warns.push('facts は [\'項目名\', \'内容\'] の形で書いてください');
+      });
+      if (c.forms !== undefined) {
+        // 立ち絵の書き方が違うと、後ろの立ち絵の処理でエラーになるので、
+        // その場合は立ち絵を「準備中」表示にして、他の部分は表示する
+        let ok = !!c.forms && typeof c.forms === 'object' && !Array.isArray(c.forms);
+        if (!ok) {
+          v.warns.push('forms の書き方が違います(human / nonhuman を持つ { ... } にしてください)');
+        } else {
+          Object.keys(c.forms).forEach(fk => {
+            const f = c.forms[fk];
+            if (!f || typeof f.label !== 'string' || !Array.isArray(f.costumes) || !f.costumes.every(x => x && typeof x === 'object')) {
+              ok = false;
+              v.warns.push('forms.' + fk + ' には label と、{ src, label } を並べた costumes([ ... ])が必要です');
+            }
+          });
+        }
+        if (!ok) {
+          v.badForms = true;
+          v.warns.push('立ち絵は「準備中」表示にしています');
+        }
+      }
+      return v;
+    }
+
+    const cards = [];
+    data.characters.forEach((c, i) => {
+      const v = validate(c, i + 1);
+      v.warns.forEach(w => problems.push(v.label + ': ' + w));
+      if (v.fatal) {
+        problems.push(v.label + ': ' + v.fatal + '(このキャラは表示していません)');
+        return;
+      }
+      try {
+        cards.push(cardHtml(v.badForms ? Object.assign({}, c, { forms: {} }) : c));
+      } catch (err) {
+        problems.push(v.label + ': 表示中にエラーになりました(' + err.message + ')。このキャラは表示していません');
+      }
+    });
+
+    if (list) list.insertAdjacentHTML('beforeend', cards.join(''));
+    showProblems();
   })();
 </script>
 
@@ -1227,6 +1379,19 @@
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(() => { if (!userScrolled) openFromHash(false); });
     }
+  }
+
+  // 各カード下の「↑ 一覧へ」
+  const ocListEl = document.getElementById('ocList');
+  if (ocListEl) {
+    ocListEl.addEventListener('click', function (e) {
+      const btn = e.target.closest('.oc-foot-btn');
+      if (!btn) return;
+      e.preventDefault();
+      const top = document.getElementById('worldFilters');
+      if (top) top.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.replaceState(null, '', location.pathname + location.search); // カードの # を外す
+    });
   }
 
   // SDイラストは oc-data.js の各キャラの sd に登録します(複数書くとランダムに出ます)。

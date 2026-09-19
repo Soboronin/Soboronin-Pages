@@ -120,12 +120,21 @@
     flex: none;
     width: 100%;
     aspect-ratio: 1 / 1;
-    background-size: cover;
-    background-position: center;
+    overflow: hidden;
     border-bottom: 2.5px solid var(--card-border);
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  /* サムネイル画像(背景画像ではなく <img> にして、画面外の画像を後から読み込めるようにしている) */
+  .art-thumb > .art-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 
   /* 画像未設定のプレースホルダー用 */
@@ -288,8 +297,9 @@
        - data-title を作品名やコメントに変更
        - data-category をカテゴリ名(video / illust / logo / live2d、複数可はスペース区切り)に変更
        - .art-thumb から class="placeholder" を外し、
-         style="background-image:url('img/works/xxxx.jpg')" を追加
+         <img class="art-img" src="img/works/xxxx.jpg" alt="" loading="lazy" decoding="async"> を入れる
        - 中の <span class="material-symbols-outlined"> は削除
+       (GIFもそのままでOKです。サムネイルの画像は正方形に切り抜いて表示されます)
 
     ▼動画カードの場合▼
     - <button> に data-type="video" data-video="YouTube動画ID" を追加
@@ -337,77 +347,88 @@
     </button>
 
     <button type="button" class="art-card" data-title="一枚絵・立ち絵" data-category="illust" data-type="illust" data-video="">
-      <span class="art-thumb" style="background-image:url('img/works/works01.png')">
+      <span class="art-thumb">
+        <img class="art-img" src="img/works/works01.png" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">一枚絵・立ち絵</span>
     </button>
 
     <button type="button" class="art-card" data-title="一枚絵・衣装デザイン" data-category="illust">
-      <span class="art-thumb" style="background-image:url('img/works/works11.png')">
+      <span class="art-thumb">
+        <img class="art-img" src="img/works/works11.png" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">一枚絵・衣装デザイン</span>
     </button>
 
     <button type="button" class="art-card" data-title="一枚絵・衣装デザイン" data-category="illust">
-      <span class="art-thumb" style="background-image:url('img/works/works08.png')">
+      <span class="art-thumb">
+        <img class="art-img" src="img/works/works08.png" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># 厚塗り</span></span>
       </span>
       <span class="art-caption">一枚絵・衣装デザイン</span>
     </button>
 
     <button type="button" class="art-card" data-title="終了画面" data-category="illust animation" data-type="illust" data-video="">
-      <span class="art-thumb" style="background-image:url('img/works/works05.gif')">
+      <span class="art-thumb">
+        <img class="art-img" src="img/works/works05.gif" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">終了画面</span>
     </button>
 
     <button type="button" class="art-card" data-title="ゆるSD" data-category="illust">
-      <span class="art-thumb" style="background-image:url('img/works/works03.png')">
+      <span class="art-thumb">
+        <img class="art-img" src="img/works/works03.png" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">ゆるSD</span>
     </button>
 
     <button type="button" class="art-card" data-title="SD タイプA" data-category="illust">
-      <span class="art-thumb" style="background-image:url('img/works/works07.png')">
+      <span class="art-thumb">
+        <img class="art-img" src="img/works/works07.png" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">SD タイプA</span>
     </button>
 
     <button type="button" class="art-card" data-title="SD タイプB" data-category="illust">
-      <span class="art-thumb" style="background-image:url('img/works/works09.png')">
+      <span class="art-thumb">
+        <img class="art-img" src="img/works/works09.png" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">SD タイプB</span>
     </button>
 
     <button type="button" class="art-card" data-title="立ち絵" data-category="illust">
-      <span class="art-thumb" style="background-image:url('img/works/works04.png')">
+      <span class="art-thumb">
+        <img class="art-img" src="img/works/works04.png" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">立ち絵</span>
     </button>
 
     <button type="button" class="art-card" data-title="立ち絵・衣装デザイン" data-category="illust">
-      <span class="art-thumb" style="background-image:url('img/works/works02.png')">
+      <span class="art-thumb">
+        <img class="art-img" src="img/works/works02.png" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># 厚塗り</span></span>
       </span>
       <span class="art-caption">立ち絵・衣装デザイン</span>
     </button>
 
     <button type="button" class="art-card" data-title="立ち絵・キャラクターデザイン" data-category="illust">
-      <span class="art-thumb" style="background-image:url('img/works/works10.png')">
+      <span class="art-thumb">
+        <img class="art-img" src="img/works/works10.png" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># 厚塗り</span></span>
       </span>
       <span class="art-caption">立ち絵・キャラクターデザイン</span>
     </button>
 
     <button type="button" class="art-card" data-title="サムネイル・ロゴ" data-category="illust" data-type="illust" data-video="">
-      <span class="art-thumb" style="background-image:url('img/works/works06.png')">
+      <span class="art-thumb">
+        <img class="art-img" src="img/works/works06.png" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">サムネイル・ロゴ</span>
@@ -469,10 +490,20 @@
 
   // サムネイル画像を設定する(プレースホルダー用の大きいアイコン(movie/campaignなど)は隠す)
   function setThumb(thumb, url) {
-    thumb.style.backgroundImage = `url('${url}')`;
+    let img = thumb.querySelector(':scope > .art-img');
+    if (!img) {
+      img = document.createElement('img');
+      img.className = 'art-img';
+      img.alt = '';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      thumb.insertBefore(img, thumb.firstChild);
+    }
+    img.src = url;
     thumb.classList.remove('placeholder');
     const bigIcon = thumb.querySelector(':scope > .material-symbols-outlined');
     if (bigIcon) bigIcon.style.display = 'none';
+    return img;
   }
 
   // data-thumb でサムネイル画像を個別指定できる(動画カードでも、画像カードでも可)
@@ -485,22 +516,24 @@
     const id = cleanVideoId(card.dataset.video);
     if (!id) return; // 動画IDが未設定のカードはプレースホルダーのまま
     const thumb = card.querySelector('.art-thumb');
-    thumb.style.backgroundImage = `url('https://img.youtube.com/vi/${id}/maxresdefault.jpg')`;
-    thumb.classList.remove('placeholder');
+    const img = setThumb(thumb, `https://img.youtube.com/vi/${id}/maxresdefault.jpg`);
     // maxresdefault が存在しない動画は120x90のダミー画像が返ってくる(エラーにはならない)ので、
-    // 画像サイズを見て判定し、無ければ標準画質にフォールバックする
-    const probe = new Image();
-    probe.onload = function () {
-      if (probe.naturalWidth <= 120) {
-        thumb.style.backgroundImage = `url('https://img.youtube.com/vi/${id}/hqdefault.jpg')`;
+    // 読み込んだ画像のサイズを見て判定し、無ければ標準画質にフォールバックする
+    img.addEventListener('load', function () {
+      if (img.naturalWidth <= 120 && !img.dataset.fallback) {
+        img.dataset.fallback = '1';
+        img.src = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
       }
-    };
-    probe.src = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
-    // プレースホルダー用の大きいアイコン(movie/campaignなど)は不要になるので隠す
-    // (再生ボタンのバッジ .play-badge はそのまま残す)
-    const bigIcon = thumb.querySelector(':scope > .material-symbols-outlined');
-    if (bigIcon) bigIcon.style.display = 'none';
+    });
   });
+
+  // 読み込めなかった画像は、壊れた画像のアイコンを出さずに隠す
+  function hideIfBroken(img) {
+    const hide = () => { img.style.visibility = 'hidden'; };
+    img.addEventListener('error', hide);
+    if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) hide();
+  }
+  gallery.querySelectorAll('.art-img').forEach(hideIfBroken);
 
   const activeFilters = new Set();
 
@@ -568,9 +601,8 @@
       lightboxVideo.style.display = 'block';
       lightboxVideo.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1';
     } else {
-      const thumb = card.querySelector('.art-thumb');
-      const bg = thumb.style.backgroundImage;
-      const url = bg.slice(5, -2); // url("...") から中身を取り出す
+      const thumbImg = card.querySelector('.art-thumb > .art-img');
+      const url = thumbImg ? thumbImg.getAttribute('src') : '';
       lightboxVideo.style.display = 'none';
       lightboxVideo.src = '';
       lightboxImg.style.display = 'block';

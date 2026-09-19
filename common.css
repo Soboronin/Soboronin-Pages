@@ -6,7 +6,7 @@
   --bg: #faf6ee;
   --ink: #201c16;
   --ink-dim: #6b6559;
-  --ink-mute: #9a9284;
+  --ink-mute: #797265; /* 白背景で 4.8:1(以前の #9a9284 は 3.1:1 で、小さい文字には薄すぎた) */
   --card-border: #201c16;
   --yellow: #ffd23f;
   --teal: #37b7a4;

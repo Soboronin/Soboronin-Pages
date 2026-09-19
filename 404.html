@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<!-- GitHub Pages は、存在しないURLを開かれると、このファイルを表示します。
+     どんな深さのURL(例: /Soboronin-Pages/a/b/c)で表示されても CSS・画像・リンクが読めるように、
+     <base> でサイトの場所を指定しています。リポジトリ名を変えたときは、ここも変更してください。 -->
+<base href="/Soboronin-Pages/">
+<script>
+  // 手元での確認用: 公開先(/Soboronin-Pages/ の下)以外で開いたときは、<base> を切り替える
+  //   ・ファイルを直接開いた(file://)  → このファイルと同じフォルダ
+  //   ・ローカルサーバーで開いた        → サーバーのいちばん上(/)
+  (function () {
+    var base = document.querySelector('base');
+    if (location.protocol === 'file:') {
+      base.href = location.href.replace(/[^/]*$/, '');
+    } else if (location.pathname.indexOf('/Soboronin-Pages/') !== 0) {
+      base.href = location.origin + '/';
+    }
+  })();
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ4Q495FTY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SQ4Q495FTY');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#faf6ee">
+<link rel="icon" href="img/icon_soboronin.png" type="image/png">
+<link rel="apple-touch-icon" href="img/icon_soboronin.png">
+<title>ページが見つかりません | そぼろ忍</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
+<!-- アイコンは使うものだけを読み込んでいます。新しいアイコンを使うときは、
+     icon_names にその名前を追加してください(アルファベット順・全ページ共通の同じURLにすると、ブラウザのキャッシュが効きます) -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=casino,checklist,close,content_copy,edit,favorite,format_align_left,ink_pen,mail,more_horiz,movie,music_note,pause,pets,photo,play_arrow,shuffle,sms,swap_horiz,swords,tv_gen,visibility,visibility_off,web_stories&display=block" />
+<link rel="stylesheet" href="common.css" />
+<link rel="stylesheet" href="mascot.css" />
+<style>
+  header { margin-bottom: 8px; }
+
+  .quote {
+    margin: 18px 0 0;
+    font-size: 12.5px;
+    color: var(--ink-mute);
+  }
+
+  .home-btn {
+    display: inline-block;
+    margin-top: 28px;
+    padding: 12px 22px;
+    border: 2.5px solid var(--card-border);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 3px 3px 0 var(--card-border);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+
+  .home-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--card-border);
+  }
+
+  .home-btn:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  footer {
+    margin-top: 60px;
+    text-align: center;
+    color: var(--ink-dim);
+    font-size: 11.5px;
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="nav-tabs" aria-label="サイト内メニュー">
+    <a href="index.html">ホーム</a>
+    <a href="tools.html">ツール配布</a>
+    <a href="portfolio.html">ポートフォリオ</a>
+    <a href="oc.html">OC</a>
+  </nav>
+
+  <header>
+    <span class="badge">404 NOT FOUND</span>
+    <h1>ページが<br>みつかりません</h1>
+    <p class="lede">URLが間違っているか、ページが移動した可能性があります。</p>
+    <p class="quote">どうしてこんなところまで見にきた？</p>
+  </header>
+
+  <a class="home-btn" href="index.html">ホームへ戻る</a>
+
+  <footer>
+    <p>そぼろ忍</p>
+  </footer>
+</main>
+
+<!-- 右下の追従SDイラスト -->
+<div id="mascot" aria-hidden="true"><div class="mascot-inner"></div></div>
+<script src="mascot.js"></script>
+
+</body>
+</html>

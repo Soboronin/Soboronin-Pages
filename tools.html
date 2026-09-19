@@ -114,14 +114,17 @@
     margin: 0;
   }
 
+  /* 準備中カード: 全体を透かすと文字のコントラストが足りなくなる(2.4:1)ので、
+     透かさずに、点線の枠・影なし・薄めの文字色で「まだ押せない」ことを表す */
   .card.soon {
     background: transparent;
     border-style: dashed;
     box-shadow: none;
-    opacity: 0.6;
     pointer-events: none;
     padding: 22px 24px;
   }
+
+  .card.soon .card-title { color: var(--ink-dim); }
 
   .card.soon .icon {
     background: transparent;
