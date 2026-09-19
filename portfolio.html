@@ -51,7 +51,8 @@
 
   .nav-tabs {
     display: flex;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
     margin-bottom: 32px;
   }
 
@@ -321,6 +322,11 @@
 
   /* --- 右下の追従SDイラスト(mascot.css に切り出し済み) --- */
 
+  @media (max-width: 480px) {
+    body { padding: 40px 14px; }
+    .nav-tabs a { padding: 7px 12px; font-size: 12px; }
+    h1 { font-size: 24px; }
+  }
 </style>
 </head>
 <body>
@@ -427,14 +433,14 @@
       <span class="art-caption">ゆるSD</span>
     </a>
 
-    <a class="art-card" href="#" data-title="SD" data-category="illust">
+    <a class="art-card" href="#" data-title="SD タイプA" data-category="illust">
       <span class="art-thumb" style="background-image:url('img/works/works07.png')">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">SD タイプA</span>
     </a>
 
-    <a class="art-card" href="#" data-title="SD" data-category="illust">
+    <a class="art-card" href="#" data-title="SD タイプB" data-category="illust">
       <span class="art-thumb" style="background-image:url('img/works/works09.png')">
       <span class="style-tags"><span># シンプル</span></span>
       </span>

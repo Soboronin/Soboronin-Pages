@@ -118,17 +118,21 @@
     background: #fff;
     color: var(--ink);
     cursor: pointer;
+    box-shadow: 2px 2px 0 var(--card-border);
   }
 
   .world-filters button.active {
     background: var(--ink);
     color: var(--bg);
+    box-shadow: none;
+    transform: translate(2px, 2px);
   }
 
   /* --- キャスト一覧(タップでそのキャラまでジャンプ) --- */
   .cast-index {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 14px;
     margin-bottom: 28px;
   }
@@ -171,6 +175,7 @@
   .affil-filters {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 8px;
     margin: 0 0 22px;
   }
@@ -185,11 +190,14 @@
     background: #fff;
     color: var(--ink);
     cursor: pointer;
+    box-shadow: 2px 2px 0 var(--card-border);
   }
 
   .affil-filters button.active {
     background: var(--ink);
     color: var(--bg);
+    box-shadow: none;
+    transform: translate(2px, 2px);
   }
 
   .oc-card {
@@ -475,11 +483,14 @@
     background: #fff;
     color: var(--ink);
     cursor: pointer;
+    box-shadow: 1.5px 1.5px 0 var(--card-border);
   }
 
   .costume-select button.active {
     background: var(--ink);
     color: var(--bg);
+    box-shadow: none;
+    transform: translate(1.5px, 1.5px);
   }
 
   .costume-select button:disabled {
@@ -799,7 +810,7 @@
                  "human": {
                    "label": "変化",
                    "costumes": [
-                     {"src": "img/oc/soboronin/soboronin_h_01.png", "label": "デフォルト"},
+                     {"src": "img/oc/soboronin/soboronin_h_01.png", "label": "通常"},
                      {"src": "img/oc/soboronin/soboronin_h_02.png", "label": "寝巻"},
                      {"src": "img/oc/soboronin/soboronin_h_03.png", "label": "チャイナ"},
                      {"src": "img/oc/soboronin/soboronin_h_04.png", "label": "サイバーパンク"},
@@ -813,7 +824,7 @@
                  "nonhuman": {
                    "label": "通常",
                    "costumes": [
-                     {"src": "img/oc/soboronin/soboronin_n_01.png", "label": "デフォルト", "scale": 1}
+                     {"src": "img/oc/soboronin/soboronin_n_01.png", "label": "通常", "scale": 1.6}
                    ]
                  }
                }'>
@@ -879,7 +890,7 @@
           嘘つきで他人の不幸を面白がる一方、感情は顔に出やすい。<br>
           幼少期、一族の教えで儀式的に羽を捥がれており、今はただ傷が残るだけである。<br>
           信仰心が高くない仏教徒。<br><br>
-          もう全部、滅茶苦茶だ！
+          もう全部、滅茶苦茶になっている。
         </p>
         <div class="voice-row">
           <button type="button" class="voice-play" data-src="voice/soboronin01.wav" title="ボイスサンプルを再生">
@@ -908,13 +919,13 @@
                  "human": {
                    "label": "変化",
                    "costumes": [
-                     {"src": "img/oc/momochan/momochan_h_01.png", "label": "デフォルト"}
+                     {"src": "img/oc/momochan/momochan_h_01.png", "label": "通常"}
                    ]
                  },
                  "nonhuman": {
                    "label": "通常",
                    "costumes": [
-                     {"src": "img/oc/momochan/momochan_n_01.png", "label": "デフォルト"}
+                     {"src": "img/oc/momochan/momochan_n_01.png", "label": "通常"}
                    ]
                  }
                }'>
@@ -992,13 +1003,13 @@
                  "human": {
                    "label": "変化",
                    "costumes": [
-                     {"src": "img/oc/momokun/momokun_h_01.png", "label": "デフォルト"}
+                     {"src": "img/oc/momokun/momokun_h_01.png", "label": "通常"}
                    ]
                  },
                  "nonhuman": {
                    "label": "通常",
                    "costumes": [
-                     {"src": "", "label": "デフォルト"}
+                     {"src": "", "label": "通常"}
                    ]
                  }
                }'>
@@ -1151,7 +1162,8 @@
           里を離れて教会(たぶん、跡地)で暮らしながら、平穏な毎日を望んでいる。<br>
           幼少期、一族の教えで儀式的に羽を捥がれており、今はただ傷が残るだけである。<br>
           動物に好かれやすい。<br><br>
-          「いないってば～……」</p>
+          植物は怒らない。<br>
+          動物も、だいたい怒らない。</p>
         <div class="voice-row">
           <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
             <span class="icon-circle"><span class="material-symbols-outlined">play_arrow</span></span>
@@ -1171,13 +1183,13 @@
                  "human": {
                    "label": "変化",
                    "costumes": [
-                     {"src": "img/oc/locomoconin/locomoconin_h_01.png", "label": "デフォルト"}
+                     {"src": "img/oc/locomoconin/locomoconin_h_01.png", "label": "通常"}
                    ]
                  },
                  "nonhuman": {
                    "label": "通常",
                    "costumes": [
-                     {"src": "img/oc/locomoconin/locomoconin_n_01.png", "label": "デフォルト"}
+                     {"src": "img/oc/locomoconin/locomoconin_n_01.png", "label": "通常"}
                    ]
                  }
                }'>
@@ -2221,6 +2233,13 @@
       btn.classList.add('active');
     }
     applyAffilFilter();
+
+    // スクロール位置によっては絞り込み結果が画面外になり、何が変わったか
+    // わからなくなることがあるので、キャスト一覧の先頭が見える位置に寄せる
+    const castIndexEl = document.getElementById('castIndex');
+    if (castIndexEl) {
+      castIndexEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   });
 
   function applyWorldFilter(world) {
