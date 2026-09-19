@@ -20,94 +20,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<link rel="stylesheet" href="common.css" />
 <link rel="stylesheet" href="mascot.css" />
 <style>
-  :root {
-    --bg: #faf6ee;
-    --ink: #201c16;
-    --ink-dim: #6b6559;
-    --card-border: #201c16;
-    --yellow: #ffd23f;
-    --teal: #37b7a4;
-    --pink: #ff6b7a;
-    --purple: #b98aef;
-    --orange: #ffa94d;
-    --green: #8bc76b;
-  }
-
-  * { box-sizing: border-box; }
-
-  body {
-    margin: 0;
-    min-height: 100vh;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
-    display: flex;
-    justify-content: center;
-    padding: 60px 20px;
-    animation: fadein 0.15s ease;
-  }
-
-  @keyframes fadein {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  main { width: 100%; max-width: 560px; }
-  /* 幅はindex.htmlと統一(560px) */
-
-  .nav-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 32px;
-  }
-
-  .nav-tabs a {
-    padding: 8px 16px;
-    border: 2.5px solid var(--card-border);
-    border-radius: 999px;
-    font-weight: 700;
-    font-size: 13px;
-    text-decoration: none;
-    color: var(--ink);
-    background: #fff;
-  }
-
-  .nav-tabs a.active {
-    background: var(--ink);
-    color: var(--bg);
-  }
-
   header { margin-bottom: 36px; }
-
-  .badge {
-    display: inline-block;
-    background: var(--ink);
-    color: var(--bg);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    padding: 4px 10px;
-    border-radius: 999px;
-    margin-bottom: 14px;
-  }
-
-  h1 {
-    font-size: 28px;
-    font-weight: 900;
-    letter-spacing: -0.01em;
-    margin: 0 0 10px;
-    line-height: 1.25;
-  }
-
-  .lede {
-    color: var(--ink-dim);
-    font-size: 14px;
-    line-height: 1.8;
-    margin: 0;
-  }
 
   .tools {
     display: flex;
@@ -223,11 +139,6 @@
 
   /* --- 右下の追従SDイラスト(mascot.css に切り出し済み) --- */
 
-  @media (max-width: 480px) {
-    body { padding: 40px 14px; }
-    .nav-tabs a { padding: 7px 12px; font-size: 12px; }
-    h1 { font-size: 24px; }
-  }
 </style>
 </head>
 <body>

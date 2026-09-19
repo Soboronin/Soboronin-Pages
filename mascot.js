@@ -1,12 +1,15 @@
-// 右下の追従SDイラスト(汎用版: index.html / tools.html / portfolio.html で使用)
-// oc.html だけはキャラ連動の特別なロジックがあるので、そちらはページ内に直接書いてあります。
+// 右下の追従SDイラスト(全ページ共通: index / tools / portfolio / oc)
 //
 // ▼SDイラストの追加方法▼
-// img/oc/sd/ フォルダに画像を置いて、下の配列にパスを追加してください
+// 下の配列にパスを追加してください(img/oc/キャラ名/ フォルダに画像を置く想定)
 const sdImages = [
   'img/oc/soboronin/soboronin_sd_01.png',
-  // 'img/oc/sd/tororo_sd02.png',
+  // 'img/oc/soboronin/soboronin_sd_02.png',
 ];
+
+// ▼ページ側で候補を差し替えたい場合(oc.html のキャラ連動など)▼
+// window.mascotGetPool = () => ['画像パス', ...]; を定義しておくと、上の配列の代わりに使われます。
+// 世界観の切り替えなどで選び直したいときは window.updateMascot() を呼んでください。
 
 document.addEventListener('DOMContentLoaded', function () {
   const mascotEl = document.getElementById('mascot');
@@ -19,11 +22,26 @@ document.addEventListener('DOMContentLoaded', function () {
     mascotEl.style.setProperty('--mascot-tilt', deg + 'deg');
   }
 
+  function currentPool() {
+    return typeof window.mascotGetPool === 'function' ? window.mascotGetPool() : sdImages;
+  }
+
+  // タップしたときの「ぽよん」。アニメーションを最初からやり直す
+  function bounce() {
+    mascotInner.classList.remove('mascot-tap');
+    void mascotInner.offsetWidth; // 再トリガー用
+    mascotInner.classList.add('mascot-tap');
+  }
+  mascotInner.addEventListener('animationend', function (e) {
+    if (e.animationName === 'poyo-tap') mascotInner.classList.remove('mascot-tap');
+  });
+
   function updateMascot() {
+    const pool = currentPool();
     mascotInner.innerHTML = '';
     randomTilt();
-    if (sdImages.length > 0) {
-      const pick = sdImages[Math.floor(Math.random() * sdImages.length)];
+    if (pool.length > 0) {
+      const pick = pool[Math.floor(Math.random() * pool.length)];
       const img = document.createElement('img');
       img.src = pick;
       img.alt = 'OC SDイラスト';
@@ -32,8 +50,12 @@ document.addEventListener('DOMContentLoaded', function () {
       mascotInner.innerHTML = '<div class="mascot-placeholder"><span class="material-symbols-outlined">pets</span></div>';
     }
   }
+  window.updateMascot = updateMascot;
 
-  mascotEl.addEventListener('click', updateMascot);
+  mascotEl.addEventListener('click', function () {
+    updateMascot();
+    bounce();
+  });
   updateMascot();
 
   // footerが画面内に入ってきたら、コンテンツに被らないようスッと下に隠れる

@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ4Q495FTY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SQ4Q495FTY');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:title" content="そぼろ忍のOC" />
@@ -11,94 +20,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<link rel="stylesheet" href="common.css" />
 <link rel="stylesheet" href="mascot.css" />
 <style>
-  :root {
-    --bg: #faf6ee;
-    --ink: #201c16;
-    --ink-dim: #6b6559;
-    --card-border: #201c16;
-    --yellow: #ffd23f;
-    --teal: #37b7a4;
-    --pink: #ff6b7a;
-    --blue: #5b8def;
-    --purple: #b98aef;
-    --orange: #ffa94d;
-    --green: #8bc76b;
-  }
-
-  * { box-sizing: border-box; }
-
-  body {
-    margin: 0;
-    min-height: 100vh;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
-    display: flex;
-    justify-content: center;
-    padding: 60px 20px;
-    animation: fadein 0.15s ease;
-  }
-
-  @keyframes fadein {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  main { width: 100%; max-width: 560px; }
-
-  .nav-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 32px;
-  }
-
-  .nav-tabs a {
-    padding: 8px 16px;
-    border: 2.5px solid var(--card-border);
-    border-radius: 999px;
-    font-weight: 700;
-    font-size: 13px;
-    text-decoration: none;
-    color: var(--ink);
-    background: #fff;
-  }
-
-  .nav-tabs a.active {
-    background: var(--ink);
-    color: var(--bg);
-  }
-
   header { margin-bottom: 28px; }
-
-  .badge {
-    display: inline-block;
-    background: var(--ink);
-    color: var(--bg);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    padding: 4px 10px;
-    border-radius: 999px;
-    margin-bottom: 14px;
-  }
-
-  h1 {
-    font-size: 28px;
-    font-weight: 900;
-    letter-spacing: -0.01em;
-    margin: 0 0 10px;
-    line-height: 1.25;
-  }
-
-  .lede {
-    color: var(--ink-dim);
-    font-size: 14px;
-    line-height: 1.8;
-    margin: 0;
-  }
 
   /* --- 世界観フィルター(単一選択) --- */
   .world-filters {
@@ -118,22 +43,18 @@
     background: #fff;
     color: var(--ink);
     cursor: pointer;
-    box-shadow: 2px 2px 0 var(--card-border);
   }
 
   .world-filters button.active {
     background: var(--ink);
     color: var(--bg);
-    box-shadow: none;
-    transform: translate(2px, 2px);
   }
 
   /* --- キャスト一覧(タップでそのキャラまでジャンプ) --- */
   .cast-index {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 14px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 14px 6px;
     margin-bottom: 28px;
   }
 
@@ -142,7 +63,7 @@
     flex-direction: column;
     align-items: center;
     gap: 5px;
-    width: 58px;
+    min-width: 0;
     text-decoration: none;
     color: var(--ink);
     cursor: pointer;
@@ -175,14 +96,14 @@
   .affil-filters {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 8px;
     margin: 0 0 22px;
   }
 
   .affil-filters button {
     font-family: inherit;
-    padding: 6px 13px;
+    flex: 1 1 0;
+    padding: 6px 8px;
     border: 2px solid var(--card-border);
     border-radius: 999px;
     font-weight: 700;
@@ -190,14 +111,11 @@
     background: #fff;
     color: var(--ink);
     cursor: pointer;
-    box-shadow: 2px 2px 0 var(--card-border);
   }
 
   .affil-filters button.active {
     background: var(--ink);
     color: var(--bg);
-    box-shadow: none;
-    transform: translate(2px, 2px);
   }
 
   .oc-card {
@@ -465,6 +383,8 @@
     display: none;
     flex-wrap: wrap;
     justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
     gap: 5px;
     margin-top: 8px;
     width: 100%;
@@ -483,14 +403,11 @@
     background: #fff;
     color: var(--ink);
     cursor: pointer;
-    box-shadow: 1.5px 1.5px 0 var(--card-border);
   }
 
   .costume-select button.active {
     background: var(--ink);
     color: var(--bg);
-    box-shadow: none;
-    transform: translate(1.5px, 1.5px);
   }
 
   .costume-select button:disabled {
@@ -648,44 +565,25 @@
   }
 
   .oc-tags span {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
+    display: inline-block;
     font-size: 10.5px;
-    font-weight: 700;
-    padding: 3px 10px 3px 8px;
-    border-radius: 999px;
-    border: 1.5px solid var(--card-border);
-    background: #fff;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 6px;
+    border: none;
+    background: #f4efe3;
     color: var(--ink);
   }
 
-  /* 好き/嫌い/趣味/特技がそもそも無い項目用。チップ(タグ)っぽく見せると
-     嘘の情報に見えてしまうので、行は残しつつ枠なしの控えめな表記にする */
-  /* 好き/嫌い/趣味/特技がそもそも無い項目用。他のチップより明確に薄い色にして、
-     アクセントカラーのドットも付けないことで「実データではない」ことを示す */
+  /* 好き/嫌い/趣味/特技がそもそも無い項目用。
+     サイト内では点線=「未設定・空」の意味で使っているので(空サムネイルなど)、
+     中身のあるチップ(塗り)に対して、点線の枠だけの空っぽチップにする */
   .oc-tags span.tag-none {
-    color: var(--ink-dim);
-    border-color: var(--ink-dim);
+    padding: 2px 8px;
+    border: 1px dashed #b9b2a3;
     background: transparent;
+    color: var(--ink-dim);
   }
-
-  .oc-tags span.tag-none::before {
-    display: none;
-  }
-
-  .oc-tags span::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    flex: 0 0 auto;
-  }
-
-  .oc-tags.like span::before { background: var(--green); }
-  .oc-tags.dislike span::before { background: var(--pink); }
-  .oc-tags.hobby span::before { background: var(--blue); }
-  .oc-tags.skill span::before { background: var(--orange); }
 
   .oc-desc {
     font-size: 12.5px;
@@ -699,10 +597,6 @@
   .oc-desc p { margin: 0 0 8px; }
   .oc-desc p:last-child { margin-bottom: 0; }
 
-  .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
-  }
-
   footer {
     margin-top: 40px;
     text-align: center;
@@ -713,13 +607,9 @@
   /* --- 右下の追従SDイラスト(mascot.css に切り出し済み) --- */
 
   @media (max-width: 480px) {
-    body { padding: 40px 14px; }
-    .nav-tabs a { padding: 7px 12px; font-size: 12px; }
-    h1 { font-size: 24px; }
     .oc-card { padding: 16px; }
     dl.oc-facts dt { flex-basis: 48px; }
     .oc-name { font-size: 17px; }
-    .badge { font-size: 10px; }
   }
 </style>
 </head>
@@ -810,7 +700,7 @@
                  "human": {
                    "label": "変化",
                    "costumes": [
-                     {"src": "img/oc/soboronin/soboronin_h_01.png", "label": "通常"},
+                     {"src": "img/oc/soboronin/soboronin_h_01.png", "label": "デフォルト"},
                      {"src": "img/oc/soboronin/soboronin_h_02.png", "label": "寝巻"},
                      {"src": "img/oc/soboronin/soboronin_h_03.png", "label": "チャイナ"},
                      {"src": "img/oc/soboronin/soboronin_h_04.png", "label": "サイバーパンク"},
@@ -824,7 +714,7 @@
                  "nonhuman": {
                    "label": "通常",
                    "costumes": [
-                     {"src": "img/oc/soboronin/soboronin_n_01.png", "label": "通常", "scale": 1.6}
+                     {"src": "img/oc/soboronin/soboronin_n_01.png", "label": "デフォルト"}
                    ]
                  }
                }'>
@@ -890,7 +780,7 @@
           嘘つきで他人の不幸を面白がる一方、感情は顔に出やすい。<br>
           幼少期、一族の教えで儀式的に羽を捥がれており、今はただ傷が残るだけである。<br>
           信仰心が高くない仏教徒。<br><br>
-          もう全部、滅茶苦茶になっている。
+          とはいえ、もう全部滅茶苦茶になっている。
         </p>
         <div class="voice-row">
           <button type="button" class="voice-play" data-src="voice/soboronin01.wav" title="ボイスサンプルを再生">
@@ -919,13 +809,13 @@
                  "human": {
                    "label": "変化",
                    "costumes": [
-                     {"src": "img/oc/momochan/momochan_h_01.png", "label": "通常"}
+                     {"src": "img/oc/momochan/momochan_h_01.png", "label": "デフォルト"}
                    ]
                  },
                  "nonhuman": {
                    "label": "通常",
                    "costumes": [
-                     {"src": "img/oc/momochan/momochan_n_01.png", "label": "通常"}
+                     {"src": "img/oc/momochan/momochan_n_01.png", "label": "デフォルト"}
                    ]
                  }
                }'>
@@ -1003,13 +893,13 @@
                  "human": {
                    "label": "変化",
                    "costumes": [
-                     {"src": "img/oc/momokun/momokun_h_01.png", "label": "通常"}
+                     {"src": "img/oc/momokun/momokun_h_01.png", "label": "デフォルト"}
                    ]
                  },
                  "nonhuman": {
                    "label": "通常",
                    "costumes": [
-                     {"src": "", "label": "通常"}
+                     {"src": "", "label": "デフォルト"}
                    ]
                  }
                }'>
@@ -1090,13 +980,13 @@
                  "human": {
                    "label": "変化",
                    "costumes": [
-                     {"src": "img/oc/tororonin/tororonin_h_01.png", "label": "通常"}
+                     {"src": "img/oc/tororonin/tororonin_h_01.png", "label": "デフォルト"}
                    ]
                  },
                  "nonhuman": {
                    "label": "通常",
                    "costumes": [
-                     {"src": "", "label": "通常"}
+                     {"src": "", "label": "デフォルト"}
                    ]
                  }
                }'>
@@ -1183,13 +1073,13 @@
                  "human": {
                    "label": "変化",
                    "costumes": [
-                     {"src": "img/oc/locomoconin/locomoconin_h_01.png", "label": "通常"}
+                     {"src": "img/oc/locomoconin/locomoconin_h_01.png", "label": "デフォルト"}
                    ]
                  },
                  "nonhuman": {
                    "label": "通常",
                    "costumes": [
-                     {"src": "img/oc/locomoconin/locomoconin_n_01.png", "label": "通常"}
+                     {"src": "img/oc/locomoconin/locomoconin_n_01.png", "label": "デフォルト"}
                    ]
                  }
                }'>
@@ -1247,7 +1137,7 @@
       <div class="oc-desc">
         <p>海外出身の一般ドラゴン。<br>
           忍者に憧れる顔出し配信者で、元は「100」というハンドルネームで活動していた。<br>
-          しかし、ロコモコ忍と呼ばれすぎるので、最近は自分でロコモコ忍と名乗っている。<br>
+          リスナーからロコモコ忍と呼ばれすぎるので、最近は自分でロコモコ忍と名乗っている。<br>
           忍術は独学だけど勉強は苦手で、変化以外は真似事レベルでしかない。<br>
           カッコいい漢字だったので、尻尾に「肘」の刺青を入れた。<br>
           カタコトで喋る。<br><br>
@@ -1270,13 +1160,13 @@
                  "human": {
                    "label": "変化",
                    "costumes": [
-                     {"src": "img/oc/oboronin/oboronin_h_01.png", "label": "通常"}
+                     {"src": "img/oc/oboronin/oboronin_h_01.png", "label": "デフォルト"}
                    ]
                  },
                  "nonhuman": {
                    "label": "通常",
                    "costumes": [
-                     {"src": "", "label": "通常"}
+                     {"src": "", "label": "デフォルト"}
                    ]
                  }
                }'>
@@ -1317,7 +1207,7 @@
             <div class="taggroup">
               <span class="tg-label">趣味</span>
               <div class="oc-tags hobby">
-                <span>(気ままにフラフラする)</span>
+                <span>興味の向くままにフラフラする</span>
               </div>
             </div>
             <div class="taggroup">
@@ -1334,7 +1224,7 @@
         <p>甲賀忍者で、ドラゴンと龍の混血。<br>
           正直者だが、表情がほとんど変わらないため、何を考えているのかわからない。<br>
           賢く、強い。簡単になんでもこなせる。ただ興味がないだけ。<br>
-          喉の辺りに逆鱗が1枚あり、触られると暴走する。ピアスがある限りは無効化される。<br>
+          喉の辺りに逆鱗が1枚あり、触られると暴走する。ピアスがある限り無効化される。<br>
           いつからか言葉を発さなくなった。<br>
           飛行が可能。<br>
           もろこ忍の弟。<br><br>
@@ -1357,13 +1247,13 @@
                  "human": {
                    "label": "変化",
                    "costumes": [
-                     {"src": "img/oc/morokonin/morokonin_h_01.png", "label": "通常"}
+                     {"src": "img/oc/morokonin/morokonin_h_01.png", "label": "デフォルト"}
                    ]
                  },
                  "nonhuman": {
                    "label": "通常",
                    "costumes": [
-                     {"src": "", "label": "通常"}
+                     {"src": "", "label": "デフォルト"}
                    ]
                  }
                }'>
@@ -1447,13 +1337,13 @@
                  "human": {
                    "label": "変化",
                    "costumes": [
-                     {"src": "img/oc/hodoronin/hodoronin_h_01.png", "label": "通常"}
+                     {"src": "img/oc/hodoronin/hodoronin_h_01.png", "label": "デフォルト"}
                    ]
                  },
                  "nonhuman": {
                    "label": "通常",
                    "costumes": [
-                     {"src": "", "label": "通常"}
+                     {"src": "", "label": "デフォルト"}
                    ]
                  }
                }'>
@@ -1514,7 +1404,7 @@
           リーダー面したいわけではないが、このチームをまとめたいとは思っている。<br>
           火を操る力を持つ。口から火を出す奴が居るなんて信じられない。野蛮だ。<br>
           甘え下手で大真面目。<br>
-          うっかり卵を産むときがある。<br>
+          性別が可変の為、場合によってはうっかり卵を産むときがある。<br>
           翼を使用しての飛行が可能。<br><br>
           誰かがまとめなければならない。<br>
           そう思っているのに、誰もまとまってくれない。</p>
@@ -1536,13 +1426,13 @@
                  "human": {
                    "label": "変化",
                    "costumes": [
-                     {"src": "img/oc/otomonin/otomonin_h_01.png", "label": "通常"}
+                     {"src": "img/oc/otomonin/otomonin_h_01.png", "label": "デフォルト"}
                    ]
                  },
                  "nonhuman": {
                    "label": "通常",
                    "costumes": [
-                     {"src": "", "label": "通常"}
+                     {"src": "", "label": "デフォルト"}
                    ]
                  }
                }'>
@@ -1599,10 +1489,10 @@
 
       <div class="oc-desc">
         <p>甲賀忍者で、白虎の純血。<br>
-          マイペースでとにかく自由奔放。「ヤダ！」「いいよ～」ははっきりしている。<br>
+          マイペースでとにかく自由奔放。「ヤダ！」「いいよ～」等ははっきりしている。<br>
           人懐っこく甘え上手で、任務や稽古に付き合う素直さも持つ。<br>
-          雷系の忍術を得意とし、発動後は静電気がすごい。<br>
-          勝手に人をあだ名呼びする。<br><br>
+          雷系の忍術を得意とし、発動後は静電気でとんでもないことになる。<br>
+          勝手に他人をあだ名呼びする。<br><br>
           さっきまでそこで寝てただろ？　ふかふかすぎる。</p>
         <div class="voice-row">
           <button type="button" class="voice-play" data-src="" title="ボイスサンプルを再生">
@@ -1622,13 +1512,13 @@
                  "human": {
                    "label": "変化",
                    "costumes": [
-                     {"src": "img/oc/momoyonin/momoyonin_h_01.png", "label": "通常"}
+                     {"src": "img/oc/momoyonin/momoyonin_h_01.png", "label": "デフォルト"}
                    ]
                  },
                  "nonhuman": {
                    "label": "通常",
                    "costumes": [
-                     {"src": "", "label": "通常"}
+                     {"src": "", "label": "デフォルト"}
                    ]
                  }
                }'>
@@ -1655,7 +1545,7 @@
             <div class="taggroup">
               <span class="tg-label">好き</span>
               <div class="oc-tags like">
-                <span>卵</span>
+                <span>卵料理</span>
                 <span>珍しいもの</span>
               </div>
             </div>
@@ -1686,7 +1576,7 @@
         <p>甲賀忍者で、玄武の純血。<br>
           温厚な物腰とは裏腹に、行動はきびきびとしている。<br>
           感情に流されることは少なく、物事を論理的に捉えるタイプ。<br>
-          だが、興味を持ったものには素直に従う、掴みどころのない人物。<br>
+          だが、興味を持ったものには素直に従う、掴みどころがない。<br>
           尻尾の蛇とは脳が別々に存在しており、仲が良い。<br><br>
           感情よりも、理屈。<br>
           理屈よりも、面白いほう。</p>
@@ -1708,13 +1598,13 @@
                  "human": {
                    "label": "変化",
                    "costumes": [
-                     {"src": "img/oc/amatsunomiya/amatsunomiya_h_01.png", "label": "通常"}
+                     {"src": "img/oc/amatsunomiya/amatsunomiya_h_01.png", "label": "デフォルト"}
                    ]
                  },
                  "nonhuman": {
                    "label": "通常",
                    "costumes": [
-                     {"src": "", "label": "通常"}
+                     {"src": "", "label": "デフォルト"}
                    ]
                  }
                }'>
@@ -1766,7 +1656,7 @@
       <div class="oc-desc">
         <p>政府のトップで、白いハツカネズミの純血。<br>
           高い知性を持ち、物事を判断する力にも長けているが、自分の欲を優先することもある。<br>
-          子供っぽく駄々をこねる一面を持ちながらも、決して感情だけで動く人物ではない。<br>
+          子供っぽく駄々をこねる一面を持ちながらも、決して感情だけでは動かない。<br>
           周囲を自分の掌の上で動かすことを楽しんでいる。<br><br>
           世界を動かすのに、神である必要は無い。</p>
         <div class="voice-row">
@@ -1787,13 +1677,13 @@
                  "human": {
                    "label": "変化",
                    "costumes": [
-                     {"src": "img/oc/tendo/tendo_h_01.png", "label": "通常"}
+                     {"src": "img/oc/tendo/tendo_h_01.png", "label": "デフォルト"}
                    ]
                  },
                  "nonhuman": {
                    "label": "通常",
                    "costumes": [
-                     {"src": "", "label": "通常"}
+                     {"src": "", "label": "デフォルト"}
                    ]
                  }
                }'>
@@ -1869,13 +1759,13 @@
                  "human": {
                    "label": "人間形態",
                    "costumes": [
-                     {"src": "", "label": "通常"}
+                     {"src": "", "label": "デフォルト"}
                    ]
                  },
                  "nonhuman": {
                    "label": "恐竜形態",
                    "costumes": [
-                     {"src": "", "label": "通常"}
+                     {"src": "", "label": "デフォルト"}
                    ]
                  }
                }'>
@@ -1950,7 +1840,7 @@
   </footer>
 </main>
 
-<!-- 右下の追従SDイラスト(表示中のキャラに連動) -->
+<!-- 右下の追従SDイラスト(表示中のキャラに連動。ロジックは mascot.js) -->
 <div id="mascot"><div class="mascot-inner"></div></div>
 
 <script>
@@ -2181,43 +2071,68 @@
     });
   });
 
-  // 世界観フィルター(単一選択・共存しない)
+  // 世界観フィルター(単一選択・共存しない)+ 所属フィルター(とどのつまり限定・複数選択可)
+  //
+  // 「どのカードを見せるか」は、状態(currentWorld / activeAffils)から毎回まるごと計算する。
+  // (以前は世界観の切り替えと所属の絞り込みがそれぞれカードの表示を書き換えていたため、
+  //  所属で絞ったまま世界観を切り替えると、隠れていたはずのカードが別の世界観で復活していた)
   const worldFilters = document.getElementById('worldFilters');
   const affilFilters = document.getElementById('affilFilters');
   const activeAffils = new Set();
+  let currentWorld = null;
 
-  function applyAffilFilter() {
-    document.querySelectorAll('.oc-card[data-world="world-a"]').forEach(card => {
-      const match = activeAffils.size === 0 || activeAffils.has(card.dataset.affiliation);
-      const isHidden = card.classList.contains('affil-hidden');
+  function shouldShow(card) {
+    if (card.dataset.world !== currentWorld) return false;
+    if (currentWorld !== 'world-a') return true; // 所属フィルターは「とどのつまり」限定
+    return activeAffils.size === 0 || activeAffils.has(card.dataset.affiliation);
+  }
 
-      if (match && isHidden) {
-        card.classList.remove('affil-hidden');
-        card.style.display = ''; // 世界観フィルター(インラインstyle)側と揃える
-        card.classList.add('affil-entering');
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => card.classList.remove('affil-entering'));
-        });
-      } else if (!match && !isHidden) {
-        card.classList.add('affil-leaving');
-        let done = false;
-        function finishHide() {
-          if (done) return;
-          done = true;
-          card.classList.add('affil-hidden');
-          // インラインstyleでも明示的に隠す。
-          // 世界観フィルター側も同じ card.style.display を使っているので、
-          // ここをクラスだけに頼るとインラインstyleの方が優先されて
-          // 「透明になるが場所だけ残る」という不具合になっていた
-          card.style.display = 'none';
-          card.classList.remove('affil-leaving');
-          card.removeEventListener('transitionend', finishHide);
+  function hideNow(card) {
+    card.style.display = 'none';
+    card.classList.remove('affil-leaving', 'affil-entering');
+    card.classList.add('affil-hidden');
+  }
+
+  // animate=true: 同じ世界観の中での絞り込み(フェード付き) / false: 世界観の切り替え(即時)
+  function setCardVisible(card, visible, animate) {
+    const isShown = card.style.display !== 'none';
+
+    if (visible) {
+      clearTimeout(card._hideTimer); // 隠す予約が残っていたら取り消す
+      card.classList.remove('affil-leaving');
+      if (!isShown) {
+        card.style.display = 'block';
+        card.classList.remove('affil-hidden', 'affil-entering');
+        if (animate) {
+          card.classList.add('affil-entering');
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => card.classList.remove('affil-entering'));
+          });
         }
-        card.addEventListener('transitionend', finishHide, { once: true });
-        // タブを切り替えた直後などは transitionend が発火しないことがあるため、
-        // 保険としてタイマーでも同じ処理を行う
-        setTimeout(finishHide, 300);
       }
+      return;
+    }
+
+    if (!isShown) return; // もう隠れている
+    if (animate) {
+      if (card.classList.contains('affil-leaving')) return; // フェードアウト中
+      card.classList.add('affil-leaving');
+      card._hideTimer = setTimeout(() => hideNow(card), 200);
+    } else {
+      clearTimeout(card._hideTimer);
+      hideNow(card);
+    }
+  }
+
+  function refreshCards(animate) {
+    document.querySelectorAll('.oc-card').forEach(card => {
+      setCardVisible(card, shouldShow(card), animate);
+    });
+  }
+
+  function refreshCastIndex() {
+    document.querySelectorAll('.cast-item').forEach(el => {
+      el.style.display = el.dataset.world === currentWorld ? 'flex' : 'none';
     });
   }
 
@@ -2232,7 +2147,7 @@
       activeAffils.add(a);
       btn.classList.add('active');
     }
-    applyAffilFilter();
+    refreshCards(true);
 
     // スクロール位置によっては絞り込み結果が画面外になり、何が変わったか
     // わからなくなることがあるので、キャスト一覧の先頭が見える位置に寄せる
@@ -2243,18 +2158,15 @@
   });
 
   function applyWorldFilter(world) {
-    document.querySelectorAll('.oc-card').forEach(el => {
-      el.style.display = el.dataset.world === world ? 'block' : 'none';
-    });
-    document.querySelectorAll('.cast-item').forEach(el => {
-      el.style.display = el.dataset.world === world ? 'flex' : 'none';
-    });
+    currentWorld = world;
 
-    // 所属フィルターは「とどのつまり」限定なので、世界観切り替え時に表示/リセット
-    affilFilters.style.display = world === 'world-a' ? 'flex' : 'none';
+    // 所属フィルターは世界観を切り替えるたびにリセットする
     activeAffils.clear();
     affilFilters.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-    applyAffilFilter();
+    affilFilters.style.display = world === 'world-a' ? 'flex' : 'none';
+
+    refreshCastIndex();
+    refreshCards(false);
   }
 
   worldFilters.addEventListener('click', function (e) {
@@ -2266,7 +2178,7 @@
     btn.classList.add('active');
 
     applyWorldFilter(world);
-    updateMascot(); // マスコットもキャラ連動なので、世界観切り替え時に選び直す
+    if (window.updateMascot) window.updateMascot(); // マスコットもキャラ連動なので、世界観切り替え時に選び直す
   });
 
   // ページ読み込み時にも、今アクティブなボタンの世界観で一度絞り込んでおく
@@ -2284,56 +2196,16 @@
     ],
   };
 
-  const mascotEl = document.getElementById('mascot');
-  const mascotInner = document.querySelector('#mascot .mascot-inner');
-
-  function randomTilt() {
-    const deg = (Math.random() * 16 - 8).toFixed(1);
-    mascotEl.style.setProperty('--mascot-tilt', deg + 'deg');
-  }
-
-  function updateMascot() {
-    // 現在表示中(世界観フィルターで隠れていない)キャラのIDを集める
-    const visibleIds = Array.from(document.querySelectorAll('.oc-card'))
+  // mascot.js に「いま表示中のキャラのSDだけ」を渡す
+  window.mascotGetPool = function () {
+    return Array.from(document.querySelectorAll('.oc-card'))
       .filter(card => card.style.display !== 'none')
-      .map(card => card.id);
-
-    const pool = visibleIds.flatMap(id => sdImagesByChar[id] || []);
-
-    mascotInner.innerHTML = '';
-    randomTilt();
-    if (pool.length > 0) {
-      const pick = pool[Math.floor(Math.random() * pool.length)];
-      const img = document.createElement('img');
-      img.src = pick;
-      img.alt = 'OC SDイラスト';
-      mascotInner.appendChild(img);
-    } else {
-      mascotInner.innerHTML = '<div class="mascot-placeholder"><span class="material-symbols-outlined">pets</span></div>';
-    }
-  }
-
-  mascotEl.addEventListener('click', updateMascot);
-  updateMascot();
+      .map(card => card.id)
+      .flatMap(id => sdImagesByChar[id] || []);
+  };
 </script>
 
-<script>
-  // 右下マスコットの「隠れる」挙動:
-  // footerが画面内に入ってきたら、コンテンツに被らないようスッと下に隠れる
-  (function () {
-    const el = document.getElementById('mascot');
-    const footerEl = document.querySelector('footer');
-    if (!el || !footerEl || !('IntersectionObserver' in window)) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        el.classList.toggle('mascot-hide', entry.isIntersecting);
-      },
-      { rootMargin: '0px 0px -12px 0px' }
-    );
-    observer.observe(footerEl);
-  })();
-</script>
+<script src="mascot.js"></script>
 
 </body>
 </html>
