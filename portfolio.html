@@ -462,30 +462,35 @@
 
   const activeFilters = new Set();
 
+  function hideNow(card) {
+    card.classList.add('filter-hidden');
+    card.classList.remove('filter-leaving', 'filter-entering');
+  }
+
+  // 表示/非表示は、選択中のフィルター(activeFilters)から毎回計算し直す。
+  // 「フェードアウト後に隠す」予約はタイマーで管理し、すぐ解除された場合は取り消す
+  // (以前は transitionend 頼みで、押してすぐ解除するとカードが消えたままになっていた)
   function applyFilters() {
-    const cards = gallery.querySelectorAll('.art-card');
-    cards.forEach(card => {
+    gallery.querySelectorAll('.art-card').forEach(card => {
       const cats = (card.dataset.category || '').split(' ');
       const show = activeFilters.size === 0 || cats.some(c => activeFilters.has(c));
       const isHidden = card.classList.contains('filter-hidden');
 
-      if (show && isHidden) {
-        // 非表示 → 表示: display を戻してから、次のフレームでフェードイン
-        card.classList.remove('filter-hidden');
-        card.classList.add('filter-entering');
-        requestAnimationFrame(() => {
+      if (show) {
+        clearTimeout(card._hideTimer); // 隠す予約が残っていたら取り消す
+        card.classList.remove('filter-leaving');
+        if (isHidden) {
+          // 非表示 → 表示: display を戻してから、次のフレームでフェードイン
+          card.classList.remove('filter-hidden');
+          card.classList.add('filter-entering');
           requestAnimationFrame(() => {
-            card.classList.remove('filter-entering');
+            requestAnimationFrame(() => card.classList.remove('filter-entering'));
           });
-        });
-      } else if (!show && !isHidden) {
+        }
+      } else if (!isHidden && !card.classList.contains('filter-leaving')) {
         // 表示 → 非表示: 先にフェードアウトさせてから display:none にする
         card.classList.add('filter-leaving');
-        card.addEventListener('transitionend', function handler() {
-          card.classList.add('filter-hidden');
-          card.classList.remove('filter-leaving');
-          card.removeEventListener('transitionend', handler);
-        }, { once: true });
+        card._hideTimer = setTimeout(() => hideNow(card), 200);
       }
     });
   }
