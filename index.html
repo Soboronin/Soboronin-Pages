@@ -25,10 +25,34 @@
 <meta name="description" content="そぼろ忍のリンクまとめ">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
-<!-- アイコンは使うものだけを読み込んでいます。新しいアイコンを使うときは、
-     icon_names にその名前を追加してください(アルファベット順・全ページ共通の同じURLにすると、ブラウザのキャッシュが効きます) -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=casino,checklist,close,content_copy,edit,favorite,format_align_left,ink_pen,mail,more_horiz,movie,music_note,pause,pets,photo,play_arrow,shuffle,sms,swap_horiz,swords,tv_gen,visibility,visibility_off,web_stories&display=block" />
+<!-- 右下のマスコット(mascot.js が JavaScript で作る画像)を、早めに取得しておく。
+     mascot.js の sdImages の先頭と同じパスにしてください -->
+<link rel="preload" as="image" href="img/oc/soboronin/soboronin_sd_01.png">
+<!-- フォントのCSSは、ページの表示を止めないように、あとから読み込みます(届くまでは代わりのフォントで表示されます)。
+     アイコンは、フォントが届くまで隠しておきます(読み込み前は「close」などの文字名が見えてしまうため)。
+     新しいアイコンを使うときは、icon_names にその名前を追加してください
+     (アルファベット順・全ページ共通の同じURLにすると、ブラウザのキャッシュが効きます) -->
+<script>
+  (function () {
+    document.documentElement.classList.add('js');
+    if (document.fonts && document.fonts.addEventListener) {
+      document.fonts.addEventListener('loadingdone', function (e) {
+        for (var i = 0; i < e.fontfaces.length; i++) {
+          if (String(e.fontfaces[i].family).indexOf('Material Symbols') >= 0) {
+            document.documentElement.classList.add('icons-ready');
+            break;
+          }
+        }
+      });
+    }
+  })();
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=casino,checklist,close,content_copy,edit,favorite,format_align_left,ink_pen,mail,more_horiz,movie,music_note,pause,pets,photo,play_arrow,shuffle,sms,swap_horiz,swords,tv_gen,visibility,visibility_off,web_stories&display=block" media="print" onload="this.media='all'">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=casino,checklist,close,content_copy,edit,favorite,format_align_left,ink_pen,mail,more_horiz,movie,music_note,pause,pets,photo,play_arrow,shuffle,sms,swap_horiz,swords,tv_gen,visibility,visibility_off,web_stories&display=block">
+</noscript>
 <link rel="stylesheet" href="common.css" />
 <link rel="stylesheet" href="mascot.css" />
 <style>

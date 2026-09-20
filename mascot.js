@@ -45,6 +45,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const img = document.createElement('img');
       img.src = pick;
       img.alt = ''; // 装飾なので読み上げない
+      img.width = 100; // 表示サイズはCSSで決まる。読み込み前に場所を確保するための指定
+      img.height = 100;
       mascotInner.appendChild(img);
     } else {
       mascotInner.innerHTML = '<div class="mascot-placeholder"><span class="material-symbols-outlined" aria-hidden="true">pets</span></div>';

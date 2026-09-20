@@ -40,9 +40,32 @@ body {
 
 main { width: 100%; max-width: 560px; }
 
+/* --- アイコン(Material Symbols) ---
+   フォントのCSSは、表示を止めないようにあとから読み込むので、アイコンの基本の指定はこちらに持たせる。
+   フォントが届くまでは、文字名(close など)で幅が広がらないよう幅を1emに固定し、さらに隠しておく
+   (各ページの head の小さなスクリプトが、フォントが届いたら html に icons-ready を付ける) */
 .material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  width: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
   font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
 }
+
+.js .material-symbols-outlined { visibility: hidden; }
+.js.icons-ready .material-symbols-outlined { visibility: visible; }
 
 /* --- ページ移動ナビ ---
    ボタン(ピル型)は「絞り込み・切り替え」専用にしたいので、
