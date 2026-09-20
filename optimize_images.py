@@ -31,6 +31,8 @@
     --include P ファイル名が P(* が使えます)に合うものだけを処理します。何回でも指定できます
     --exclude P ファイル名が P に合うものを除きます。何回でも指定できます
     --exclude-dir D  名前が D のサブフォルダの中身を除きます。何回でも指定できます
+    --full-color     256色にせず、フルカラーのまま縮小だけします(サイズは256色より大きくなります)。
+                     256色にすると、グラデーションの階調が荒れて劣化が目立つ画像に使ってください
     --focus F   thumb を正方形に切り抜くときの中心の位置(0〜1)。初期値 0.5(中央)
                 横長の画像なら左右の位置、縦長の画像なら上下の位置です。
                 「中央だと余白ばかり写る」ときに、見せたい部分へ寄せられます
@@ -63,8 +65,13 @@ def shrink(im, long_side):
     return im.resize((max(1, round(w * scale)), max(1, round(h * scale))), Image.LANCZOS)
 
 
-def save_png256(im, path):
+def save_png256(im, path, full_color=False):
     path.parent.mkdir(parents=True, exist_ok=True)
+    if full_color:
+        if not has_real_alpha(im):
+            im = im.convert('RGB')  # 全面が不透明なら、透過チャンネルは不要
+        im.save(path, 'PNG', optimize=True)
+        return
     if has_real_alpha(im):
         q = im.quantize(256, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.NONE)  # 透過を保つ
     else:
@@ -110,6 +117,7 @@ def main():
     ap.add_argument('--include', action='append', default=[])
     ap.add_argument('--exclude', action='append', default=[])
     ap.add_argument('--exclude-dir', action='append', default=[])
+    ap.add_argument('--full-color', action='store_true')
     a = ap.parse_args()
 
     src = Path(a.folder)
@@ -154,7 +162,7 @@ def main():
             im = im.convert('RGBA' if 'A' in im.getbands() or im.mode == 'P' else 'RGB')
         small = shrink(im, long_side)
         png_path = out / rel.with_suffix('.png')
-        save_png256(small, png_path)
+        save_png256(small, png_path, a.full_color)
         made = [png_path]
         if a.mode == 'works':
             th_path = out / rel.parent / 'thumb' / (rel.stem + '.webp')

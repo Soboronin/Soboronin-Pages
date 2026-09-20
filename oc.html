@@ -275,6 +275,11 @@
     outline-offset: 1px;
   }
 
+  /* カードができるまでの間、リストの場所を確保しておく。
+     (途中で画面が描画されても、フッターなど下にあるものが、あとでガクッとずれないように。
+      .js は各ページの head で付く。JavaScriptが無効なときは、この指定は効かない) */
+  .js .oc-list:not(.is-ready) { min-height: 100vh; }
+
   /* oc-data.js に書き間違いがあるときだけ出る注意書き */
   .oc-notice {
     padding: 12px 16px;
@@ -990,9 +995,9 @@
       });
     });
   })();
-</script>
 
-<script>
+  // ここから、絞り込み・立ち絵・キャスト一覧などの初期化。
+  // カードの生成(上)と同じ <script> にして、途中の状態が画面に出ないようにしている
   // キャスト一覧を各キャラのdata-formsから自動生成
   (function buildCastIndex() {
     const indexEl = document.getElementById('castIndex');
@@ -1495,6 +1500,10 @@
   };
 </script>
 
+<script>
+  // カードの準備ができた印(リストの場所の確保を解除する)。上のスクリプトが途中で失敗しても、必ず実行される
+  document.getElementById('ocList').classList.add('is-ready');
+</script>
 <script src="mascot.js"></script>
 
 </body>

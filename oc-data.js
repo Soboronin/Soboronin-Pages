@@ -104,9 +104,9 @@ window.OC_DATA = {
         'とはいえ、もう全部滅茶苦茶になっている。',
       ],
       voices: [
-        { src: 'voice/soboronin01.wav', label: '通常' },
-        { src: 'voice/soboronin02.wav', label: '強' },
-        { src: 'voice/soboronin03.wav', label: '楽' },
+        { src: 'voice/soboronin01.mp3', label: '通常' },
+        { src: 'voice/soboronin02.mp3', label: '強' },
+        { src: 'voice/soboronin03.mp3', label: '楽' },
       ],
       sd: ['img/oc/soboronin/soboronin_sd_01.png'],
     },
@@ -154,7 +154,7 @@ window.OC_DATA = {
         '「金。出して。早く。」',
       ],
       voices: [
-        { src: 'voice/momochan01.wav', label: '通常' },
+        { src: 'voice/momochan01.mp3', label: '通常' },
       ],
     },
 
@@ -300,7 +300,7 @@ window.OC_DATA = {
         '日本語練習中！　がんばれ！',
       ],
       voices: [
-        { src: 'voice/locomoconin01.wav', label: '通常(楽)' },
+        { src: 'voice/locomoconin01.mp3', label: '通常(楽)' },
       ],
     },
 
