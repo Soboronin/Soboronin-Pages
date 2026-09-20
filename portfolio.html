@@ -161,6 +161,12 @@
     object-position: center;
   }
 
+  /* YouTubeのsddefault(640x480)/hqdefault(480x360)は、16:9の動画だと上下に黒帯(各12.5%)が付く。
+     約1.35倍に拡大して、帯を枠の外へ追い出す(.art-thumb は overflow:hidden) */
+  .art-thumb > .art-img.yt-bars {
+    transform: scale(1.35); /* 4/3 だとぴったりで、帯の端が1pxほど見えることがあるので、少しだけ余分に拡大 */
+  }
+
   /* 画像未設定のプレースホルダー用 */
   .art-thumb.placeholder {
     background: repeating-linear-gradient(
@@ -321,12 +327,14 @@
        - data-title を作品名やコメントに変更
        - data-category をカテゴリ名(video / illust / logo / live2d、複数可はスペース区切り)に変更
        - .art-thumb から class="placeholder" を外し、
-         <img class="art-img" src="img/works/thumb/xxxx.webp" alt="" loading="lazy" decoding="async"> を入れる
+         <img class="art-img" src="img/works/thumb/xxxx.webp" width="400" height="400" alt="" decoding="async"> を入れる
          (一覧には縮小版を出して、拡大表示のときだけ元画像を読み込みます。
           <button> に data-full="img/works/xxxx.png"(元画像)も追加してください)
        - 縮小版(400px四方のWebP)と、軽くした元画像は、optimize_images.py で作れます。
          縮小版がまだ無いあいだは、元画像がそのまま一覧に使われます
-       - GIF は縮小版を作らず、<img> の src と拡大表示の両方に、GIF をそのまま指定してください
+       - GIF(動く画像)は、optimize_images.py で動く縮小版(WebP)が作れます。
+         <img> の src には縮小版を、<button> の data-full には元のGIFを指定してください
+         (一覧では縮小版が動き、拡大表示では元のGIFが動きます)
        - 中の <span class="material-symbols-outlined"> は削除
        (GIFもそのままでOKです。サムネイルの画像は正方形に切り抜いて表示されます)
 
@@ -377,7 +385,7 @@
 
     <button type="button" class="art-card" data-title="一枚絵・立ち絵" data-category="illust" data-type="illust" data-video="" data-full="img/works/works01.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/thumb/works01.webp" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works01.webp" width="400" height="400" alt="" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">一枚絵・立ち絵</span>
@@ -385,7 +393,7 @@
 
     <button type="button" class="art-card" data-title="一枚絵・衣装デザイン" data-category="illust" data-full="img/works/works11.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/thumb/works11.webp" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works11.webp" width="400" height="400" alt="" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">一枚絵・衣装デザイン</span>
@@ -393,15 +401,15 @@
 
     <button type="button" class="art-card" data-title="一枚絵・衣装デザイン" data-category="illust" data-full="img/works/works08.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/thumb/works08.webp" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works08.webp" width="400" height="400" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># 厚塗り</span></span>
       </span>
       <span class="art-caption">一枚絵・衣装デザイン</span>
     </button>
 
-    <button type="button" class="art-card" data-title="終了画面" data-category="illust animation" data-type="illust" data-video="">
+    <button type="button" class="art-card" data-title="終了画面" data-category="illust animation" data-type="illust" data-video="" data-full="img/works/works05.gif">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/works05.gif" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works05.webp" width="400" height="400" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">終了画面</span>
@@ -409,7 +417,7 @@
 
     <button type="button" class="art-card" data-title="ゆるSD" data-category="illust" data-full="img/works/works03.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/thumb/works03.webp" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works03.webp" width="400" height="400" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">ゆるSD</span>
@@ -417,7 +425,7 @@
 
     <button type="button" class="art-card" data-title="SD タイプA" data-category="illust" data-full="img/works/works07.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/thumb/works07.webp" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works07.webp" width="400" height="400" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">SD タイプA</span>
@@ -425,7 +433,7 @@
 
     <button type="button" class="art-card" data-title="SD タイプB" data-category="illust" data-full="img/works/works09.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/thumb/works09.webp" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works09.webp" width="400" height="400" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">SD タイプB</span>
@@ -433,7 +441,7 @@
 
     <button type="button" class="art-card" data-title="立ち絵" data-category="illust" data-full="img/works/works04.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/thumb/works04.webp" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works04.webp" width="400" height="400" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">立ち絵</span>
@@ -441,7 +449,7 @@
 
     <button type="button" class="art-card" data-title="立ち絵・衣装デザイン" data-category="illust" data-full="img/works/works02.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/thumb/works02.webp" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works02.webp" width="400" height="400" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># 厚塗り</span></span>
       </span>
       <span class="art-caption">立ち絵・衣装デザイン</span>
@@ -449,7 +457,7 @@
 
     <button type="button" class="art-card" data-title="立ち絵・キャラクターデザイン" data-category="illust" data-full="img/works/works10.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/thumb/works10.webp" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works10.webp" width="400" height="400" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># 厚塗り</span></span>
       </span>
       <span class="art-caption">立ち絵・キャラクターデザイン</span>
@@ -457,7 +465,7 @@
 
     <button type="button" class="art-card" data-title="サムネイル・ロゴ" data-category="illust" data-type="illust" data-video="" data-full="img/works/works06.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/thumb/works06.webp" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works06.webp" width="400" height="400" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">サムネイル・ロゴ</span>
@@ -517,6 +525,18 @@
     return (raw || '').split('?')[0].trim();
   }
 
+  // 動画サムネイルの画質(YouTubeが用意している画像の種類)
+  //   'sddefault'      640x480 … 標準。1枚60KB前後(目安)。黒帯を除いた中身が360px四方で、2倍の画面でもほぼ等倍(少しだけ柔らかい)
+  //   'maxresdefault' 1280x720 … いちばん鮮明。1枚140KB前後(目安。sddefault の2倍以上)
+  //   自前の画像を使いたいカードは、<button> に data-thumb="画像のパス" を付けてください
+  const YT_THUMB = 'sddefault';
+
+  // 指定した画質が無い動画は、hqdefault(480x360)に切り替える(黒帯は .yt-bars で隠す)
+  function useFallbackSrc(img) {
+    img.src = img.dataset.fallbackSrc;
+    img.classList.add('yt-bars');
+  }
+
   // サムネイル画像を設定する(プレースホルダー用の大きいアイコン(movie/campaignなど)は隠す)
   function setThumb(thumb, url) {
     let img = thumb.querySelector(':scope > .art-img');
@@ -545,21 +565,29 @@
     const id = cleanVideoId(card.dataset.video);
     if (!id) return; // 動画IDが未設定のカードはプレースホルダーのまま
     const thumb = card.querySelector('.art-thumb');
-    const img = setThumb(thumb, `https://img.youtube.com/vi/${id}/maxresdefault.jpg`);
-    // maxresdefault が存在しない動画は120x90のダミー画像が返ってくる(エラーにはならない)ので、
-    // 読み込んだ画像のサイズを見て判定し、無ければ標準画質にフォールバックする
+    const base = `https://img.youtube.com/vi/${id}/`;
+    const img = setThumb(thumb, base + YT_THUMB + '.jpg');
+    // sddefault / hqdefault は、16:9の動画だと上下に黒帯が付くので、CSSで拡大して隠す(.yt-bars)
+    if (YT_THUMB !== 'maxresdefault') img.classList.add('yt-bars');
+    img.dataset.fallbackSrc = base + 'hqdefault.jpg'; // 指定した画質が無い動画(低解像度の動画など)用
+    img.width = YT_THUMB === 'maxresdefault' ? 1280 : 640; // 表示サイズはCSSで決まる。読み込み前に場所を確保するための指定
+    img.height = YT_THUMB === 'maxresdefault' ? 720 : 480;
+    // 存在しない画像でもエラーにならず、120x90のダミー画像が返ることがあるので、大きさで判定する
     img.addEventListener('load', function () {
-      if (img.naturalWidth <= 120 && !img.dataset.fallback) {
-        img.dataset.fallback = '1';
-        img.src = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-      }
+      if (img.naturalWidth <= 120 && img.getAttribute('src') !== img.dataset.fallbackSrc) useFallbackSrc(img);
     });
   });
 
   // 読み込めなかったとき:
+  //   動画のサムネイルは、別のサイズ(data-fallback-src)に切り替える。
   //   縮小版(thumb/xxxx.webp)が無い作品は、元画像(data-full)で代用する。
   //   それも読み込めなければ、壊れた画像のアイコンを出さずに隠す
   function onImgError(img) {
+    const fb = img.dataset.fallbackSrc;
+    if (fb && img.getAttribute('src') !== fb) {
+      useFallbackSrc(img);
+      return;
+    }
     const card = img.closest('.art-card');
     const full = card && card.dataset.full;
     if (full && img.getAttribute('src') !== full) {
@@ -573,6 +601,13 @@
     if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) onImgError(img);
   }
   gallery.querySelectorAll('.art-img').forEach(hideIfBroken);
+
+  // 画面の最初に見える作品(先頭の6枚)は、遅延読み込みにしない。
+  // 遅延にすると、いちばん大きく表示される画像(LCP)の読み込みが遅れる。先頭の1枚は優先して取得する
+  Array.from(gallery.querySelectorAll('.art-img')).slice(0, 6).forEach((img, i) => {
+    img.loading = 'eager';
+    if (i === 0) img.setAttribute('fetchpriority', 'high');
+  });
 
   const activeFilters = new Set();
 
