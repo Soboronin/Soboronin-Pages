@@ -297,7 +297,12 @@
        - data-title を作品名やコメントに変更
        - data-category をカテゴリ名(video / illust / logo / live2d、複数可はスペース区切り)に変更
        - .art-thumb から class="placeholder" を外し、
-         <img class="art-img" src="img/works/xxxx.jpg" alt="" loading="lazy" decoding="async"> を入れる
+         <img class="art-img" src="img/works/thumb/xxxx.webp" alt="" loading="lazy" decoding="async"> を入れる
+         (一覧には縮小版を出して、拡大表示のときだけ元画像を読み込みます。
+          <button> に data-full="img/works/xxxx.png"(元画像)も追加してください)
+       - 縮小版(400px四方のWebP)と、軽くした元画像は、optimize_images.py で作れます。
+         縮小版がまだ無いあいだは、元画像がそのまま一覧に使われます
+       - GIF は縮小版を作らず、<img> の src と拡大表示の両方に、GIF をそのまま指定してください
        - 中の <span class="material-symbols-outlined"> は削除
        (GIFもそのままでOKです。サムネイルの画像は正方形に切り抜いて表示されます)
 
@@ -346,25 +351,25 @@
       <span class="art-caption">【OC】MEAT GRINDER | meme</span>
     </button>
 
-    <button type="button" class="art-card" data-title="一枚絵・立ち絵" data-category="illust" data-type="illust" data-video="">
+    <button type="button" class="art-card" data-title="一枚絵・立ち絵" data-category="illust" data-type="illust" data-video="" data-full="img/works/works01.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/works01.png" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works01.webp" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">一枚絵・立ち絵</span>
     </button>
 
-    <button type="button" class="art-card" data-title="一枚絵・衣装デザイン" data-category="illust">
+    <button type="button" class="art-card" data-title="一枚絵・衣装デザイン" data-category="illust" data-full="img/works/works11.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/works11.png" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works11.webp" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">一枚絵・衣装デザイン</span>
     </button>
 
-    <button type="button" class="art-card" data-title="一枚絵・衣装デザイン" data-category="illust">
+    <button type="button" class="art-card" data-title="一枚絵・衣装デザイン" data-category="illust" data-full="img/works/works08.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/works08.png" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works08.webp" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># 厚塗り</span></span>
       </span>
       <span class="art-caption">一枚絵・衣装デザイン</span>
@@ -378,57 +383,57 @@
       <span class="art-caption">終了画面</span>
     </button>
 
-    <button type="button" class="art-card" data-title="ゆるSD" data-category="illust">
+    <button type="button" class="art-card" data-title="ゆるSD" data-category="illust" data-full="img/works/works03.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/works03.png" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works03.webp" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">ゆるSD</span>
     </button>
 
-    <button type="button" class="art-card" data-title="SD タイプA" data-category="illust">
+    <button type="button" class="art-card" data-title="SD タイプA" data-category="illust" data-full="img/works/works07.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/works07.png" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works07.webp" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">SD タイプA</span>
     </button>
 
-    <button type="button" class="art-card" data-title="SD タイプB" data-category="illust">
+    <button type="button" class="art-card" data-title="SD タイプB" data-category="illust" data-full="img/works/works09.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/works09.png" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works09.webp" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">SD タイプB</span>
     </button>
 
-    <button type="button" class="art-card" data-title="立ち絵" data-category="illust">
+    <button type="button" class="art-card" data-title="立ち絵" data-category="illust" data-full="img/works/works04.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/works04.png" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works04.webp" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">立ち絵</span>
     </button>
 
-    <button type="button" class="art-card" data-title="立ち絵・衣装デザイン" data-category="illust">
+    <button type="button" class="art-card" data-title="立ち絵・衣装デザイン" data-category="illust" data-full="img/works/works02.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/works02.png" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works02.webp" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># 厚塗り</span></span>
       </span>
       <span class="art-caption">立ち絵・衣装デザイン</span>
     </button>
 
-    <button type="button" class="art-card" data-title="立ち絵・キャラクターデザイン" data-category="illust">
+    <button type="button" class="art-card" data-title="立ち絵・キャラクターデザイン" data-category="illust" data-full="img/works/works10.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/works10.png" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works10.webp" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># 厚塗り</span></span>
       </span>
       <span class="art-caption">立ち絵・キャラクターデザイン</span>
     </button>
 
-    <button type="button" class="art-card" data-title="サムネイル・ロゴ" data-category="illust" data-type="illust" data-video="">
+    <button type="button" class="art-card" data-title="サムネイル・ロゴ" data-category="illust" data-type="illust" data-video="" data-full="img/works/works06.png">
       <span class="art-thumb">
-        <img class="art-img" src="img/works/works06.png" alt="" loading="lazy" decoding="async">
+        <img class="art-img" src="img/works/thumb/works06.webp" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">サムネイル・ロゴ</span>
@@ -527,11 +532,21 @@
     });
   });
 
-  // 読み込めなかった画像は、壊れた画像のアイコンを出さずに隠す
+  // 読み込めなかったとき:
+  //   縮小版(thumb/xxxx.webp)が無い作品は、元画像(data-full)で代用する。
+  //   それも読み込めなければ、壊れた画像のアイコンを出さずに隠す
+  function onImgError(img) {
+    const card = img.closest('.art-card');
+    const full = card && card.dataset.full;
+    if (full && img.getAttribute('src') !== full) {
+      img.src = full;
+      return;
+    }
+    img.style.visibility = 'hidden';
+  }
   function hideIfBroken(img) {
-    const hide = () => { img.style.visibility = 'hidden'; };
-    img.addEventListener('error', hide);
-    if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) hide();
+    img.addEventListener('error', () => onImgError(img));
+    if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) onImgError(img);
   }
   gallery.querySelectorAll('.art-img').forEach(hideIfBroken);
 
@@ -602,7 +617,8 @@
       lightboxVideo.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1';
     } else {
       const thumbImg = card.querySelector('.art-thumb > .art-img');
-      const url = thumbImg ? thumbImg.getAttribute('src') : '';
+      // 拡大表示は、data-full(元画像)があればそれを、無ければサムネイルと同じ画像を使う
+      const url = card.dataset.full || (thumbImg ? thumbImg.getAttribute('src') : '');
       lightboxVideo.style.display = 'none';
       lightboxVideo.src = '';
       lightboxImg.style.display = 'block';

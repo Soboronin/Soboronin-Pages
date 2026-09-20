@@ -46,9 +46,8 @@
     border: 2.5px solid var(--card-border);
     background: var(--yellow);
     flex: 0 0 auto;
-    background-image: url('img/icon_soboronin.png');
-    background-size: cover;
-    background-position: center;
+    display: block;
+    object-fit: cover; /* <img> にして HTML から画像を見つけられるようにした(背景画像だと、CSSを読み終わるまで取りに行けない) */
   }
 
   h1 {
@@ -189,7 +188,7 @@
   </nav>
 
   <header>
-    <div class="avatar"></div>
+    <img class="avatar" src="img/icon_soboronin.png" width="64" height="64" alt="" fetchpriority="high" decoding="async">
     <div>
       <h1>そぼろ忍</h1>
       <p class="sub">#そぼろ忍術</p>
