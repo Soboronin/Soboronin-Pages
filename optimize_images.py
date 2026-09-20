@@ -8,6 +8,12 @@
     python optimize_images.py portrait img/oc        # 立ち絵・SD・アイコン(サブフォルダも全部)
     python optimize_images.py works img/works/works05.gif --focus 0.68   # 1枚だけ(切り抜き位置つき)
 
+  OCの画像は、種類ごとに大きさを変えて、3回に分けて実行するのがおすすめです:
+    python optimize_images.py portrait img/oc --include "icon_*" --max 128       # 顔アイコン(表示は50px)
+    python optimize_images.py portrait img/oc --include "*_sd_*" --max 240       # SDイラスト(表示は100px)
+    python optimize_images.py portrait img/oc --exclude "icon_*" --exclude "*_sd_*" --exclude-dir affil --max 760   # 立ち絵
+    python optimize_images.py portrait img/oc/affil --max 64                      # 所属アイコン
+
   元の画像は書き換えません。結果は、入力フォルダの中の「optimized」フォルダに出力されます
   (元と同じフォルダ構成・同じファイル名)。中身を確認してから、元の画像に上書きコピーしてください。
 
@@ -22,6 +28,9 @@
   オプション:
     --max N     長辺の上限(px)。works は 1600、portrait は 760 が初期値
     --thumb N   thumb の一辺(px)。初期値 400
+    --include P ファイル名が P(* が使えます)に合うものだけを処理します。何回でも指定できます
+    --exclude P ファイル名が P に合うものを除きます。何回でも指定できます
+    --exclude-dir D  名前が D のサブフォルダの中身を除きます。何回でも指定できます
     --focus F   thumb を正方形に切り抜くときの中心の位置(0〜1)。初期値 0.5(中央)
                 横長の画像なら左右の位置、縦長の画像なら上下の位置です。
                 「中央だと余白ばかり写る」ときに、見せたい部分へ寄せられます
@@ -30,6 +39,7 @@
   淡いグラデーションの多い絵は念のため目で確認してください。
 """
 import argparse
+import fnmatch
 import sys
 from pathlib import Path
 
@@ -97,6 +107,9 @@ def main():
     ap.add_argument('--max', type=int, default=None)
     ap.add_argument('--thumb', type=int, default=400)
     ap.add_argument('--focus', type=float, default=0.5)
+    ap.add_argument('--include', action='append', default=[])
+    ap.add_argument('--exclude', action='append', default=[])
+    ap.add_argument('--exclude-dir', action='append', default=[])
     a = ap.parse_args()
 
     src = Path(a.folder)
@@ -113,6 +126,12 @@ def main():
     for f in files:
         rel = f.relative_to(base)
         if not f.is_file() or rel.parts[0] in ('optimized', 'thumb'):
+            continue
+        if a.include and not any(fnmatch.fnmatch(f.name, pat) for pat in a.include):
+            continue
+        if any(fnmatch.fnmatch(f.name, pat) for pat in a.exclude):
+            continue
+        if any(part in a.exclude_dir for part in rel.parts[:-1]):
             continue
         ext = f.suffix.lower()
         if ext == GIF:

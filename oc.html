@@ -51,7 +51,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=casino,checklist,close,content_copy,edit,favorite,format_align_left,ink_pen,mail,more_horiz,movie,music_note,pause,pets,photo,play_arrow,shuffle,sms,swap_horiz,swords,tv_gen,visibility,visibility_off,web_stories&display=block">
 </noscript>
 <link rel="stylesheet" href="common.css" />
-<link rel="stylesheet" href="mascot.css" />
 <style>
   header { margin-bottom: 28px; }
 
@@ -690,7 +689,7 @@
     font-size: 11.5px;
   }
 
-  /* --- 右下の追従SDイラスト(mascot.css に切り出し済み) --- */
+  /* --- 右下の追従SDイラスト(common.css に含まれています) --- */
 
   @media (max-width: 480px) {
     .oc-card { padding: 16px; }
@@ -741,6 +740,32 @@
 
 <script src="oc-data.js"></script>
 <script>
+  // 最初の描画(FCP)が終わってから実行する。
+  // 画像の読み込みを、最初の描画より前に始めてしまうと、他の読み込みと帯域を取り合って、
+  // 最初の表示が遅れてしまう。そのため、画像の指定は、最初の描画のあとに行う。
+  // (描画を検知できない環境や、タブが裏にあるときのために、3秒たったら実行する)
+  (function () {
+    var queue = [];
+    var ready = false;
+    function flush() {
+      if (ready) return;
+      ready = true;
+      queue.splice(0).forEach(function (fn) { fn(); });
+    }
+    window.afterFirstPaint = function (fn) {
+      if (ready) fn(); else queue.push(fn);
+    };
+    try {
+      new PerformanceObserver(function (list, obs) {
+        if (list.getEntriesByName('first-contentful-paint').length) {
+          obs.disconnect();
+          setTimeout(flush, 0);
+        }
+      }).observe({ type: 'paint', buffered: true });
+    } catch (e) { /* 未対応の環境では、下のタイマーで実行される */ }
+    setTimeout(flush, 3000);
+  })();
+
   // oc-data.js の内容から、世界観ボタン・所属ボタン・キャラクターカードを作る
   // (この後ろのスクリプトは、ここで作られた要素を使って動きます)
   (function renderFromData() {
@@ -804,7 +829,7 @@
       if (af) {
         // 所属は affiliation から自動で先頭に入れる(アイコン画像が無い所属はアイコンだけ空)
         rows.push('<div><dt>所属</dt><dd><span class="affil-icon"' +
-          (af.icon ? ' style="background-image:url(\'' + esc(af.icon) + '\')"' : '') +
+          (af.icon ? ' data-bg="' + esc(af.icon) + '"' : '') + // 画像は最初の描画のあとで指定する(下の afterFirstPaint)
           ' data-affil="' + esc(c.affiliation) + '"></span>' + esc(af.label) + '</dd></div>');
       }
       (c.facts || []).forEach(f => {
@@ -958,6 +983,12 @@
 
     if (list) list.insertAdjacentHTML('beforeend', cards.join(''));
     showProblems();
+
+    window.afterFirstPaint(function () {
+      document.querySelectorAll('.affil-icon[data-bg]').forEach(function (e) {
+        e.style.backgroundImage = "url('" + e.dataset.bg + "')";
+      });
+    });
   })();
 </script>
 
@@ -991,7 +1022,7 @@
 
       const thumb = document.createElement('span');
       thumb.className = 'cast-thumb' + (thumbSrc ? '' : ' placeholder');
-      if (thumbSrc) thumb.style.backgroundImage = `url('${thumbSrc}')`;
+      if (thumbSrc) thumb.dataset.bg = thumbSrc; // 画像は最初の描画のあとで指定する(下の afterFirstPaint)
 
       const label = document.createElement('span');
       label.className = 'cast-name';
@@ -1008,9 +1039,17 @@
 
       indexEl.appendChild(a);
     });
+
+    window.afterFirstPaint(function () {
+      indexEl.querySelectorAll('.cast-thumb[data-bg]').forEach(function (t) {
+        t.style.backgroundImage = "url('" + t.dataset.bg + "')";
+      });
+    });
   })();
 
   // 立ち絵タップで「変化/通常」を切り替え、衣装違いは別のボタンで選ぶ
+  const reserveQueue = []; // 衣装ボタン欄の高さの測定待ち(下でまとめて測る)
+  let portraitCount = 0;
   document.querySelectorAll('.oc-portrait').forEach(el => {
     let forms = {};
     try { forms = JSON.parse(el.dataset.forms || '{}'); } catch (err) { forms = {}; }
@@ -1044,32 +1083,10 @@
     // 姿(通常/変化)によって衣装ボタンの数が違うと、切り替えるたびに
     // カードの高さがガクッと変わって見える(いわゆる「パカパカ」)ので、
     // そのキャラの中で一番背の高くなる衣装ボタン欄の高さを先に測っておき、
-    // 常にその高さぶんのスペースを確保しておく
-    function reserveCostumeHeight() {
-      let max = 0;
-      const refWidth = wrap.offsetWidth;
-      formKeys.forEach(key => {
-        const costumes = forms[key].costumes || [];
-        if (costumes.length <= 1) return;
-        const temp = document.createElement('div');
-        temp.className = 'costume-select';
-        temp.style.display = 'flex';
-        temp.style.position = 'absolute';
-        temp.style.visibility = 'hidden';
-        temp.style.width = refWidth + 'px';
-        costumes.forEach(c => {
-          const b = document.createElement('button');
-          b.type = 'button';
-          b.textContent = c.label;
-          temp.appendChild(b);
-        });
-        wrap.appendChild(temp);
-        max = Math.max(max, temp.offsetHeight);
-        wrap.removeChild(temp);
-      });
-      if (max > 0) costumeSelect.style.minHeight = max + 'px';
-    }
-    reserveCostumeHeight();
+    // 常にその高さぶんのスペースを確保しておく。
+    // 測定は、1キャラずつやると、そのたびにページ全体のレイアウトが走って遅いので、
+    // 全キャラぶんを溜めておいて、ループのあとでまとめて行う(reserveCostumeHeights)
+    reserveQueue.push({ wrap, forms, formKeys, costumeSelect });
 
     function renderCostumeButtons() {
       const costumes = currentCostumes();
@@ -1096,20 +1113,35 @@
       });
     }
 
+    const isFirstPortrait = portraitCount++ === 0;
+    let firstRender = true;
+
     function render() {
       const form = currentForm();
       const costumes = currentCostumes();
       const c = costumes[costumeIdx] || costumes[0];
+      const deferSrc = firstRender; // 最初の表示のときだけ、画像の指定を最初の描画のあとにする
+      firstRender = false;
 
       let img = el.querySelector('img');
       if (c.src) {
         if (!img) {
           img = document.createElement('img');
           img.alt = '';
-          img.loading = 'lazy';
+          // いちばん上のキャラの立ち絵は、最初に見える大きな画像(LCP)なので、遅延させず、優先して取得する
+          img.loading = isFirstPortrait ? 'eager' : 'lazy';
+          if (isFirstPortrait) img.setAttribute('fetchpriority', 'high');
+          img.decoding = 'async';
+          img.width = 600; // 実際の大きさはCSSで決まる。読み込み前に場所を確保するための指定
+          img.height = 750;
           el.appendChild(img);
         }
-        img.src = c.src;
+        if (deferSrc) {
+          const target = img, src = c.src;
+          window.afterFirstPaint(function () { target.src = src; });
+        } else {
+          img.src = c.src;
+        }
         // 画像ごとの余白(キャラがキャンバス内で占める大きさ)がバラバラで
         // 統一しづらい場合、costume に "scale": 1.3 のような値を入れると
         // その画像だけ拡大表示して、他の姿とサイズ感を揃えられます(省略時は1)
@@ -1164,6 +1196,43 @@
       el.classList.add('single');
     }
   });
+
+  // 衣装ボタン欄の高さを、全キャラぶんまとめて測る。
+  // 「読む → 書く → 読む → 書く」を交互に繰り返すと、そのたびにレイアウトが走るので、
+  // 「まとめて読む → まとめて書く → まとめて読む → まとめて書く」の順にして、レイアウトを2回に抑える
+  function reserveCostumeHeights(jobs) {
+    const widths = jobs.map(j => j.wrap.offsetWidth);                      // 読む(レイアウト1回目)
+    jobs.forEach((j, n) => {                                               // 書く: 測定用の要素を追加
+      j.temps = [];
+      j.formKeys.forEach(key => {
+        const costumes = j.forms[key].costumes || [];
+        if (costumes.length <= 1) return;
+        const temp = document.createElement('div');
+        temp.className = 'costume-select';
+        temp.style.display = 'flex';
+        temp.style.position = 'absolute';
+        temp.style.visibility = 'hidden';
+        temp.style.width = widths[n] + 'px';
+        costumes.forEach(c => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.textContent = c.label;
+          temp.appendChild(b);
+        });
+        j.wrap.appendChild(temp);
+        j.temps.push(temp);
+      });
+    });
+    jobs.forEach(j => {                                                    // 読む(レイアウト2回目)
+      j.max = 0;
+      j.temps.forEach(t => { j.max = Math.max(j.max, t.offsetHeight); });
+    });
+    jobs.forEach(j => {                                                    // 書く: 元に戻して、高さを確保
+      j.temps.forEach(t => j.wrap.removeChild(t));
+      if (j.max > 0) j.costumeSelect.style.minHeight = j.max + 'px';
+    });
+  }
+  reserveCostumeHeights(reserveQueue);
 
   // ボイスサンプル再生(複数ボタン対応・排他再生)
   let currentVoiceAudio = null;
