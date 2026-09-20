@@ -25,32 +25,14 @@
 <meta name="description" content="そぼろ忍のオリジナルキャラクターまとめ">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- フォントのCSSは、ページの表示を止めないように、あとから読み込みます(届くまでは代わりのフォントで表示されます)。
-     アイコンは、フォントが届くまで隠しておきます(読み込み前は「close」などの文字名が見えてしまうため)。
-     新しいアイコンを使うときは、icon_names にその名前を追加してください
-     (アルファベット順・全ページ共通の同じURLにすると、ブラウザのキャッシュが効きます) -->
-<script>
-  (function () {
-    document.documentElement.classList.add('js');
-    if (document.fonts && document.fonts.addEventListener) {
-      document.fonts.addEventListener('loadingdone', function (e) {
-        for (var i = 0; i < e.fontfaces.length; i++) {
-          if (String(e.fontfaces[i].family).indexOf('Material Symbols') >= 0) {
-            document.documentElement.classList.add('icons-ready');
-            break;
-          }
-        }
-      });
-    }
-  })();
-</script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=casino,checklist,close,content_copy,edit,favorite,format_align_left,ink_pen,mail,more_horiz,movie,music_note,pause,pets,photo,play_arrow,shuffle,sms,swap_horiz,swords,tv_gen,visibility,visibility_off,web_stories&display=block" media="print" onload="this.media='all'">
-<noscript>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=casino,checklist,close,content_copy,edit,favorite,format_align_left,ink_pen,mail,more_horiz,movie,music_note,pause,pets,photo,play_arrow,shuffle,sms,swap_horiz,swords,tv_gen,visibility,visibility_off,web_stories&display=block">
-</noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap"></noscript>
+<!-- アイコンは使うものだけを読み込んでいます。新しいアイコンを使うときは、
+     icon_names にその名前を追加してください(アルファベット順・全ページ共通の同じURLにすると、ブラウザのキャッシュが効きます) -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=casino,checklist,close,content_copy,edit,favorite,format_align_left,ink_pen,mail,more_horiz,movie,music_note,pause,pets,photo,play_arrow,shuffle,sms,swap_horiz,swords,tv_gen,visibility,visibility_off,web_stories&display=block" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=casino,checklist,close,content_copy,edit,favorite,format_align_left,ink_pen,mail,more_horiz,movie,music_note,pause,pets,photo,play_arrow,shuffle,sms,swap_horiz,swords,tv_gen,visibility,visibility_off,web_stories&display=block"></noscript>
 <link rel="stylesheet" href="common.css" />
+<link rel="stylesheet" href="mascot.css" />
 <style>
   header { margin-bottom: 28px; }
 
@@ -274,11 +256,6 @@
     outline: 3px solid var(--ink);
     outline-offset: 1px;
   }
-
-  /* カードができるまでの間、リストの場所を確保しておく。
-     (途中で画面が描画されても、フッターなど下にあるものが、あとでガクッとずれないように。
-      .js は各ページの head で付く。JavaScriptが無効なときは、この指定は効かない) */
-  .js .oc-list:not(.is-ready) { min-height: 100vh; }
 
   /* oc-data.js に書き間違いがあるときだけ出る注意書き */
   .oc-notice {
@@ -694,7 +671,7 @@
     font-size: 11.5px;
   }
 
-  /* --- 右下の追従SDイラスト(common.css に含まれています) --- */
+  /* --- 右下の追従SDイラスト(mascot.css に切り出し済み) --- */
 
   @media (max-width: 480px) {
     .oc-card { padding: 16px; }
@@ -745,32 +722,6 @@
 
 <script src="oc-data.js"></script>
 <script>
-  // 最初の描画(FCP)が終わってから実行する。
-  // 画像の読み込みを、最初の描画より前に始めてしまうと、他の読み込みと帯域を取り合って、
-  // 最初の表示が遅れてしまう。そのため、画像の指定は、最初の描画のあとに行う。
-  // (描画を検知できない環境や、タブが裏にあるときのために、3秒たったら実行する)
-  (function () {
-    var queue = [];
-    var ready = false;
-    function flush() {
-      if (ready) return;
-      ready = true;
-      queue.splice(0).forEach(function (fn) { fn(); });
-    }
-    window.afterFirstPaint = function (fn) {
-      if (ready) fn(); else queue.push(fn);
-    };
-    try {
-      new PerformanceObserver(function (list, obs) {
-        if (list.getEntriesByName('first-contentful-paint').length) {
-          obs.disconnect();
-          setTimeout(flush, 0);
-        }
-      }).observe({ type: 'paint', buffered: true });
-    } catch (e) { /* 未対応の環境では、下のタイマーで実行される */ }
-    setTimeout(flush, 3000);
-  })();
-
   // oc-data.js の内容から、世界観ボタン・所属ボタン・キャラクターカードを作る
   // (この後ろのスクリプトは、ここで作られた要素を使って動きます)
   (function renderFromData() {
@@ -834,7 +785,7 @@
       if (af) {
         // 所属は affiliation から自動で先頭に入れる(アイコン画像が無い所属はアイコンだけ空)
         rows.push('<div><dt>所属</dt><dd><span class="affil-icon"' +
-          (af.icon ? ' data-bg="' + esc(af.icon) + '"' : '') + // 画像は最初の描画のあとで指定する(下の afterFirstPaint)
+          (af.icon ? ' style="background-image:url(\'' + esc(af.icon) + '\')"' : '') +
           ' data-affil="' + esc(c.affiliation) + '"></span>' + esc(af.label) + '</dd></div>');
       }
       (c.facts || []).forEach(f => {
@@ -988,16 +939,10 @@
 
     if (list) list.insertAdjacentHTML('beforeend', cards.join(''));
     showProblems();
-
-    window.afterFirstPaint(function () {
-      document.querySelectorAll('.affil-icon[data-bg]').forEach(function (e) {
-        e.style.backgroundImage = "url('" + e.dataset.bg + "')";
-      });
-    });
   })();
+</script>
 
-  // ここから、絞り込み・立ち絵・キャスト一覧などの初期化。
-  // カードの生成(上)と同じ <script> にして、途中の状態が画面に出ないようにしている
+<script>
   // キャスト一覧を各キャラのdata-formsから自動生成
   (function buildCastIndex() {
     const indexEl = document.getElementById('castIndex');
@@ -1027,7 +972,7 @@
 
       const thumb = document.createElement('span');
       thumb.className = 'cast-thumb' + (thumbSrc ? '' : ' placeholder');
-      if (thumbSrc) thumb.dataset.bg = thumbSrc; // 画像は最初の描画のあとで指定する(下の afterFirstPaint)
+      if (thumbSrc) thumb.style.backgroundImage = `url('${thumbSrc}')`;
 
       const label = document.createElement('span');
       label.className = 'cast-name';
@@ -1044,18 +989,10 @@
 
       indexEl.appendChild(a);
     });
-
-    window.afterFirstPaint(function () {
-      indexEl.querySelectorAll('.cast-thumb[data-bg]').forEach(function (t) {
-        t.style.backgroundImage = "url('" + t.dataset.bg + "')";
-      });
-    });
   })();
 
   // 立ち絵タップで「変化/通常」を切り替え、衣装違いは別のボタンで選ぶ
-  const reserveQueue = []; // 衣装ボタン欄の高さの測定待ち(下でまとめて測る)
-  let portraitCount = 0;
-  document.querySelectorAll('.oc-portrait').forEach(el => {
+  document.querySelectorAll('.oc-portrait').forEach((el, portraitIndex) => {
     let forms = {};
     try { forms = JSON.parse(el.dataset.forms || '{}'); } catch (err) { forms = {}; }
     const formKeys = Object.keys(forms);
@@ -1087,11 +1024,24 @@
 
     // 姿(通常/変化)によって衣装ボタンの数が違うと、切り替えるたびに
     // カードの高さがガクッと変わって見える(いわゆる「パカパカ」)ので、
-    // そのキャラの中で一番背の高くなる衣装ボタン欄の高さを先に測っておき、
-    // 常にその高さぶんのスペースを確保しておく。
-    // 測定は、1キャラずつやると、そのたびにページ全体のレイアウトが走って遅いので、
-    // 全キャラぶんを溜めておいて、ループのあとでまとめて行う(reserveCostumeHeights)
-    reserveQueue.push({ wrap, forms, formKeys, costumeSelect });
+    // そのキャラの中で一番衣装が多い姿に合わせて、あらかじめスペースを確保しておく。
+    // 以前はDOMに仮のボタンを追加して実測していましたが、この「追加→測定→削除」が
+    // ページ読み込み中に何度も強制的なレイアウト計算(forced reflow)を発生させ、
+    // 表示が遅くなる原因になっていたため、概算の計算だけで済ませる方式に変更しました
+    function reserveCostumeHeight() {
+      let maxCount = 0;
+      formKeys.forEach(key => {
+        const n = (forms[key].costumes || []).length;
+        if (n > maxCount) maxCount = n;
+      });
+      if (maxCount > 1) {
+        const perRow = 3; // 1行あたりだいたい3個入る想定の概算
+        const rowHeight = 33; // ボタンの高さ(約28px)+行間(約5px)の概算
+        const rows = Math.ceil(maxCount / perRow);
+        costumeSelect.style.minHeight = (rows * rowHeight) + 'px';
+      }
+    }
+    reserveCostumeHeight();
 
     function renderCostumeButtons() {
       const costumes = currentCostumes();
@@ -1118,35 +1068,27 @@
       });
     }
 
-    const isFirstPortrait = portraitCount++ === 0;
-    let firstRender = true;
-
     function render() {
       const form = currentForm();
       const costumes = currentCostumes();
       const c = costumes[costumeIdx] || costumes[0];
-      const deferSrc = firstRender; // 最初の表示のときだけ、画像の指定を最初の描画のあとにする
-      firstRender = false;
 
       let img = el.querySelector('img');
       if (c.src) {
         if (!img) {
           img = document.createElement('img');
           img.alt = '';
-          // いちばん上のキャラの立ち絵は、最初に見える大きな画像(LCP)なので、遅延させず、優先して取得する
-          img.loading = isFirstPortrait ? 'eager' : 'lazy';
-          if (isFirstPortrait) img.setAttribute('fetchpriority', 'high');
-          img.decoding = 'async';
-          img.width = 600; // 実際の大きさはCSSで決まる。読み込み前に場所を確保するための指定
-          img.height = 750;
+          if (portraitIndex === 0) {
+            // 一番最初のキャラ(このページで最初に表示される=LCP画像になりやすい)は
+            // 遅延読み込みにしない。むしろ優先的に読み込んだ方が表示が速くなる
+            img.loading = 'eager';
+            img.fetchPriority = 'high';
+          } else {
+            img.loading = 'lazy';
+          }
           el.appendChild(img);
         }
-        if (deferSrc) {
-          const target = img, src = c.src;
-          window.afterFirstPaint(function () { target.src = src; });
-        } else {
-          img.src = c.src;
-        }
+        img.src = c.src;
         // 画像ごとの余白(キャラがキャンバス内で占める大きさ)がバラバラで
         // 統一しづらい場合、costume に "scale": 1.3 のような値を入れると
         // その画像だけ拡大表示して、他の姿とサイズ感を揃えられます(省略時は1)
@@ -1201,43 +1143,6 @@
       el.classList.add('single');
     }
   });
-
-  // 衣装ボタン欄の高さを、全キャラぶんまとめて測る。
-  // 「読む → 書く → 読む → 書く」を交互に繰り返すと、そのたびにレイアウトが走るので、
-  // 「まとめて読む → まとめて書く → まとめて読む → まとめて書く」の順にして、レイアウトを2回に抑える
-  function reserveCostumeHeights(jobs) {
-    const widths = jobs.map(j => j.wrap.offsetWidth);                      // 読む(レイアウト1回目)
-    jobs.forEach((j, n) => {                                               // 書く: 測定用の要素を追加
-      j.temps = [];
-      j.formKeys.forEach(key => {
-        const costumes = j.forms[key].costumes || [];
-        if (costumes.length <= 1) return;
-        const temp = document.createElement('div');
-        temp.className = 'costume-select';
-        temp.style.display = 'flex';
-        temp.style.position = 'absolute';
-        temp.style.visibility = 'hidden';
-        temp.style.width = widths[n] + 'px';
-        costumes.forEach(c => {
-          const b = document.createElement('button');
-          b.type = 'button';
-          b.textContent = c.label;
-          temp.appendChild(b);
-        });
-        j.wrap.appendChild(temp);
-        j.temps.push(temp);
-      });
-    });
-    jobs.forEach(j => {                                                    // 読む(レイアウト2回目)
-      j.max = 0;
-      j.temps.forEach(t => { j.max = Math.max(j.max, t.offsetHeight); });
-    });
-    jobs.forEach(j => {                                                    // 書く: 元に戻して、高さを確保
-      j.temps.forEach(t => j.wrap.removeChild(t));
-      if (j.max > 0) j.costumeSelect.style.minHeight = j.max + 'px';
-    });
-  }
-  reserveCostumeHeights(reserveQueue);
 
   // ボイスサンプル再生(複数ボタン対応・排他再生)
   let currentVoiceAudio = null;
@@ -1500,10 +1405,6 @@
   };
 </script>
 
-<script>
-  // カードの準備ができた印(リストの場所の確保を解除する)。上のスクリプトが途中で失敗しても、必ず実行される
-  document.getElementById('ocList').classList.add('is-ready');
-</script>
 <script src="mascot.js"></script>
 
 </body>
