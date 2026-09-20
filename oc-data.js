@@ -46,9 +46,9 @@ window.OC_DATA = {
   ],
 
   affiliations: {
-    iga: { label: '伊賀', icon: 'img/oc/affil/iga.png' },
-    kouga: { label: '甲賀', icon: 'img/oc/affil/kouga.png' },
-    gov: { label: '政府', icon: 'img/oc/affil/gov.png' },
+    iga: { label: '伊賀', icon: 'img/oc/affil/iga.webp' },
+    kouga: { label: '甲賀', icon: 'img/oc/affil/kouga.webp' },
+    gov: { label: '政府', icon: 'img/oc/affil/gov.webp' },
     none: { label: '無所属' },
   },
 
@@ -58,7 +58,7 @@ window.OC_DATA = {
       id: 'soboronin',
       world: 'world-a',
       affiliation: 'iga',
-      thumb: 'img/oc/soboronin/icon_soboronin.png',
+      thumb: 'img/oc/soboronin/icon_soboronin.webp',
       utau: 'https://bowlroll.net/user/870791/files?sort=title&order=up&date=none&auth=none',
       name: 'そぼろ{忍|にん}',
       trueName: '{百|モモ}',
@@ -66,21 +66,21 @@ window.OC_DATA = {
         human: {
           label: '変化',
           costumes: [
-            { src: 'img/oc/soboronin/soboronin_h_01.png', label: 'デフォルト' },
-            { src: 'img/oc/soboronin/soboronin_h_02.png', label: '寝巻' },
-            { src: 'img/oc/soboronin/soboronin_h_03.png', label: 'チャイナ' },
-            { src: 'img/oc/soboronin/soboronin_h_04.png', label: 'サイバーパンク' },
-            { src: 'img/oc/soboronin/soboronin_h_05.png', label: '学生' },
-            { src: 'img/oc/soboronin/soboronin_h_06.png', label: '一目連' },
-            { src: 'img/oc/soboronin/soboronin_h_07.png', label: 'ヒーロー' },
-            { src: 'img/oc/soboronin/soboronin_h_08.png', label: '私服？' },
-            { src: 'img/oc/soboronin/soboronin_h_09.png', label: 'アイドル私服' },
+            { src: 'img/oc/soboronin/soboronin_h_01.webp', label: 'デフォルト' },
+            { src: 'img/oc/soboronin/soboronin_h_02.webp', label: '寝巻' },
+            { src: 'img/oc/soboronin/soboronin_h_03.webp', label: 'チャイナ' },
+            { src: 'img/oc/soboronin/soboronin_h_04.webp', label: 'サイバーパンク' },
+            { src: 'img/oc/soboronin/soboronin_h_05.webp', label: '学生' },
+            { src: 'img/oc/soboronin/soboronin_h_06.webp', label: '一目連' },
+            { src: 'img/oc/soboronin/soboronin_h_07.webp', label: 'ヒーロー' },
+            { src: 'img/oc/soboronin/soboronin_h_08.webp', label: '私服？' },
+            { src: 'img/oc/soboronin/soboronin_h_09.webp', label: 'アイドル私服' },
           ],
         },
         nonhuman: {
           label: '通常',
           costumes: [
-            { src: 'img/oc/soboronin/soboronin_n_01.png', label: 'デフォルト' },
+            { src: 'img/oc/soboronin/soboronin_n_01.webp', label: 'デフォルト' },
           ],
         },
       },
@@ -108,7 +108,7 @@ window.OC_DATA = {
         { src: 'voice/soboronin02.mp3', label: '強' },
         { src: 'voice/soboronin03.mp3', label: '楽' },
       ],
-      sd: ['img/oc/soboronin/soboronin_sd_01.png'],
+      sd: ['img/oc/soboronin/soboronin_sd_01.webp'],
     },
 
     // 百ちゃん
@@ -116,7 +116,7 @@ window.OC_DATA = {
       id: 'momochan',
       world: 'world-a',
       affiliation: 'iga',
-      thumb: 'img/oc/momochan/icon_momochan.png',
+      thumb: 'img/oc/momochan/icon_momochan.webp',
       utau: 'https://bowlroll.net/file/325820',
       name: '{百|もも}ちゃん',
       trueName: '{一花|イチカ}',
@@ -124,13 +124,13 @@ window.OC_DATA = {
         human: {
           label: '変化',
           costumes: [
-            { src: 'img/oc/momochan/momochan_h_01.png', label: 'デフォルト' },
+            { src: 'img/oc/momochan/momochan_h_01.webp', label: 'デフォルト' },
           ],
         },
         nonhuman: {
           label: '通常',
           costumes: [
-            { src: 'img/oc/momochan/momochan_n_01.png', label: 'デフォルト' },
+            { src: 'img/oc/momochan/momochan_n_01.webp', label: 'デフォルト' },
           ],
         },
       },
@@ -163,14 +163,14 @@ window.OC_DATA = {
       id: 'momokun',
       world: 'world-a',
       affiliation: 'iga',
-      thumb: 'img/oc/momokun/icon_momokun.png',
+      thumb: 'img/oc/momokun/icon_momokun.webp',
       name: '{百|もも}くん',
       trueName: '{伍郎|ゴロウ}',
       forms: {
         human: {
           label: '変化',
           costumes: [
-            { src: 'img/oc/momokun/momokun_h_01.png', label: 'デフォルト' },
+            { src: 'img/oc/momokun/momokun_h_01.webp', label: 'デフォルト' },
           ],
         },
         nonhuman: {
@@ -211,14 +211,14 @@ window.OC_DATA = {
       id: 'tororonin',
       world: 'world-a',
       affiliation: 'iga',
-      thumb: 'img/oc/tororonin/icon_tororonin.png',
+      thumb: 'img/oc/tororonin/icon_tororonin.webp',
       name: 'とろろ{忍|にん}',
       trueName: '{沓|ナツメ}',
       forms: {
         human: {
           label: '変化',
           costumes: [
-            { src: 'img/oc/tororonin/tororonin_h_01.png', label: 'デフォルト' },
+            { src: 'img/oc/tororonin/tororonin_h_01.webp', label: 'デフォルト' },
           ],
         },
         nonhuman: {
@@ -260,7 +260,7 @@ window.OC_DATA = {
       id: 'locomoconin',
       world: 'world-a',
       affiliation: 'none',
-      thumb: 'img/oc/locomoconin/icon_locomoconin.png',
+      thumb: 'img/oc/locomoconin/icon_locomoconin.webp',
       utau: 'https://bowlroll.net/file/333343',
       name: 'ロコモコ{忍|にん}',
       trueName: '{Solomon Corley|ソロモン・コーリー}',
@@ -269,13 +269,13 @@ window.OC_DATA = {
         human: {
           label: '変化',
           costumes: [
-            { src: 'img/oc/locomoconin/locomoconin_h_01.png', label: 'デフォルト' },
+            { src: 'img/oc/locomoconin/locomoconin_h_01.webp', label: 'デフォルト' },
           ],
         },
         nonhuman: {
           label: '通常',
           costumes: [
-            { src: 'img/oc/locomoconin/locomoconin_n_01.png', label: 'デフォルト' },
+            { src: 'img/oc/locomoconin/locomoconin_n_01.webp', label: 'デフォルト' },
           ],
         },
       },
@@ -309,14 +309,14 @@ window.OC_DATA = {
       id: 'oboronin',
       world: 'world-a',
       affiliation: 'kouga',
-      thumb: 'img/oc/oboronin/icon_oboronin.png',
+      thumb: 'img/oc/oboronin/icon_oboronin.webp',
       name: 'おぼろ{忍|にん}',
       trueName: '{煌|コウ}',
       forms: {
         human: {
           label: '変化',
           costumes: [
-            { src: 'img/oc/oboronin/oboronin_h_01.png', label: 'デフォルト' },
+            { src: 'img/oc/oboronin/oboronin_h_01.webp', label: 'デフォルト' },
           ],
         },
         nonhuman: {
@@ -357,14 +357,14 @@ window.OC_DATA = {
       id: 'morokonin',
       world: 'world-a',
       affiliation: 'kouga',
-      thumb: 'img/oc/morokonin/icon_morokonin.png',
+      thumb: 'img/oc/morokonin/icon_morokonin.webp',
       name: 'もろこ{忍|にん}',
       trueName: '{煌|コウ}',
       forms: {
         human: {
           label: '変化',
           costumes: [
-            { src: 'img/oc/morokonin/morokonin_h_01.png', label: 'デフォルト' },
+            { src: 'img/oc/morokonin/morokonin_h_01.webp', label: 'デフォルト' },
           ],
         },
         nonhuman: {
@@ -406,14 +406,14 @@ window.OC_DATA = {
       id: 'hodoronin',
       world: 'world-a',
       affiliation: 'kouga',
-      thumb: 'img/oc/hodoronin/icon_hodoronin.png',
+      thumb: 'img/oc/hodoronin/icon_hodoronin.webp',
       name: 'ほどろ{忍|にん}',
       trueName: '{灸|ヤイト}',
       forms: {
         human: {
           label: '変化',
           costumes: [
-            { src: 'img/oc/hodoronin/hodoronin_h_01.png', label: 'デフォルト' },
+            { src: 'img/oc/hodoronin/hodoronin_h_01.webp', label: 'デフォルト' },
           ],
         },
         nonhuman: {
@@ -454,14 +454,14 @@ window.OC_DATA = {
       id: 'otomonin',
       world: 'world-a',
       affiliation: 'kouga',
-      thumb: 'img/oc/otomonin/icon_otomonin.png',
+      thumb: 'img/oc/otomonin/icon_otomonin.webp',
       name: 'おとも{忍|にん}',
       trueName: '{陸|リク}',
       forms: {
         human: {
           label: '変化',
           costumes: [
-            { src: 'img/oc/otomonin/otomonin_h_01.png', label: 'デフォルト' },
+            { src: 'img/oc/otomonin/otomonin_h_01.webp', label: 'デフォルト' },
           ],
         },
         nonhuman: {
@@ -500,14 +500,14 @@ window.OC_DATA = {
       id: 'momoyonin',
       world: 'world-a',
       affiliation: 'kouga',
-      thumb: 'img/oc/momoyonin/icon_momoyonin.png',
+      thumb: 'img/oc/momoyonin/icon_momoyonin.webp',
       name: 'ももよ{忍|にん}',
       trueName: '{岳|ガク}',
       forms: {
         human: {
           label: '変化',
           costumes: [
-            { src: 'img/oc/momoyonin/momoyonin_h_01.png', label: 'デフォルト' },
+            { src: 'img/oc/momoyonin/momoyonin_h_01.webp', label: 'デフォルト' },
           ],
         },
         nonhuman: {
@@ -547,13 +547,13 @@ window.OC_DATA = {
       id: 'amatsunomiya',
       world: 'world-a',
       affiliation: 'gov',
-      thumb: 'img/oc/amatsunomiya/icon_amatsunomiya.png',
+      thumb: 'img/oc/amatsunomiya/icon_amatsunomiya.webp',
       name: '{天宮|あまつのみや}',
       forms: {
         human: {
           label: '変化',
           costumes: [
-            { src: 'img/oc/amatsunomiya/amatsunomiya_h_01.png', label: 'デフォルト' },
+            { src: 'img/oc/amatsunomiya/amatsunomiya_h_01.webp', label: 'デフォルト' },
           ],
         },
         nonhuman: {
@@ -591,13 +591,13 @@ window.OC_DATA = {
       id: 'tendo',
       world: 'world-a',
       affiliation: 'gov',
-      thumb: 'img/oc/tendo/icon_tendo.png',
+      thumb: 'img/oc/tendo/icon_tendo.webp',
       name: '{天道|てんどう}',
       forms: {
         human: {
           label: '変化',
           costumes: [
-            { src: 'img/oc/tendo/tendo_h_01.png', label: 'デフォルト' },
+            { src: 'img/oc/tendo/tendo_h_01.webp', label: 'デフォルト' },
           ],
         },
         nonhuman: {

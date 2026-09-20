@@ -33,6 +33,11 @@
     --exclude-dir D  名前が D のサブフォルダの中身を除きます。何回でも指定できます
     --full-color     256色にせず、フルカラーのまま縮小だけします(サイズは256色より大きくなります)。
                      256色にすると、グラデーションの階調が荒れて劣化が目立つ画像に使ってください
+    --webp           PNGではなく WebP(拡張子 .webp)で出力します。フルカラーでも軽くなります
+                     (目安: フルカラーPNG 215 KB → WebP 64 KB)。使うときは、次の switch_to_webp.py で
+                     oc-data.js などの画像のパスを .webp に書き換えてください
+    --quality N      --webp の画質(0〜100)。初期値 90
+    --lossless       --webp を、劣化のないロスレスにします(--quality は無視されます。サイズは大きめ)
     --focus F   thumb を正方形に切り抜くときの中心の位置(0〜1)。初期値 0.5(中央)
                 横長の画像なら左右の位置、縦長の画像なら上下の位置です。
                 「中央だと余白ばかり写る」ときに、見せたい部分へ寄せられます
@@ -87,6 +92,13 @@ def square_box(w, h, focus):
     return (x0, y0, x0 + s, y0 + s)
 
 
+def save_webp(im, path, quality=90, lossless=False):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if not has_real_alpha(im):
+        im = im.convert('RGB')  # 全面が不透明なら、透過チャンネルは不要
+    im.save(path, 'WEBP', quality=quality, lossless=lossless, method=6)
+
+
 def save_thumb(im, path, side, focus=0.5):
     path.parent.mkdir(parents=True, exist_ok=True)
     rgb = im.convert('RGB')
@@ -118,6 +130,9 @@ def main():
     ap.add_argument('--exclude', action='append', default=[])
     ap.add_argument('--exclude-dir', action='append', default=[])
     ap.add_argument('--full-color', action='store_true')
+    ap.add_argument('--webp', action='store_true')
+    ap.add_argument('--quality', type=int, default=90)
+    ap.add_argument('--lossless', action='store_true')
     a = ap.parse_args()
 
     src = Path(a.folder)
@@ -161,8 +176,12 @@ def main():
         if im.mode not in ('RGB', 'RGBA'):
             im = im.convert('RGBA' if 'A' in im.getbands() or im.mode == 'P' else 'RGB')
         small = shrink(im, long_side)
-        png_path = out / rel.with_suffix('.png')
-        save_png256(small, png_path, a.full_color)
+        if a.webp:
+            png_path = out / rel.with_suffix('.webp')
+            save_webp(small, png_path, a.quality, a.lossless)
+        else:
+            png_path = out / rel.with_suffix('.png')
+            save_png256(small, png_path, a.full_color)
         made = [png_path]
         if a.mode == 'works':
             th_path = out / rel.parent / 'thumb' / (rel.stem + '.webp')
