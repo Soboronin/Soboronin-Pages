@@ -412,17 +412,20 @@
 
   .poof-cloud.left {
     left: 0;
-    background-image: url('img/oc/effects/smoke_left.png');
     background-position: left center;
     transform: translateX(-55%);
   }
 
   .poof-cloud.right {
     right: 0;
-    background-image: url('img/oc/effects/smoke_right.png');
     background-position: right center;
     transform: translateX(55%);
   }
+
+  /* 煙の画像は、最初の描画のあとに読み込む(html に smoke-ready が付く)。
+     最初の描画より前に画像を読み込み始めると、最初の表示(FCP)が遅れるため */
+  .smoke-ready .poof-cloud.left { background-image: url('img/oc/effects/smoke_left.webp'); }
+  .smoke-ready .poof-cloud.right { background-image: url('img/oc/effects/smoke_right.webp'); }
 
   .poof.active .poof-cloud {
     animation: poof-sweep 0.6s ease-in-out forwards;
@@ -770,6 +773,9 @@
     } catch (e) { /* 未対応の環境では、下のタイマーで実行される */ }
     setTimeout(flush, 3000);
   })();
+
+  // 煙の演出の画像を、最初の描画のあとで読み込み始める(CSSの .smoke-ready)
+  window.afterFirstPaint(function () { document.documentElement.classList.add('smoke-ready'); });
 
   // oc-data.js の内容から、世界観ボタン・所属ボタン・キャラクターカードを作る
   // (この後ろのスクリプトは、ここで作られた要素を使って動きます)

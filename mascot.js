@@ -58,7 +58,10 @@ document.addEventListener('DOMContentLoaded', function () {
     updateMascot();
     bounce();
   });
-  updateMascot();
+  // OCページなど、window.afterFirstPaint があるページでは、最初の描画のあとに画像を出す
+  // (最初の描画より前に画像を読み込み始めると、最初の表示が遅れるため)
+  if (typeof window.afterFirstPaint === 'function') window.afterFirstPaint(updateMascot);
+  else updateMascot();
 
   // footerが画面内に入ってきたら、コンテンツに被らないようスッと下に隠れる
   const footerEl = document.querySelector('footer');
