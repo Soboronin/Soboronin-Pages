@@ -3,15 +3,15 @@
 // ▼SDイラストの追加方法▼
 // 下の配列にパスを追加してください(img/oc/キャラ名/ フォルダに画像を置く想定)
 const sdImages = [
-  'img/oc/soboronin/soboronin_sd_01.png',
-  // 'img/oc/soboronin/soboronin_sd_02.png',
+  'img/oc/soboronin/soboronin_sd_01.webp',
+  // 'img/oc/soboronin/soboronin_sd_02.webp',
 ];
 
 // ▼ページ側で候補を差し替えたい場合(oc.html のキャラ連動など)▼
 // window.mascotGetPool = () => ['画像パス', ...]; を定義しておくと、上の配列の代わりに使われます。
 // 世界観の切り替えなどで選び直したいときは window.updateMascot() を呼んでください。
 
-document.addEventListener('DOMContentLoaded', function () {
+function initMascot() {
   const mascotEl = document.getElementById('mascot');
   const mascotInner = document.querySelector('#mascot .mascot-inner');
   if (!mascotEl || !mascotInner) return;
@@ -45,6 +45,10 @@ document.addEventListener('DOMContentLoaded', function () {
       const img = document.createElement('img');
       img.src = pick;
       img.alt = ''; // 装飾なので読み上げない
+      // .webp が無いとき(まだ置いていないとき)は、同じ名前の .png を探す
+      img.addEventListener('error', function () {
+        if (/\.webp$/.test(img.src)) img.src = img.src.replace(/\.webp$/, '.png');
+      });
       img.width = 100; // 表示サイズはCSSで決まる。読み込み前に場所を確保するための指定
       img.height = 100;
       mascotInner.appendChild(img);
@@ -74,4 +78,8 @@ document.addEventListener('DOMContentLoaded', function () {
     );
     observer.observe(footerEl);
   }
-});
+}
+
+// defer / async で読み込まれても動くように、読み込み済みなら、すぐ始める
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initMascot);
+else initMascot();

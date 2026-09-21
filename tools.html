@@ -27,7 +27,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- 右下のマスコット(mascot.js が JavaScript で作る画像)を、早めに取得しておく。
      mascot.js の sdImages の先頭と同じパスにしてください -->
-<link rel="preload" as="image" href="img/oc/soboronin/soboronin_sd_01.png">
+<link rel="preload" as="image" href="img/oc/soboronin/soboronin_sd_01.webp" type="image/webp">
 <!-- フォントのCSSは、ページの表示を止めないように、あとから読み込みます(届くまでは代わりのフォントで表示されます)。
      アイコンは、フォントが届くまで隠しておきます(読み込み前は「close」などの文字名が見えてしまうため)。
      新しいアイコンを使うときは、icon_names にその名前を追加してください
@@ -246,7 +246,7 @@
 
 <!-- 右下の追従SDイラスト(全キャラからランダム表示) -->
 <div id="mascot" aria-hidden="true"><div class="mascot-inner"></div></div>
-<script src="mascot.js"></script>
+<script src="mascot.js" defer></script>
 
 </body>
 </html>

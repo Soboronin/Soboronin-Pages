@@ -51,6 +51,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=casino,checklist,close,content_copy,edit,favorite,format_align_left,ink_pen,mail,more_horiz,movie,music_note,pause,pets,photo,play_arrow,shuffle,sms,swap_horiz,swords,tv_gen,visibility,visibility_off,web_stories&display=block">
 </noscript>
 <link rel="stylesheet" href="common.css" />
+<script src="oc-data.js" defer></script>
 <style>
   header { margin-bottom: 28px; }
 
@@ -746,7 +747,6 @@
 <!-- 右下の追従SDイラスト(表示中のキャラに連動。ロジックは mascot.js) -->
 <div id="mascot" aria-hidden="true"><div class="mascot-inner"></div></div>
 
-<script src="oc-data.js"></script>
 <script>
   // 最初の描画(FCP)が終わってから実行する。
   // 画像の読み込みを、最初の描画より前に始めてしまうと、他の読み込みと帯域を取り合って、
@@ -776,6 +776,8 @@
 
   // 煙の演出の画像を、最初の描画のあとで読み込み始める(CSSの .smoke-ready)
   window.afterFirstPaint(function () { document.documentElement.classList.add('smoke-ready'); });
+
+  function bootOc() {
 
   // oc-data.js の内容から、世界観ボタン・所属ボタン・キャラクターカードを作る
   // (この後ろのスクリプトは、ここで作られた要素を使って動きます)
@@ -1504,13 +1506,30 @@
       .filter(card => card.style.display !== 'none' && card.dataset.sd)
       .flatMap(card => card.dataset.sd.split(',').map(s => s.trim()).filter(Boolean));
   };
-</script>
 
-<script>
-  // カードの準備ができた印(リストの場所の確保を解除する)。上のスクリプトが途中で失敗しても、必ず実行される
-  document.getElementById('ocList').classList.add('is-ready');
+  } // bootOc の終わり
+
+  (function () {
+    var started = false;
+    function start() {
+      if (started) return;
+      started = true;
+      try {
+        bootOc();
+      } finally {
+        document.getElementById('ocList').classList.add('is-ready');
+        if (window.updateMascot) window.updateMascot();
+      }
+    }
+    function schedule() {
+      requestAnimationFrame(function () { setTimeout(start, 0); });
+      setTimeout(start, 500);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', schedule);
+    else schedule();
+  })();
 </script>
-<script src="mascot.js"></script>
+<script src="mascot.js" defer></script>
 
 </body>
 </html>
