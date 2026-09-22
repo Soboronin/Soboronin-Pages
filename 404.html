@@ -46,16 +46,26 @@
 <script>
   (function () {
     document.documentElement.classList.add('js');
+    var shown = false;
+    function showIcons() {
+      if (shown) return;
+      shown = true;
+      document.documentElement.classList.add('icons-ready');
+    }
     if (document.fonts && document.fonts.addEventListener) {
       document.fonts.addEventListener('loadingdone', function (e) {
         for (var i = 0; i < e.fontfaces.length; i++) {
           if (String(e.fontfaces[i].family).indexOf('Material Symbols') >= 0) {
-            document.documentElement.classList.add('icons-ready');
+            showIcons();
             break;
           }
         }
       });
     }
+    // 環境によっては、上の検知がうまく働かないことがある(Font Loading API 未対応、
+    // 読み込みの合図が来ない、など)。その場合にアイコンが永久に隠れたままにならないよう、
+    // 2.5秒たったら、検知できていなくても表示する(最悪でもフォント読み込み前と同じ見え方に戻るだけ)
+    setTimeout(showIcons, 2500);
   })();
 </script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" media="print" onload="this.media='all'">
