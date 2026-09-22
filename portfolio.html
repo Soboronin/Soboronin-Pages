@@ -276,6 +276,25 @@
     text-align: center;
   }
 
+  /* 動画の埋め込みが許可されていない(または読み込めない)ときのために、YouTubeへのリンクを添える */
+  .lightbox-yt {
+    display: block;
+    width: fit-content;
+    margin: 8px auto 0;
+    padding: 6px 12px;
+    color: var(--bg);
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .lightbox-yt:focus-visible {
+    outline: 3px solid var(--bg);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
   .lightbox-close {
     position: absolute;
     top: 20px;
@@ -339,7 +358,8 @@
 
     ▼動画カードの場合▼
     - <button> に data-type="video" data-video="YouTube動画ID" を追加
-      (動画IDは https://youtu.be/【ここ】 や watch?v=【ここ】 の部分)
+      (動画IDは https://youtu.be/【ここ】 や watch?v=【ここ】 の部分。
+       URLをそのまま貼っても、IDが取り出されます)
     - サムネイルは data-thumb="img/works/xxxx.jpg" で個別指定するか、
       未指定ならYouTubeの自動サムネイルを使います
     - 再生アイコンのバッジは自動で付きます
@@ -470,24 +490,6 @@
       <span class="art-caption">サムネイル・ロゴ</span>
     </button>
 
-    <button type="button" class="art-card" data-title="VJ用動画" data-category="illust animation video" data-type="video" data-video="DftqxCVUBag" data-thumb="img/works/thumb/worksY01.webp">
-      <span class="art-thumb placeholder">
-        <span class="material-symbols-outlined" aria-hidden="true">movie</span>
-        <span class="style-tags"><span># シンプル</span></span>
-        <span class="play-badge"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
-      </span>
-      <span class="art-caption">VJ用動画</span>
-    </button>
-
-    <button type="button" class="art-card" data-title="VJ用動画" data-category="illust animation live2d video" data-type="video" data-video="Br2RGVxlX0c" data-thumb="img/works/thumb/worksY02.webp">
-      <span class="art-thumb placeholder">
-        <span class="material-symbols-outlined" aria-hidden="true">movie</span>
-        <span class="style-tags"><span># シンプル</span></span>
-        <span class="play-badge"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></span>
-      </span>
-      <span class="art-caption">VJ用動画</span>
-    </button>
-
     <button type="button" class="art-card" data-title="【Live2D Showcase】イザナミ アヌ 様" data-category="live2d video" data-type="video" data-video="w8j3V52Lm0I?si=2Os0qaG7NNkBRXSq">
       <span class="art-thumb placeholder">
         <span class="material-symbols-outlined" aria-hidden="true">movie</span>
@@ -518,6 +520,7 @@
     <img class="lightbox-img" id="lightboxImg" src="" alt="" style="display:none;">
     <iframe class="lightbox-video" id="lightboxVideo" src="" style="display:none;" allow="autoplay; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
     <p class="lightbox-cap" id="lightboxCap"></p>
+    <a class="lightbox-yt" id="lightboxYt" href="#" target="_blank" rel="noopener noreferrer" hidden>YouTubeで見る ↗</a>
   </div>
 </div>
 
@@ -527,6 +530,7 @@
   const lightboxImg = document.getElementById('lightboxImg');
   const lightboxVideo = document.getElementById('lightboxVideo');
   const lightboxCap = document.getElementById('lightboxCap');
+  const lightboxYt = document.getElementById('lightboxYt');
   const filters = document.getElementById('filters');
   const lightboxClose = document.getElementById('lightboxClose');
   let lastFocus = null; // ライトボックスを閉じたときに、開いた作品カードへフォーカスを戻す
@@ -536,10 +540,13 @@
     [document.querySelector('main'), document.getElementById('mascot')].forEach(el => { if (el) el.inert = on; });
   }
 
-  // YouTubeの共有URLをコピペすると "動画ID?si=xxxx" のような形で
-  // ゴミが付いてくることがあるので、"?" 以降を切り落として素のIDだけにする
+  // 動画IDを取り出す。次のどれを書いても動く:
+  //   dQw4w9WgXcQ / dQw4w9WgXcQ?si=xxxx(共有URLの後ろ)/ https://youtu.be/dQw4w9WgXcQ?si=xxxx
+  //   https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=10s / .../shorts/ID / .../live/ID / .../embed/ID
   function cleanVideoId(raw) {
-    return (raw || '').split('?')[0].trim();
+    raw = (raw || '').trim();
+    const m = raw.match(/(?:youtu\.be\/|[?&]v=|\/(?:shorts|live|embed|v)\/)([A-Za-z0-9_-]{11})/);
+    return m ? m[1] : raw.split(/[?&#]/)[0];
   }
 
   // 動画サムネイルの画質(YouTubeが用意している画像の種類)
@@ -691,12 +698,15 @@
       lightboxImg.style.display = 'none';
       lightboxVideo.style.display = 'block';
       lightboxVideo.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1';
+      lightboxYt.href = 'https://www.youtube.com/watch?v=' + videoId;
+      lightboxYt.hidden = false;
     } else {
       const thumbImg = card.querySelector('.art-thumb > .art-img');
       // 拡大表示は、data-full(元画像)があればそれを、無ければサムネイルと同じ画像を使う
       const url = card.dataset.full || (thumbImg ? thumbImg.getAttribute('src') : '');
       lightboxVideo.style.display = 'none';
       lightboxVideo.src = '';
+      lightboxYt.hidden = true;
       lightboxImg.style.display = 'block';
       lightboxImg.src = url;
       lightboxImg.alt = card.dataset.title || '';
@@ -728,7 +738,7 @@
 
 <!-- 右下の追従SDイラスト(全キャラからランダム表示) -->
 <div id="mascot" aria-hidden="true"><div class="mascot-inner"></div></div>
-<script src="mascot.js" defer></script>
+<script src="mascot.js"></script>
 
 </body>
 </html>
