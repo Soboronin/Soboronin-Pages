@@ -29,11 +29,23 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  /* X(旧Twitter)アプリ内の「カードプレビュー」ブラウザなど、シート状の埋め込みブラウザは、
+     開閉時にフレームの幅だけをリサイズしてレイアウトを再計算しないことがある。
+     その結果、以前の(通常は画面いっぱいの)幅で描画された内容が、新しい狭いフレームで
+     そのまま切り取られ、左側が見切れて表示されることがある。
+     html/body の幅を明示的に100%に固定し、横方向にはみ出た分は隠す(スクロールさせない)
+     ことで、はみ出し自体をできるだけ起こさないようにする */
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
+  width: 100%;
+  max-width: 100%;
   min-height: 100vh;
+  overflow-x: hidden;
   background: var(--bg);
   color: var(--ink);
   font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;

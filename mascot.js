@@ -83,3 +83,33 @@ function initMascot() {
 // defer / async で読み込まれても動くように、読み込み済みなら、すぐ始める
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initMascot);
 else initMascot();
+
+// --- 埋め込みブラウザ(Xアプリ内のカードプレビューなど)向けの強制再レイアウト対策 ---
+// これらは、リンクを開くと下から出てくる「シート」状のブラウザで、ユーザーがシートを
+// 指でドラッグして広げると、表示エリアの幅や高さがあとから変わることがある。
+// その際に、ページ側のレイアウト計算が更新されず、最初に描画したときのサイズのまま
+// 表示され続けてしまい、結果として内容が左右にずれて・切れて見えることがある
+// (よくある症状: ナビゲーションや見出しの左側が見切れる)。
+// この対策では、画面サイズが変わるたびに body を一瞬だけ描画から外して戻すことで、
+// ブラウザに強制的にレイアウトをやり直させる(見た目には一瞬も見えない程度の処理)。
+(function () {
+  var pending = false;
+  function forceReflow() {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(function () {
+      var prevDisplay = document.body.style.display;
+      document.body.style.display = 'none';
+      // このプロパティを読むことで、ブラウザに再計算を強制する
+      void document.body.offsetHeight;
+      document.body.style.display = prevDisplay;
+      pending = false;
+    });
+  }
+  window.addEventListener('resize', forceReflow);
+  window.addEventListener('orientationchange', forceReflow);
+  window.addEventListener('pageshow', forceReflow);
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', forceReflow);
+  }
+})();
