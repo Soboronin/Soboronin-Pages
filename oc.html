@@ -25,6 +25,7 @@
 <meta name="description" content="そぼろ忍のオリジナルキャラクターまとめ">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
 <!-- フォントのCSSは、ページの表示を止めないように、あとから読み込みます(届くまでは代わりのフォントで表示されます)。
      アイコンは、フォントが届くまで隠しておきます(読み込み前は「close」などの文字名が見えてしまうため)。
      新しいアイコンを使うときは、icon_names にその名前を追加してください
@@ -1142,7 +1143,10 @@
       const form = currentForm();
       const costumes = currentCostumes();
       const c = costumes[costumeIdx] || costumes[0];
-      const deferSrc = firstRender; // 最初の表示のときだけ、画像の指定を最初の描画のあとにする
+      // 最初の表示のときだけ、画像の指定を最初の描画のあとにする。
+      // ただし、いちばん上のキャラの立ち絵はLCP要素なので、ここで遅延させると
+      // 上のeager/fetchpriorityの指定が無意味になってしまうため、遅延させない。
+      const deferSrc = firstRender && !isFirstPortrait;
       firstRender = false;
 
       let img = el.querySelector('img');
