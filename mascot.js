@@ -98,11 +98,12 @@ else initMascot();
     if (pending) return;
     pending = true;
     requestAnimationFrame(function () {
-      var prevDisplay = document.body.style.display;
-      document.body.style.display = 'none';
-      // このプロパティを読むことで、ブラウザに再計算を強制する
+      // レイアウトプロパティを読むだけで、ブラウザに再計算を強制できる。
+      // 以前は display を 'none' にしてから戻していたが、これだと body が
+      // 一瞬レンダリングツリーから外れ、モバイル端末でスクロール位置が
+      // 先頭にリセットされてしまうことがあった(スクロール中にアドレスバーの
+      // 表示/非表示で resize が飛ぶたびに発生していた)。
       void document.body.offsetHeight;
-      document.body.style.display = prevDisplay;
       pending = false;
     });
   }
