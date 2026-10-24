@@ -117,7 +117,9 @@
     overflow: hidden;
     text-decoration: none;
     color: var(--ink);
-    background: #fff;
+    /* 角丸の内側に白い線が出ないよう、カード自体の地は枠と同じ色にする
+       (白だと、暗いサムネの角で、枠と画像のすき間から白がにじんで見える。説明欄だけ白にしている) */
+    background: var(--card-border);
     box-shadow: 3px 3px 0 var(--card-border);
     cursor: pointer;
     transition: opacity 0.18s ease, transform 0.18s ease, box-shadow 0.12s ease;
@@ -238,6 +240,7 @@
   .art-caption {
     display: block;
     flex: 1 1 auto; /* 余った高さは説明欄が受け持つ(同じ行のカードと下端が揃う) */
+    background: #fff;
     padding: 9px 12px 10px;
     font-size: 11.5px;
     font-weight: 700;
@@ -500,6 +503,14 @@
     <button type="button" class="art-card" data-title="一枚絵・衣装デザイン" data-category="illust" data-full="img/works/works11.png">
       <span class="art-thumb">
         <img class="art-img" src="img/works/thumb/works11.webp" width="400" height="400" alt="" decoding="async">
+      <span class="style-tags"><span># シンプル</span></span>
+      </span>
+      <span class="art-caption">一枚絵・衣装デザイン</span>
+    </button>
+
+    <button type="button" class="art-card" data-title="一枚絵・衣装デザイン" data-category="illust" data-full="img/works/works14.png">
+      <span class="art-thumb">
+        <img class="art-img" src="img/works/thumb/works14.webp" width="400" height="400" alt="" loading="lazy" decoding="async">
       <span class="style-tags"><span># シンプル</span></span>
       </span>
       <span class="art-caption">一枚絵・衣装デザイン</span>
