@@ -60,10 +60,10 @@
   })();
 </script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=casino,checklist,close,cloud,content_copy,edit,favorite,format_align_left,forum,ink_pen,live_tv,mail,more_horiz,movie,music_note,pause,pets,photo,photo_camera,play_arrow,shopping_bag,shuffle,smartphone,sms,sports_esports,storefront,swap_horiz,swords,tv_gen,tv_with_assistant,visibility,visibility_off,web_stories&display=block" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=casino,checklist,close,content_copy,edit,favorite,format_align_left,forum,ink_pen,live_tv,mail,more_horiz,movie,music_note,pause,pets,photo,photo_camera,play_arrow,shopping_bag,shuffle,smartphone,sms,sports_esports,storefront,swap_horiz,swords,tv_gen,tv_with_assistant,visibility,visibility_off,web_stories&display=block" media="print" onload="this.media='all'">
 <noscript>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=casino,checklist,close,cloud,content_copy,edit,favorite,format_align_left,forum,ink_pen,live_tv,mail,more_horiz,movie,music_note,pause,pets,photo,photo_camera,play_arrow,shopping_bag,shuffle,smartphone,sms,sports_esports,storefront,swap_horiz,swords,tv_gen,tv_with_assistant,visibility,visibility_off,web_stories&display=block">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=casino,checklist,close,content_copy,edit,favorite,format_align_left,forum,ink_pen,live_tv,mail,more_horiz,movie,music_note,pause,pets,photo,photo_camera,play_arrow,shopping_bag,shuffle,smartphone,sms,sports_esports,storefront,swap_horiz,swords,tv_gen,tv_with_assistant,visibility,visibility_off,web_stories&display=block">
 </noscript>
 <link rel="stylesheet" href="common.css" />
 <style>
@@ -191,6 +191,23 @@
     font-size: 15px;
   }
 
+  /* コピーボタンは、カード(<a>)の外に置いて、右端に重ねる(カードの高さの中央) */
+  .email-wrap { position: relative; }
+  .email-wrap .copy-btn {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    margin-top: -15px;
+    transition: transform 0.12s ease;
+  }
+  #emailCard { padding-right: 62px; } /* ボタンの下に文字が潜らないように */
+  /* ボタンの上にポインタがあるときも、カードと一緒に浮かせる */
+  .email-wrap:hover > a.card {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--card-border);
+  }
+  .email-wrap:hover .copy-btn { transform: translate(-2px, -2px); }
+
   /* サービス名(タイトル)は太く大きめ、ネタ(ひとこと)は小さめ・やや淡い色にして、
      ノリは残したまま「何のリンクか」が先に目に入るようにする。
      ひとことの色は common.css の --ink-mute(白背景で 4.8:1)なので、淡くしても読みやすさは保たれる */
@@ -217,10 +234,11 @@
 
   /* 列の幅はタイルの幅(40px)で、左端と右端を上のカードにそろえ、余った幅は列と列の間に振り分ける。
      名前はタイルより広いので、列からはみ出して中央に置く(隣と重ならない範囲で、列を詰められる)。
-     12個なので、列数は幅ごとに決め打ち(5→6→8→9列)。個数を変えたら見直す */
+     11個なので、列数は幅ごとに決め打ち(4→6→8→9列。最終行は 3 / 5 / 3 / 2 個)。
+     11は割り切れる列数が無く、最終行は必ず短くなる。以前の5列だと最終行が1個だけ余るので、狭い画面は4列にした。個数を変えたら見直す */
   .apps {
     display: grid;
-    grid-template-columns: repeat(5, 40px);
+    grid-template-columns: repeat(4, 40px);
     gap: 20px 0;
     justify-content: space-between;
   }
@@ -289,7 +307,7 @@
 
   /* JavaScript が使えない環境では、メールカードは動かないので隠し、
      代わりに下の noscript 側のカード(XのDMへのリンク)を見せる */
-  html:not(.js) #emailCard { display: none; }
+  html:not(.js) .email-wrap { display: none; }
 
   footer {
     margin-top: 44px;
@@ -369,7 +387,7 @@
       </span>
       <span class="card-body">
         <p class="card-title">Booth</p>
-        <p class="card-quote">この胴の盾は20ﾎﾞｰﾛだよ。買っていくかい？</p>
+        <p class="card-quote">この銅の盾は20ﾎﾞｰﾛだよ。買っていくかい？</p>
       </span>
     </a>
   </div>
@@ -432,18 +450,21 @@
 
   <h2 class="section-title">お問い合わせ</h2>
   <div class="links">
-    <a class="card" id="emailCard" href="#">
-      <span class="icon yellow">
-        <span class="material-symbols-outlined" aria-hidden="true">mail</span>
-      </span>
-      <span class="card-body">
-        <p class="card-title">Email</p>
-        <p class="card-quote" id="emailQuote" aria-live="polite">クリック！　タップ！　キック！</p>
-      </span>
+    <div class="email-wrap">
+      <a class="card" id="emailCard" href="#">
+        <span class="icon yellow">
+          <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+        </span>
+        <span class="card-body">
+          <p class="card-title">Email</p>
+          <p class="card-quote" id="emailQuote" aria-live="polite">クリック！　タップ！　キック！</p>
+        </span>
+      </a>
+      <!-- <a> の中に <button> を入れるとHTMLとして不正になるので、兄弟にして右端に重ねている -->
       <button type="button" class="copy-btn" id="emailCopyBtn" title="コピー" aria-label="メールアドレスをコピー" hidden>
         <span class="material-symbols-outlined" aria-hidden="true">content_copy</span>
       </button>
-    </a>
+    </div>
     <noscript>
       <a class="card" href="https://x.com/soboronin" target="_blank" rel="noopener noreferrer">
         <span class="icon yellow">
@@ -462,7 +483,6 @@
     <a class="app t-sky" href="https://www.pixiv.net/users/98286336" target="_blank" rel="noopener noreferrer"><span class="app-icon"><span class="material-symbols-outlined" aria-hidden="true">photo</span></span><span class="app-name">pixiv</span></a>
     <a class="app t-orange" href="https://www.tiktok.com/@soboronin" target="_blank" rel="noopener noreferrer"><span class="app-icon"><span class="material-symbols-outlined" aria-hidden="true">web_stories</span></span><span class="app-name">TikTok</span></a>
     <a class="app t-magenta" href="https://www.instagram.com/soboronin/" target="_blank" rel="noopener noreferrer"><span class="app-icon"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></span><span class="app-name">Instagram</span></a>
-    <a class="app t-blue" href="https://bsky.app/profile/soboronin.bsky.social" target="_blank" rel="noopener noreferrer"><span class="app-icon"><span class="material-symbols-outlined" aria-hidden="true">cloud</span></span><span class="app-name">Bluesky</span></a>
     <a class="app t-yellow" href="https://wick-share.com/sns/share/EU7wheM2?v=1792243990918" target="_blank" rel="noopener noreferrer"><span class="app-icon"><span class="material-symbols-outlined" aria-hidden="true">forum</span></span><span class="app-name">Wick</span></a>
     <a class="app t-purple" href="https://www.nicovideo.jp/user/131674992" target="_blank" rel="noopener noreferrer"><span class="app-icon"><span class="material-symbols-outlined" aria-hidden="true">tv_with_assistant</span></span><span class="app-name">ニコニコ</span></a>
     <a class="app t-magenta" href="https://space.bilibili.com/3745000393281473" target="_blank" rel="noopener noreferrer"><span class="app-icon"><span class="material-symbols-outlined" aria-hidden="true">tv_gen</span></span><span class="app-name">bilibili</span></a>
